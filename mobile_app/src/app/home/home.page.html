@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Ionic Blank
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="auth-form">
+  <ion-grid>
+    <ion-row>
+      <ion-col align-self-center>
+        <h3 style="text-align: center;">Welcome to LinedUp!</h3>
+        <span class="divider line one-line">Keep track of queues</span>
+        <h3 style="text-align: center;">Find canteen, office-hours and secratiart near-by your department</h3>
+        <span class="divider line one-line">Lets start!</span>
+        <div *ngIf="isLoggedIn; else elseBlock">
+          <ion-button [routerLink]="['/map']" expand="block" color="primary">Go To Map</ion-button>
+        </div>
+        <ng-template #elseBlock>
+          <ion-button [routerLink]="['/register/university']" expand="block" color="primary">Register</ion-button>
+
+          <span class="divider line one-line">or</span>
+
+          <span class="already">Already a user?</span>
+
+          <ion-button [routerLink]="['/login']" expand="block" color="danger">Sign In</ion-button>
+        </ng-template>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

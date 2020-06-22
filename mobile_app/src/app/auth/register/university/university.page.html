@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Register</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="ion-text-center">
+    <b>Lined Up</b> gives you the opportunity to view and report all the queues within the university. We first need
+    some informations about your university life.
+
+  </div>
+  <form #form="ngForm" (ngSubmit)="addUniversity(form)">
+    <span class="divider line one-line">Select your University</span>
+    <ion-item>
+      <ion-label>University</ion-label>
+      <ion-select name="university" placeholder="Select your University" #C (ionChange)="selectUniversity(C.value)" ngModel required>
+        <ion-select-option *ngFor="let university of universities" value="{{university}}">{{university}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <a>University not present? Send request to add</a>
+    </ion-item>
+    <span class="divider line one-line" *ngIf="university!=null"> Select your Faculty</span>
+    <ion-item *ngIf="university!=null">
+      <ion-label>Faculty</ion-label>
+      <ion-select name="faculty" placeholder="Select your Faculty" ngModel required>
+        <ion-select-option *ngFor="let faculty of faculties[university]" value="{{faculty}}">{{faculty}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item *ngIf="university!=null">
+      <a>Faculty not present? Send request to add</a>
+    </ion-item>
+    <ion-row>
+      <ion-col>
+        <ion-button type="submit" color="primary" [disabled]="form.invalid" expand="block">Sign Up</ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-content>

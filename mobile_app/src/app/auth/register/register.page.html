@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Register</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form #form="ngForm" (ngSubmit)="register(form)">
+    <span class="divider line one-line">Personal Information</span>
+    <ion-item lines="full">
+      <ion-input type="text" name="name" placeholder="Name" ngModel required></ion-input>
+    </ion-item>
+    <ion-item lines="full">
+      <ion-input type="text" name="surname" placeholder="Last Name" ngModel required></ion-input>
+    </ion-item>
+    <ion-item lines="full">
+      <ion-label position="stacked"></ion-label>
+      <ion-datetime name="birthDate" displayFormat="DD MM YYYY" placeholder="Birth Date" ngModel required></ion-datetime>
+    </ion-item>
+    <span class="divider line one-line">Access Information</span>
+    <ion-item lines="full">
+      <ion-input type="email" name="email" placeholder="Email" ngModel required></ion-input>
+    </ion-item>
+    <ion-item lines="full">
+      <ion-input type="password" name="password" placeholder="Password" ngModel required></ion-input>
+    </ion-item>
+
+    <ion-item lines="full">
+      <ion-input type="password" name="confirm" placeholder="Confirm Password" ngModel required></ion-input>
+    </ion-item>
+
+    <ion-row>
+      <ion-col>
+        <ion-button type="submit" color="danger" [disabled]="form.invalid" expand="block">Next</ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-content>
