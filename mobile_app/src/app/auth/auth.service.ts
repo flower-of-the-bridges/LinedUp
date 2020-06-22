@@ -58,6 +58,9 @@ export class AuthService {
   }
 
   isLoggedIn() {
+    this.storage.ready().then(storage => storage.getItem("ACCESS_TOKEN").then(res => {
+      res!=null && console.log(res);
+    }));
     return this.authSubject.asObservable();
   }
 

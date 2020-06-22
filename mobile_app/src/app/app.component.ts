@@ -1,8 +1,7 @@
-import { Component } from '@angular/core';
-import { Platform, MenuController } from '@ionic/angular';
+import { Component} from '@angular/core';
+import { Platform} from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { AuthService } from './auth/auth.service';
 
 
 @Component({
@@ -32,6 +31,11 @@ export class AppComponent {
 
   sideMenu() {
     this.navigate = [
+      {
+        title: "Home",
+        url: "/home",
+        icon: "home"
+      },
       {
         title: "Map",
         url: "/map",

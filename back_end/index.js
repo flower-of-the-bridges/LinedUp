@@ -17,18 +17,42 @@ router.use(bodyParser.json());
 const database = new sqlite3.Database("./my.db");
 
 const universities = {
-    "Sapienza" : [
-        "Engineering in Computer Science",
-        "Ingegneria dell'Informazione",
-        "Legge",
-        "Economia"
-    ],
-    "RomaTre" : [
-        "Ingegneria Informatica",
-        "Medicina",
-        "Scienza della Formazione",
-        "Matematica"
-    ]
+    "Sapienza": {
+        faculties: [
+            "Engineering in Computer Science",
+            "Ingegneria dell'Informazione",
+            "Legge",
+            "Economia"
+        ],
+        places: [
+            {
+                name: "Segreteria Didattica",
+                type: "secretariat",
+                status: 0
+            },
+            {
+                name: "Ricevimento Professore",
+                status: 1,
+                type: "office hours",
+                hour: "16:00-18:00"
+            },
+            {
+                name: "Mensa",
+                status: 1,
+                type: "canteen",
+                hour: "11:30-15:00"
+            }
+        ]
+    },
+    "RomaTre": {
+        faculties:
+            [
+                "Ingegneria Informatica",
+                "Medicina",
+                "Scienza della Formazione",
+                "Matematica"
+            ]
+    }
 }
 
 const createUsersTable = () => {
@@ -64,8 +88,26 @@ router.get('/', (req, res) => {
     res.status(200).send('This is an authentication server');
 });
 
-router.get('/universities', (req, res) =>{
+router.get('/universities', (req, res) => {
     res.status(200).send(universities);
+});
+
+router.post('/positions', (req, res) => {
+    console.log("/positions: received %o", req.body);
+    if (req.body.university && req.body.position) {
+        let userPosition = req.body.position;
+        let places = universities[req.body.university].places;
+        places.forEach((place, index) => {
+            let lon = userPosition.longitude + 0.0003 + index * 0.0001 * (index % 2 == 0 ? -1 : 1);
+            let lat = userPosition.latitude + 0.0003 + index * 0.0001 * (index % 2 == 0 ? -1 : 1);
+            place["position"] = { lon: lon, lat: lat };
+        });
+        
+        res.status(200).send(places);
+    }
+    else {
+        res.status(404).send("no university specified");
+    }
 });
 
 router.post('/register', (req, res) => {

@@ -1,22 +1,18 @@
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { Position } from '../entity/Position';
 import { Subscription } from 'rxjs';
-import { User } from '../entity/User';
 
 export class GeoController {
 
     private watchPosition : Subscription;
-    private sessionUser : User = null;
     private currentPosition : Position = null;
     constructor(private geolocation: Geolocation) {
     }
 
-
-    async getUserPosition(user : User): Promise<Position> {
-        this.sessionUser = user;
+    async getUserPosition(): Promise<Position> {
         let pos = this.geolocation.getCurrentPosition().then((resp) => {
             console.debug("resp is ", resp);
-            return this.populatePos(resp.coords.latitude, resp.coords.longitude, resp.coords.accuracy, this.sessionUser);
+            return this.populatePos(resp.coords.latitude, resp.coords.longitude, resp.coords.accuracy);
         }).catch((error) => {
             console.log('Error getting location', error);
             return null;
@@ -28,11 +24,8 @@ export class GeoController {
     public checkForPositionUpdates(callback : Function): void {
         let watch = this.geolocation.watchPosition();
         this.watchPosition = watch.subscribe((data) => {
-            // data can be a set of coordinates, or an error (if an error occurred).
-            // data.coords.latitude
-            // data.coords.longitude
             console.debug("checking for position updates...");
-            let newPosition = this.populatePos(data.coords.latitude, data.coords.longitude, data.coords.accuracy, this.sessionUser);
+            let newPosition = this.populatePos(data.coords.latitude, data.coords.longitude, data.coords.accuracy);
             if(newPosition!=null){
 
                 if(this.currentPosition){
@@ -47,7 +40,6 @@ export class GeoController {
                     this.currentPosition = newPosition;  
                  }
                 
-                 
             }
         });
     }
@@ -61,14 +53,9 @@ export class GeoController {
         return this.watchPosition!=null;
     }
 
-    async getUsersPosition(): Promise<Array<Position>> {
-        console.debug("retrieving user position near me...");
-        return null;
-    }
 
-    private populatePos(latitude: number, longitude: number, accuracy: number, user : User): Position {
+    private populatePos(latitude: number, longitude: number, accuracy: number): Position {
         let pos = new Position(latitude, longitude, accuracy);
-
         return pos;
     }
 

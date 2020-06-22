@@ -28,7 +28,7 @@
     <ion-item *ngIf="university!=null">
       <ion-label>Faculty</ion-label>
       <ion-select name="faculty" placeholder="Select your Faculty" ngModel required>
-        <ion-select-option *ngFor="let faculty of faculties[university]" value="{{faculty}}">{{faculty}}</ion-select-option>
+        <ion-select-option *ngFor="let faculty of faculties[university].faculties" value="{{faculty}}">{{faculty}}</ion-select-option>
       </ion-select>
     </ion-item>
     <ion-item *ngIf="university!=null">
