@@ -48,9 +48,10 @@ export class MapController {
                 .addTo(this.map);
             console.debug("added new marker ", this.userMarker);
             this.userCircle = circle([this.userPosition.getLatitude(), this.userPosition.getLongitude()], 50, {
-                color: 'black',
-                fillColor: 'blue',
-                fillOpacity: 0.5
+                color: '#000000',
+                fillColor: '#153E7E',
+                fillOpacity: 0.5,
+                weight: 2
             }).addTo(this.map);
         }
 
