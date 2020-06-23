@@ -11,18 +11,18 @@
   <form #form="ngForm" (ngSubmit)="register(form)">
     <span class="divider line one-line">Personal Information</span>
     <ion-item lines="full">
-      <ion-input type="text" name="name" placeholder="Name" ngModel required></ion-input>
+      <ion-input type="text" name="name" placeholder="First Name" ngModel required></ion-input>
     </ion-item>
     <ion-item lines="full">
       <ion-input type="text" name="surname" placeholder="Last Name" ngModel required></ion-input>
     </ion-item>
     <ion-item lines="full">
       <ion-label position="stacked"></ion-label>
-      <ion-datetime name="birthDate" displayFormat="DD MM YYYY" placeholder="Birth Date" ngModel required></ion-datetime>
+      <ion-datetime name="birthDate" displayFormat="DD MM YYYY" placeholder="Birth Date" ngModel min="1985" max="2001" required></ion-datetime>
     </ion-item>
     <span class="divider line one-line">Access Information</span>
     <ion-item lines="full">
-      <ion-input type="email" name="email" placeholder="Email" ngModel required></ion-input>
+      <ion-input type="email" name="email" placeholder="Email" ngModel pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}" required></ion-input>
     </ion-item>
     <ion-item lines="full">
       <ion-input type="password" name="password" placeholder="Password" ngModel required></ion-input>
