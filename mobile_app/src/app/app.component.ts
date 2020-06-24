@@ -40,7 +40,28 @@ export class AppComponent {
         title: "Map",
         url: "/map",
         icon: "map"
+      },
+      {
+        title: "New Queue",
+        url: "/newqueue",
+        icon: "add-circle"
+      },
+      {
+        title: "Favourite",
+        url: "/favourite",
+        icon: "star"
+      },
+      {
+        title: "Help",
+        url: "/help",
+        icon: "help"
+      },
+      {
+        title: "Logout",
+        url: "/Logout",
+        icon: "exit"
       }
+
     ];
   }
 }

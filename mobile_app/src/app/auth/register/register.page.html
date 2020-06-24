@@ -8,8 +8,12 @@
 </ion-header>
 
 <ion-content>
+  <div class="ion-text-center">
+    Before you can start using <b>LinedUp</b>, we need to know who you are, to make the access to the service 
+
+  </div>
   <form #form="ngForm" (ngSubmit)="register(form)">
-    <span class="divider line one-line">Personal Information</span>
+    <span class="divider line one-line"><b>Personal Information</b></span>
     <ion-item lines="full">
       <ion-input type="text" name="name" placeholder="First Name" ngModel required></ion-input>
     </ion-item>
@@ -20,7 +24,7 @@
       <ion-label position="stacked"></ion-label>
       <ion-datetime name="birthDate" displayFormat="DD MM YYYY" placeholder="Birth Date" ngModel min="1985" max="2001" required></ion-datetime>
     </ion-item>
-    <span class="divider line one-line">Access Information</span>
+    <span class="divider line one-line"><b>Access Information</b></span>
     <ion-item lines="full">
       <ion-input type="email" name="email" placeholder="Email" ngModel pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}" required></ion-input>
     </ion-item>
@@ -34,7 +38,7 @@
 
     <ion-row>
       <ion-col>
-        <ion-button type="submit" color="danger" [disabled]="form.invalid" expand="block">Next</ion-button>
+        <ion-button type="submit" color="danger" [disabled]="form.invalid" expand="block">Sign Uo</ion-button>
       </ion-col>
     </ion-row>
   </form>
