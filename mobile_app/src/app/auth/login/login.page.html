@@ -3,11 +3,17 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>Log In</ion-title>
+    <ion-title color="danger">Log In</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+   <center><img src="../../assets/lineadupLogo.png" style="width:20%;margin-top: 5%;"/></center>
+   <div class="ion-text-center">
+   <h4> Enter you personal information to start using <b>LinedUp</b></h4>
+
+  </div>
+  <div class="login">
   <form #form="ngForm" (ngSubmit)="login(form)">
     <ion-item lines="full">
       <ion-label position="floating">Email</ion-label>
@@ -16,14 +22,16 @@
 
     <ion-item lines="full">
       <ion-label position="floating">Password</ion-label>
-      <ion-input type="password" name="password" placeholder="Password" ngModel required></ion-input>
+      <ion-input type="password" name="password"  ngModel required></ion-input>
     </ion-item>
 
     <ion-row>
       <ion-col>
-        <ion-button type="submit" color="danger" expand="block">Sign In</ion-button>
-        <a href="#" class="small-text">Forgot Password?</a>
+       <center><ion-button type="submit" color="danger" style="margin-top: 50px;margin-bottom:50px;">Sign In</ion-button><br>
+        <a href="#" class="small-text">Forgot Password?</a></center>
       </ion-col>
     </ion-row>
   </form>
+</div>
+
 </ion-content>
