@@ -24,3 +24,16 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+
+.searchbar-input.sc-ion-searchbar-md {
+    border-radius: 25px;
+    //background-position: left 8px center;
+    height: auto;
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: #7f8490;
+    background-color: white;
+    -webkit-box-shadow: 0 8px 14px rgba(87, 84, 84, 0.4) !important;
+    box-shadow: 0 8px 14px rgba(87, 84, 84, 0.4) !important;
+  }

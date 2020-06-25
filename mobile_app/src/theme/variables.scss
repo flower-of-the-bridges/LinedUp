@@ -3,6 +3,30 @@
 
 /** Ionic CSS Variables **/
 :root {
+  
+
+   /** title **/
+   .ion-color-title {
+    --ion-color-base: #8b0000;
+  --ion-color-base-rgb: 139,0,0;
+  --ion-color-base-contrast: #ffffff;
+  --ion-color-contrast-rgb: 0,0,0;
+  --ion-color-shade: #2b0707;
+  --ion-color-tint: #b46262;
+  }
+
+
+   /** signin **/
+  .ion-color-signin {
+    --ion-color-base: #4E9258;
+  --ion-color-base-rgb: 52,124,44;
+  --ion-color-base-contrast: #ffffff;
+  --ion-color-contrast-rgb: 0,0,0;
+  --ion-color-shade: #347C2C;
+  --ion-color-tint: #219927;
+  }
+
+ 
   /** primary **/
   --ion-color-primary: #3880ff;
   --ion-color-primary-rgb: 56, 128, 255;
