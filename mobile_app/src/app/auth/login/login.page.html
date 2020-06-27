@@ -8,33 +8,36 @@
 </ion-header>
 
 <ion-content>
-   <center><img src="../../assets/lineadupLogo.png" class="login"/></center>
-   <div class="ion-text-center">
-   <h4 class="reg"> Enter you personal information to start using <b>LinedUp</b></h4>
+  <center><img src="../../assets/lineadupLogo.png" class="login" /></center>
+  <div class="ion-text-center">
+    <h4 class="reg"> Enter you personal information to start using <b>LinedUp</b></h4>
 
   </div>
   <div class="login">
-  <form #form="ngForm" (ngSubmit)="login(form)">
-    <ion-item lines="full">
-      <ion-label position="floating">Email</ion-label>
-      <ion-input type="email" name="email" ngModel required></ion-input>
-    </ion-item>
+    <form #form="ngForm" (ngSubmit)="login(form)">
+      <ion-item lines="full">
+        <ion-label position="floating">Email</ion-label>
+        <ion-input type="email" name="email" ngModel required></ion-input>
+      </ion-item>
 
-    <ion-item lines="full">
-      <ion-label position="floating">Password</ion-label>
-      <ion-input type="password" name="password"  ngModel required></ion-input>
-    </ion-item>
+      <ion-item lines="full">
+        <ion-label position="floating">Password</ion-label>
+        <ion-input type="password" name="password" ngModel required></ion-input>
+      </ion-item>
 
-    <ion-row>
-      <ion-col>
-       <center><ion-button type="submit" color="signin" size="medium" style="margin-top: 5%;margin-bottom:30px;">Sign In</ion-button><br>
-        <a href="#" class="small-text">Forgot Password?</a></center>
-      </ion-col>
-    </ion-row>
-  </form>
-</div>
-<div class="ion-text-center reg">
-  if you are not registered yet, <a href="/register/university" class="small-text">sign up</a>
+      <ion-row>
+        <ion-col>
+          <center>
+            <ion-button type="submit" color="signin" size="medium" style="margin-top: 5%;margin-bottom:30px;">Sign In
+            </ion-button><br>
+            <a href="#" class="small-text">Forgot Password?</a>
+          </center>
+        </ion-col>
+      </ion-row>
+    </form>
+  </div>
+  <div class="ion-text-center reg">
+    if you are not registered yet, <a href="/register/university" class="small-text">sign up</a>
 
- </div>
+  </div>
 </ion-content>

@@ -26,6 +26,10 @@ const routes: Routes = [
   {
     path: 'register/university',
     loadChildren: () => import('./auth/register/university/university.module').then( m => m.UniversityPageModule)
+  },
+  {
+    path: 'problem',
+    loadChildren: () => import('./report/problem/problem.module').then( m => m.ProblemPageModule)
   }
 ];
 
