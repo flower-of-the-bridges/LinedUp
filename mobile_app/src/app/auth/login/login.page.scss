@@ -1,14 +1,35 @@
 div.login{
     border-style: solid;
     border-color:#dcdcdc;
-    width: 40%;
+    width: 80%;
     height: 45%;
     padding:20px;
     padding-top: 56px;
     border-radius:20px;
-    position: fixed;
-    left:30%;
-    top:30%;
-    margin-top: 5%;
+    position: relative;
+    left:10%;
+    top:1%;
+    margin-top: 1%;
 }
 
+img.login{
+    margin-top: 4%;
+}
+
+div.reg{
+    margin-top:5vw;
+    font-weight: bold;
+    color: #000000;
+    font-style: oblique;
+    font-size:large;
+   
+}
+
+h4.reg{
+    margin-top:5vw;
+    font-weight: bold;
+    color: #000000;
+    font-style: oblique;
+    font-size:large;
+   
+}
