@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title color="title">
+      Report New Queue
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="auth-form">
+  <ion-grid>
+    <ion-row>
+      <ion-col align-self-center>
+        <div class="home">
+          <h3 style="text-align: center;">The queue you were looking can't be found? We're sorry. But you can report a
+            service of your interest, so we can add it to <b>LinedUp</b>.</h3>
+
+          <center>
+
+            <span class="line divider home one-line">Find your service</span>
+
+            <ion-button [routerLink]="['/insert/building']" color="success" size="large">Search from Building List</ion-button>
+
+            <span class="line divider home one-line">or</span>
+
+            <ion-button [routerLink]="['/login']" color="success" size="large">Search from Map</ion-button>
+
+          </center>
+
+        </div>
+
+      </ion-col>
+
+    </ion-row>
+
+  </ion-grid>
+
+</ion-content>

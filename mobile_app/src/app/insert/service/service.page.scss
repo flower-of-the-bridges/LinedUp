@@ -1,0 +1,54 @@
+.divider {
+    display: flex;
+
+    &:before,
+    &:after {
+        content: "";
+        flex: 1;
+    }
+}
+
+.line {
+    align-items: center;
+    margin: 1em -1em;
+    color: #cccccc;
+
+    &:before,
+    &:after {
+        height: 1px;
+        margin: 0 1em;
+    }
+}
+
+.one-line {
+    &:before,
+    &:after {
+        background: #cccccc;
+    }
+}
+
+.auth-form ion-grid,
+.auth-form ion-row {
+    height: 100%;
+    justify-content: center;
+}
+
+.already {
+    display: block;
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+h1.home {
+    text-align: center;
+    color: #8b0000;
+    font-style: oblique;
+    font-size: 6vh;
+    margin-bottom: 20px;
+}
+
+span.home {
+    font-weight: bold;
+    font-style: oblique;
+    font-size: x-large;
+}

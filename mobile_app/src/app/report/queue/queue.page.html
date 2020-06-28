@@ -1,0 +1,99 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Queue Report</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-buttons *ngIf="review" slot="start">
+      <ion-button (click)="mainPage()">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content style="text-align: center;">
+  <div *ngIf="reportSent; else mainPageBlock">
+    Thanks for helping us.
+    We will analyze your report as soon as we can.
+  </div>
+  <ng-template #mainPageBlock>
+    <ion-title><b>{{name}}</b></ion-title>
+    <h4>{{street}}</h4>
+    <h4><b>{{status ? "Opened" : "Closed"}}</b></h4>
+    <div *ngIf="!review">
+      <span class="line divider one-line">Number of persons <ion-icon name="people-outline"></ion-icon></span>
+      <!--
+    <ion-item>
+      <ion-chip color="primary" outline #chip *ngFor="let tag of numberOfPersons" (click)="select(chip)">
+        <ion-label>{{tag}}</ion-label>
+      </ion-chip>
+    </ion-item>
+     -->
+      <ul>
+        <li *ngFor="let tag of numberOfPersonsKeys">
+          <ion-chip outline #chip (click)="selectNumberOfPersons(chip)">
+            <ion-label>{{tag}}</ion-label>
+          </ion-chip>
+        </li>
+      </ul>
+      <span class="line divider one-line">Estimated Time <ion-icon name="time-outline"></ion-icon></span>
+      <!--
+    <ion-item>
+      <ion-chip outline #chip *ngFor="let tag of estimatedTime" (click)="select(chip)">
+        <ion-label>{{tag}}</ion-label>
+      </ion-chip>
+    </ion-item>
+    -->
+      <ul>
+        <li *ngFor="let tag of estimatedTimeKeys">
+          <ion-chip outline #chip (click)="selectEstimatedTime(chip)">
+            <ion-label>{{tag}}</ion-label>
+          </ion-chip>
+        </li>
+      </ul>
+      <span class="line divider one-line">Queue Speed</span>
+      <ion-range min="1" max="3" color="secondary" (ionChange)="setSpeed($event.detail.value)" snaps step="1">
+        <ion-label slot="start">Slow</ion-label>
+        <ion-label slot="end">Fast</ion-label>
+      </ion-range>
+      <ion-row>
+        <ion-col>
+          <ion-button type="submit" color="danger" (click)="dismiss()" expand="block">Cancel</ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button type="submit" color="primary" [disabled]="!numberOfPersonsSelected || !estimatedTimeSelected"
+            (click)="reviewSection()" expand="block">Review</ion-button>
+        </ion-col>
+      </ion-row>
+    </div>
+    <div *ngIf="review">
+      <span class="line divider one-line">Recap <ion-icon name="book-sharp"></ion-icon> </span>
+      <ion-row>
+        <ion-col><b>Number of Persons:</b></ion-col>
+        <ion-col>{{numberOfPersonsSelected}}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col><b>Estimated Time:</b></ion-col>
+        <ion-col>{{estimatedTimeSelected}}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col><b>Queue Speed:</b></ion-col>
+        <ion-col>{{queueSpeed}}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-button type="submit" color="danger" (click)="dismiss()" expand="block">Cancel</ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button type="submit" color="success" [disabled]="!numberOfPersonsSelected || !estimatedTimeSelected"
+            (click)="sendReview()" expand="block">Send</ion-button>
+        </ion-col>
+      </ion-row>
+    </div>
+  </ng-template>
+</ion-content>

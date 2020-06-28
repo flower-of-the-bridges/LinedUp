@@ -27,11 +27,13 @@ const universities = {
         places: [
             {
                 name: "Segreteria Didattica",
+                building: "S.P.V. (San Pietro In Vincoli)",
                 type: "secretariat",
                 status: 0
             },
             {
                 name: "Ricevimento Professore",
+                building: "D.I.A.G. (Dipartimento Ingegneria Automatica e Gestionale)",
                 status: 1,
                 type: "office hours",
                 hour: "16:00-18:00"
@@ -39,6 +41,7 @@ const universities = {
             {
                 name: "Mensa",
                 status: 1,
+                building: "Ex-Poste",
                 type: "canteen",
                 hour: "11:30-15:00"
             }
@@ -108,6 +111,11 @@ router.post('/positions', (req, res) => {
     else {
         res.status(404).send("no university specified");
     }
+});
+
+router.post('/insert', (req, res) => {
+    console.log("/insert: received new queue %o", req.body);
+    res.status(200).send({msg: "ok"});
 });
 
 router.post('/register', (req, res) => {

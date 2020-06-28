@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="back()">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Report New Queue</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content style="text-align: center;">
+  <div *ngIf="buildingSection">
+    <h3>Select the building where the queue is located.
+      The building you were looking at can't be found?</h3>
+    <a>Search On Map</a>
+
+    <ion-item button #building (click)="selectBuilding(building)" detail *ngFor="let building of buildings">
+      <ion-label>
+        {{building.name}}
+      </ion-label>
+    </ion-item>
+  </div>
+  <div *ngIf="!buildingSection">
+    <div>
+      <h3>Your building is located at</h3>
+      <ion-title><b>{{building.name}}</b></ion-title>
+      <ion-header> <br></ion-header>
+    </div>
+
+    <form #form="ngForm" (ngSubmit)="confirm(form)">
+      <div class="info">
+        <ion-item lines="full">
+          <ion-label position="floating">Room Name:</ion-label>
+          <ion-input type="text" name="room" ngModel></ion-input>
+        </ion-item>
+
+        <ion-item lines="full">
+          <ion-label position="floating">Room Number:</ion-label>
+          <ion-input type="number" name="number" ngModel></ion-input>
+        </ion-item>
+      </div>
+      <div>
+        <ion-row>
+          <ion-col>
+            <ion-button type="submit" color="primary" size="medium" style="margin-top: 5%;margin-bottom:30px;">Confirm
+            </ion-button>
+          </ion-col>
+        </ion-row>
+
+
+      </div>
+    </form>
+
+  </div>
+
+</ion-content>

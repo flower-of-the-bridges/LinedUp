@@ -30,7 +30,7 @@ export class MapController {
     private static RED_MARKER = icon({
         iconUrl: 'assets/icon/red_marker.png',
         iconSize: [40, 40],
-        popupAnchor: [0, -20]
+        popupAnchor: [0, 0]
     });
 
     constructor(div: string, position: Position, httpClient: HttpClient) {
@@ -66,11 +66,11 @@ export class MapController {
                     marker(place.position, { icon: place.status == 0 ? MapController.RED_MARKER : MapController.GREEN_MARKER })
                         .bindPopup(
                             this.createPlacePopup(place.name, place.status, place.position)
-                            , { maxWidth: 2000, autoClose: true })
+                            , { autoClose: true })
                         .on('click', (evt) => {
                             let popup = this.createPlacePopup(place.name, place.status, null);
                             popup.isNear = this.isNear(place.position);
-                            evt.target.bindPopup(popup, { maxWidth: 2000, autoClose: true });
+                            evt.target.bindPopup(popup, {autoClose: true });
                         })
                         .addTo(this.map);
                 })

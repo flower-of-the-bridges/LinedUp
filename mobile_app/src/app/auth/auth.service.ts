@@ -11,10 +11,11 @@ import { AuthResponse } from './auth-response';
 })
 export class AuthService {
 
-
   AUTH_SERVER_ADDRESS: string = 'http://localhost:3000';
   authSubject = new BehaviorSubject(false);
   registerSubject = new BehaviorSubject(null);
+  buildingSubject = new BehaviorSubject(null);
+  insertSubject = new BehaviorSubject(false);
 
   constructor(private httpClient: HttpClient, private storage: Storage) { }
 
@@ -29,7 +30,7 @@ export class AuthService {
         if (res.user) {
           await this.storage.set("ACCESS_TOKEN", res.user.access_token);
           await this.storage.set("EXPIRES_IN", res.user.expires_in);
-          
+
           this.authSubject.next(true);
         }
       })
@@ -57,9 +58,17 @@ export class AuthService {
     this.authSubject.next(false);
   }
 
+  async setBuilding(building) {
+    this.buildingSubject.next(building);
+  }
+
+  getBuilding() {
+    return this.buildingSubject.asObservable();
+  }
+
   isLoggedIn() {
     this.storage.ready().then(storage => storage.getItem("ACCESS_TOKEN").then(res => {
-      res!=null && console.log(res);
+      res != null && console.log(res);
     }));
     return this.authSubject.asObservable();
   }
@@ -72,6 +81,14 @@ export class AuthService {
     return this.httpClient.get(`${this.AUTH_SERVER_ADDRESS}/universities`).pipe(
       tap(async (res: any) => {
         console.log("res is %o", res);
+      }));
+  }
+
+  insertQueue(request: any) {
+    return this.httpClient.post(`${this.AUTH_SERVER_ADDRESS}/insert`, request).pipe(
+      tap(async (res: any) => {
+        console.log("res is %o", res);
+        this.insertSubject.next(true);
       }));
   }
 }

@@ -1,0 +1,43 @@
+ul.icons {
+    list-style: none;
+    text-align: center;
+}
+ul.icons li {
+    display: inline-block;
+}
+
+.divider {
+    display: flex;
+
+    &:before,
+    &:after {
+        content: "";
+        flex: 1;
+    }
+}
+
+.line {
+    align-items: center;
+    margin: 1em -1em;
+    color: #cccccc;
+
+    &:before,
+    &:after {
+        height: 1px;
+        margin: 0 1em;
+    }
+}
+
+.one-line {
+    &:before,
+    &:after {
+        background: #cccccc;
+    }
+}
+ul {
+    overflow: hidden;
+    white-space: nowrap;
+}
+li {
+    display: inline;
+}

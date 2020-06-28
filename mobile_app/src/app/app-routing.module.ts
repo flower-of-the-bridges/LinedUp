@@ -30,6 +30,14 @@ const routes: Routes = [
   {
     path: 'problem',
     loadChildren: () => import('./report/problem/problem.module').then( m => m.ProblemPageModule)
+  },
+  {
+    path: 'queue',
+    loadChildren: () => import('./report/queue/queue.module').then( m => m.QueuePageModule)
+  },
+  {
+    path: 'insert',
+    loadChildren: () => import('./insert/insert.module').then( m => m.InsertPageModule)
   }
 ];
 

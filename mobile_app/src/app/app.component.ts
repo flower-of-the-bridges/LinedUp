@@ -43,7 +43,7 @@ export class AppComponent {
       },
       {
         title: "New Queue",
-        url: "/newqueue",
+        url: "/insert",
         icon: "add-circle"
       },
       {

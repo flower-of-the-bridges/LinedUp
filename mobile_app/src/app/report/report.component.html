@@ -1,22 +1,24 @@
 <div style="text-align: center;">
-  <h3>
-    <b>{{name}}</b>
-  </h3>
+  <ion-buttons slot="start">
+    <ion-title><b>{{name}}</b></ion-title>
+  </ion-buttons>
   <h4>{{street}}</h4>
   <h4><b>{{status ? "Opened" : "Closed"}}</b></h4>
   <ul class="icons">
   </ul>
-  <ion-row>
-    <ion-col>
-      <ion-icon name="{{isFavourite}}"></ion-icon>
-    </ion-col>
-  </ion-row>
-  <ion-row>
-    <ion-col *ngIf="isNear && status">
-      <ion-button type="submit" color="primary" expand="block" >I'm in Queue</ion-button>
-    </ion-col>
-    <ion-col>
-      <ion-button type="submit" color="primary" (click)="problemModal()" expand="block">Report a Problem</ion-button>
-    </ion-col>
-  </ion-row>
+  <div>
+    <ion-row>
+      <ion-col>
+        <ion-icon name="{{isFavourite}}"></ion-icon>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col *ngIf="isNear && status">
+        <ion-button type="submit" color="primary" (click)="queueModal()" expand="block">I'm in Queue</ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button type="submit" color="primary" (click)="problemModal()" expand="block">Report a Problem</ion-button>
+      </ion-col>
+    </ion-row>
+  </div>
 </div>
