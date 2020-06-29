@@ -29,7 +29,8 @@ export class MapController {
     private static GREEN_MARKER = icon({
         iconUrl: 'assets/icon/green_marker.png',
         iconSize: [40, 40],
-        popupAnchor: [0, -20]
+        popupAnchor: [0, -20],
+        
     });
 
     private static RED_MARKER = icon({
@@ -85,7 +86,7 @@ export class MapController {
                         .on('click', (evt) => {
                             let popup = this.createPlacePopup(place.name, place.status, place.street, null);
                             popup.isNear = this.isNear(place.position);
-                            evt.target.bindPopup(popup, {autoClose: true });
+                            evt.target.bindPopup(popup, {autoClose: true});
                         })
                         .addTo(this.map);
                     

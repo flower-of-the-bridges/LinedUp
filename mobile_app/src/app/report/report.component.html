@@ -4,19 +4,30 @@
   <h4><b>{{status ? "Opened" : "Closed"}}</b></h4>
   <ul class="icons">
   </ul>
-  <div>
+
+  
     <ion-row>
       <ion-col>
         <ion-icon name="{{isFavourite}}"></ion-icon>
       </ion-col>
     </ion-row>
+    </div>
+    
+    <center>
     <ion-row>
       <ion-col *ngIf="isNear && status">
-        <ion-button type="submit" color="primary" (click)="queueModal()" expand="block">I'm in Queue</ion-button>
+        <ion-button type="submit" color="primary" (click)="queueModal()" size="small">I'm in Queue</ion-button>
       </ion-col>
       <ion-col>
-        <ion-button type="submit" color="primary" (click)="problemModal()" expand="block">Report a Problem</ion-button>
+        <ion-button type="submit" color="primary" (click)="problemModal()" size="small">Report Problem</ion-button>
       </ion-col>
     </ion-row>
-  </div>
-</div>
+  </center>
+
+
+
+
+
+
+
+    
