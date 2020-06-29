@@ -58,7 +58,7 @@ export class AuthService {
     this.authSubject.next(false);
   }
 
-  async setBuilding(building) {
+  async setBuilding(building: any) {
     this.buildingSubject.next(building);
   }
 

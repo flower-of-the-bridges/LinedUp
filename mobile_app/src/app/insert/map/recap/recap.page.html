@@ -1,0 +1,27 @@
+<div style="text-align: center;">
+  <ion-title><b>Position Recap</b></ion-title>
+  <h4>Your queue is located at:</h4>
+  <div *ngIf="place!=null; else streetBlock">
+    <h3><b>{{place.street}}</b></h3>
+    <h4><b>{{place.building}}</b> is associated to this street.</h4>
+  </div>
+  <ng-template #streetBlock>
+    <h3><b>{{street}}</b></h3>
+    <h4>No building is associated to this street.</h4>
+  </ng-template>
+  <ion-grid>
+    <ion-row>
+      <ion-col align-self-center>
+        <h4>Confirm?</h4>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-button color="danger" (click)="dismiss()" expand="block">No</ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button color="success" (click)="selectPlace()" expand="block">Yes</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</div>
