@@ -28,12 +28,14 @@ const universities = {
             {
                 name: "Segreteria Didattica",
                 building: "S.P.V. (San Pietro In Vincoli)",
+                street: "Via Eudossiana 18",
                 type: "secretariat",
                 status: 0
             },
             {
                 name: "Ricevimento Professore",
                 building: "D.I.A.G. (Dipartimento Ingegneria Automatica e Gestionale)",
+                street: "Via Eudossiana 18",
                 status: 1,
                 type: "office hours",
                 hour: "16:00-18:00"
@@ -41,6 +43,7 @@ const universities = {
             {
                 name: "Mensa",
                 status: 1,
+                street: "Via Eudossiana 18",
                 building: "Ex-Poste",
                 type: "canteen",
                 hour: "11:30-15:00"

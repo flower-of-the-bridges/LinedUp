@@ -12,6 +12,7 @@ export class ServicePage implements OnInit {
   private serviceSection: boolean = true;
   private request: any = {
     building: "",
+    street: "",
     room: "",
     number: "",
     name: "",
@@ -22,19 +23,25 @@ export class ServicePage implements OnInit {
 
   constructor(private authService: AuthService, private router: Router) { }
 
-  ngOnInit(){
-    this.authService.getBuilding().subscribe(building => {
-      console.log("building is %o", building);
+  ngOnInit() {
+    this.authService.getBuilding().subscribe(res => {
+      console.log("building is %o", res);
+      if (res) {
+        this.request.building = res.building.name != "" ? res.building.name : "/";
+        this.request.street = res.building.street != "" ? res.building.street : "/";
+        this.request.room = res.room != "" ? res.room : "/";
+        this.request.number = res.number != "" ? res.number : "/";
+      }
     })
   }
 
-  back(){
-    if(!this.serviceSection){
+  back() {
+    if (!this.serviceSection) {
       this.serviceSection = true;
     }
   }
 
-  review(service: any){
+  review(service: any) {
 
     console.log(service);
     this.request.name = service.name;
@@ -44,10 +51,10 @@ export class ServicePage implements OnInit {
     this.serviceSection = false;
   }
 
-  insertQueue(){
+  insertQueue() {
     console.log("sending %o", this.request);
     this.authService.insertQueue(this.request).subscribe(res => {
-      if(res && res.msg && res.msg == "ok"){
+      if (res && res.msg && res.msg == "ok") {
         this.router.navigateByUrl("/insert");
       }
     });

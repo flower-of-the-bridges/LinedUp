@@ -17,7 +17,7 @@ export class BuildingPage implements OnInit {
   ngOnInit() {
     this.authService.getUniversities().subscribe(res => {
       res["Sapienza"].places.forEach((place: any, index: number) => {
-        this.buildings.push({name: place.building, index: index});
+        this.buildings.push({name: place.building, street: place.street, index: index});
       });
       console.log(this.buildings);
     })
