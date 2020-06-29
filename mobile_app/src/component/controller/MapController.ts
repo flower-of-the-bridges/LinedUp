@@ -10,10 +10,12 @@ export class MapController {
 
     private map: Map;
     private userPosition: Position;
+    private viewPosition: Position;
     private userCircle: Circle;
     private userMarker: Marker;
     private httpClient: HttpClient;
     private places: Array<any>;
+    private showPopup: string = "";
 
     private static ENDPOINT = "http://localhost:3000";
     private static GEOCODING = "https://nominatim.openstreetmap.org/reverse?format=json&lat={lat}&lon={lon}&zoom=18&addressdetails=1"
@@ -36,13 +38,23 @@ export class MapController {
         popupAnchor: [0, 0]
     });
 
-    constructor(div: string, position: Position, httpClient: HttpClient) {
+    constructor(div: string, position: Position, viewPosition: Position, httpClient: HttpClient, showPopup: string) {
         this.httpClient = httpClient;
         this.userPosition = position;
-        this.map = new Map(div).setView([this.userPosition.getLatitude(), this.userPosition.getLongitude()], 23);
+        this.viewPosition = viewPosition;
+        this.showPopup = showPopup;
+
+        this.map = new Map(div).setView([this.viewPosition.getLatitude(), this.viewPosition.getLongitude()], 23);
         tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(this.map);
+    }
+
+    destroyMap(){
+        if(this.map){
+            this.map.off();
+            this.map.remove();
+        }
     }
 
     public addUser() {
@@ -66,7 +78,7 @@ export class MapController {
                 /** server returns a list of places */
                 console.log("positions %o", res);
                 Array.isArray(res) && res.forEach(place => {
-                    marker(place.position, { icon: place.status == 0 ? MapController.RED_MARKER : MapController.GREEN_MARKER })
+                    let posMarker = marker(place.position, { icon: place.status == 0 ? MapController.RED_MARKER : MapController.GREEN_MARKER })
                         .bindPopup(
                             this.createPlacePopup(place.name, place.status, place.street, place.position)
                             , { autoClose: true })
@@ -76,6 +88,11 @@ export class MapController {
                             evt.target.bindPopup(popup, {autoClose: true });
                         })
                         .addTo(this.map);
+                    
+                    if(this.showPopup && this.showPopup == place.name){
+                        console.log("opening");
+                        posMarker.openPopup();
+                    }
                 })
             }
         )

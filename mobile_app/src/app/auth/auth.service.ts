@@ -91,4 +91,13 @@ export class AuthService {
         this.insertSubject.next(true);
       }));
   }
+
+  
+  searchQueue(queue: string, filter: any) {
+    let request = {queue: queue, filter: filter, university: "Sapienza"};
+    return this.httpClient.post(`${this.AUTH_SERVER_ADDRESS}/search`, request).pipe(
+      tap(async (res: any) => {
+        console.log("res is %o", res);
+      }));
+  }
 }

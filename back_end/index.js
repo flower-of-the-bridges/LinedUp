@@ -37,12 +37,16 @@ const universities = {
                 building: "D.I.A.G. (Dipartimento Ingegneria Automatica e Gestionale)",
                 street: "Via Eudossiana 18",
                 status: 1,
+                people: "10 - 20",
+                time: "20 - 40",
                 type: "office hours",
                 hour: "16:00-18:00"
             },
             {
                 name: "Mensa",
                 status: 1,
+                people: "< 5",
+                time: "10 - 20",
                 street: "Via Eudossiana 18",
                 building: "Ex-Poste",
                 type: "canteen",
@@ -167,6 +171,26 @@ router.post('/login', (req, res) => {
         res.status(200).send({ "user": user, "access_token": accessToken, "expires_in": expiresIn });
     });
 });
+
+router.post('/search', (req, res) => {
+    let payload = req.body;
+
+    let university = universities[payload.university];
+
+    let list =  [];
+    if(university){
+        university.places.forEach(place => {
+            if(place.name.toUpperCase().startsWith(payload.queue.toUpperCase())){
+                list.push(place);
+            }
+        })
+
+        return res.status(200).send(list);
+    }
+    else{
+        return res.status(404).send({msg: "University not found"});
+    }
+})
 
 app.use(router);
 const port = process.env.PORT || 3000;
