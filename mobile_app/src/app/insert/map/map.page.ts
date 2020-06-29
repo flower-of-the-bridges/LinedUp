@@ -32,7 +32,7 @@ export class MapPage implements OnInit {
         this.geoController.getUserPosition().then(pos => {
           console.debug("my pos is : " + pos);
           if (pos) {
-            this.mapController = new MapController('map', pos, this.httpClient);
+            this.mapController = new MapController('map_queue', pos, this.httpClient);
             marker = this.mapController.addUser();
             this.mapController.getBuildings(this.modalController);
           }

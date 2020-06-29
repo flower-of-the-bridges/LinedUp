@@ -118,8 +118,7 @@ export class MapController {
         return popupEl;
     }
 
-    reverseGeocoding(lat : number, long: number, modalController) {
-        console.log(lat, long);
+    reverseGeocoding(lat : number, long: number, modalController: ModalController) {
         let url = MapController.GEOCODING.replace("{lat}", lat.toString()).replace("{lon}", long.toString());
         this.httpClient.get(url).subscribe((res: any) => {
             if(res && res.address){
