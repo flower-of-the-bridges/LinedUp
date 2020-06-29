@@ -68,10 +68,10 @@ export class MapController {
                 Array.isArray(res) && res.forEach(place => {
                     marker(place.position, { icon: place.status == 0 ? MapController.RED_MARKER : MapController.GREEN_MARKER })
                         .bindPopup(
-                            this.createPlacePopup(place.name, place.status, place.position)
+                            this.createPlacePopup(place.name, place.status, place.street, place.position)
                             , { autoClose: true })
-                        .on('dblclick', (evt) => {
-                            let popup = this.createPlacePopup(place.name, place.status, null);
+                        .on('click', (evt) => {
+                            let popup = this.createPlacePopup(place.name, place.status, place.street, null);
                             popup.isNear = this.isNear(place.position);
                             evt.target.bindPopup(popup, {autoClose: true });
                         })
@@ -106,11 +106,11 @@ export class MapController {
         return Math.abs(circleCenterPoint.distanceTo(point)) <= radius;
     }
 
-    createPlacePopup(name, status, pos) {
+    createPlacePopup(name, status, street, pos) {
         let popupEl: NgElement & WithProperties<ReportComponent> = document.createElement('popup-element') as any;
         popupEl.name = name;
         popupEl.status = status != 0;
-        popupEl.street = "Via Cesare De Lollis, 22";
+        popupEl.street = street;
         popupEl.isFavourite = "star";
         if (pos) {
             popupEl.isNear = this.isNear(pos);
