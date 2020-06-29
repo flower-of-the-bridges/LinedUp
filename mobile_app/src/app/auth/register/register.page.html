@@ -1,44 +1,61 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+      <ion-back-button defaultHref="/register/university"></ion-back-button>
     </ion-buttons>
-    <ion-title>Register</ion-title>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="10">
+        
+         <ion-title color="title" style="margin-top: 28px;">Register</ion-title>
+       
+        </ion-col>
+        <ion-col>
+         <center> <img src="../../assets/icon/linedup.png" style="width:70px;"/></center>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div class="ion-text-center">
-    Before you can start using <b>LinedUp</b>, we need to know who you are, to make the access to the service 
+  <div class="ion-text-center reg">
+    Before you can start using <b>Lined Up</b> we need to know who you are, <br> to make the access to the service.
 
   </div>
   <form #form="ngForm" (ngSubmit)="register(form)">
-    <span class="divider line one-line"><b>Personal Information</b></span>
+    <div class="form">
+    <span class="divider line one-line form">Personal Information</span>
     <ion-item lines="full">
-      <ion-input type="text" name="name" placeholder="First Name" ngModel required></ion-input>
+      <ion-input type="text" name="name" placeholder="First Name" ngModel required class="sizelabel"></ion-input>
     </ion-item>
     <ion-item lines="full">
-      <ion-input type="text" name="surname" placeholder="Last Name" ngModel required></ion-input>
+      <ion-input type="text" name="surname" placeholder="Last Name" ngModel required class="sizelabel"></ion-input>
     </ion-item>
-    <ion-item lines="full">
+    <ion-item lines="full" class="sizelabel">
       <ion-label position="stacked"></ion-label>
       <ion-datetime name="birthDate" displayFormat="DD MM YYYY" placeholder="Birth Date" ngModel min="1985" max="2001" required></ion-datetime>
     </ion-item>
-    <span class="divider line one-line"><b>Access Information</b></span>
-    <ion-item lines="full">
+    
+    <span class="divider line one-line form" style="margin-top:50px">Access Information</span>
+    <ion-item lines="full" class="sizelabel">
       <ion-input type="email" name="email" placeholder="Email" ngModel pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}" required></ion-input>
     </ion-item>
-    <ion-item lines="full">
-      <ion-input type="password" name="password" placeholder="Password" ngModel required></ion-input>
+    <ion-item lines="full" class="sizelabel">
+      <ion-input [type]="showPassword ? 'text' : 'password'" name="password" placeholder="Password" ngModel required></ion-input>
+      <ion-icon slot="end" [name]="passwordtoggleicon" (click)="togglePassword()"></ion-icon>
     </ion-item>
 
-    <ion-item lines="full">
-      <ion-input type="password" name="confirm" placeholder="Confirm Password" ngModel required></ion-input>
+    <ion-item lines="full" class="sizelabel">
+      <ion-input [type]="showPassword ? 'text' : 'password'" name="confirm" placeholder="Confirm Password" ngModel required></ion-input>
+      <ion-icon slot="end" [name]="passwordtoggleicon" (click)="togglePassword()"></ion-icon>
     </ion-item>
-
+  </div>
     <ion-row>
+    
       <ion-col>
-        <ion-button type="submit" color="danger" [disabled]="form.invalid" expand="block">Sign Uo</ion-button>
+       <center> <ion-button type="submit" color="signin" [disabled]="form.invalid" size="large" style="margin-top:40px;">Sign Up</ion-button></center>
       </ion-col>
     </ion-row>
   </form>
