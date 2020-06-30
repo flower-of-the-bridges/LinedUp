@@ -19,7 +19,9 @@ ul.icons li {
 .line {
     align-items: center;
     margin: 1em -1em;
-    color: #cccccc;
+    color:  #595454;
+    font-style: oblique;
+    font-size:medium;
 
     &:before,
     &:after {
@@ -41,3 +43,14 @@ ul {
 li {
     display: inline;
 }
+
+div.queue{
+    margin-top:30px;
+    width:90%;
+    position:relative;
+    left:3%;
+   
+    
+    
+}
+

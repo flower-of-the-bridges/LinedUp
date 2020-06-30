@@ -11,9 +11,12 @@ export class RegisterPage implements OnInit {
 
   private university: string;
   private faculty: string;
+  
   showPassword=false;
   passwordtoggleicon='eye';
+  
   constructor(private authService: AuthService, private router: Router) { }
+  
   togglePassword():void{
     this.showPassword = !this.showPassword;
     if(this.passwordtoggleicon == 'eye'){

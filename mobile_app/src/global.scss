@@ -28,14 +28,29 @@
 
 .searchbar-input.sc-ion-searchbar-md {
     border-radius: 25px;
-    //background-position: left 8px center;
     height: auto;
-    font-size: 1.1rem;
+    font-size: 1.5rem;
     font-weight: 400;
     color: #7f8490;
     background-color: white;
     -webkit-box-shadow: 0 8px 14px rgba(87, 84, 84, 0.4) !important;
     box-shadow: 0 8px 14px rgba(87, 84, 84, 0.4) !important;
+  }
+
+  ion-chip.md.ion-activatable.hydrated{
+    --background:rgba(var(--ion-text-color-rgb, 50,205,50), 1.0);
+   
+  }
+
+  ion-icon.star{
+    color:rgb(38, 0, 255);
+    font-size: 40px;
+   
+  }
+
+  ion-searchbar.icon{
+    --icon-color: #8b0000;
+    --cancel-button-color: #8b0000;
   }
 
 

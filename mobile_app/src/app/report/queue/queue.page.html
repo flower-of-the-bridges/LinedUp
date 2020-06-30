@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Queue Report</ion-title>
+    <ion-title color="title">Queue Report</ion-title>
 
     <ion-buttons slot="end">
       <ion-button (click)="dismiss()">
@@ -22,10 +22,13 @@
     We will analyze your report as soon as we can.
   </div>
   <ng-template #mainPageBlock>
+    <div class="queue">
+    
     <ion-title><b>{{name}}</b></ion-title>
     <h4>{{street}}</h4>
     <h4><b>{{status ? "Opened" : "Closed"}}</b></h4>
     <div *ngIf="!review">
+      <div style="margin-top:30px">
       <span class="line divider one-line">Number of persons <ion-icon name="people-outline"></ion-icon></span>
       <!--
     <ion-item>
@@ -49,11 +52,13 @@
       </ion-chip>
     </ion-item>
     -->
-      <ul>
+      <ul style="margin-left:-40px;">
         <li *ngFor="let tag of estimatedTimeKeys">
+          
           <ion-chip outline #chip (click)="selectEstimatedTime(chip)">
             <ion-label>{{tag}}</ion-label>
           </ion-chip>
+          
         </li>
       </ul>
       <span class="line divider one-line">Queue Speed</span>
@@ -61,16 +66,21 @@
         <ion-label slot="start">Slow</ion-label>
         <ion-label slot="end">Fast</ion-label>
       </ion-range>
+    
+  </div>
+    <div style="margin-top:50px;">
       <ion-row>
         <ion-col>
-          <ion-button type="submit" color="danger" (click)="dismiss()" expand="block">Cancel</ion-button>
+          <ion-button type="submit" color="title" (click)="dismiss()" size="medium">Cancel</ion-button>
         </ion-col>
         <ion-col>
           <ion-button type="submit" color="primary" [disabled]="!numberOfPersonsSelected || !estimatedTimeSelected"
-            (click)="reviewSection()" expand="block">Review</ion-button>
+            (click)="reviewSection()" size="medium">Review</ion-button>
         </ion-col>
       </ion-row>
     </div>
+    </div>
+  </div>
     <div *ngIf="review">
       <span class="line divider one-line">Recap <ion-icon name="book-sharp"></ion-icon> </span>
       <ion-row>
@@ -85,6 +95,7 @@
         <ion-col><b>Queue Speed:</b></ion-col>
         <ion-col>{{queueSpeed}}</ion-col>
       </ion-row>
+    
       <ion-row>
         <ion-col>
           <ion-button type="submit" color="danger" (click)="dismiss()" expand="block">Cancel</ion-button>
