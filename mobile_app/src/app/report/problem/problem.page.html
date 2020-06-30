@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Report a Problem</ion-title>
+    <ion-title color="title">Report a Problem</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="dismiss()">
         <ion-icon name="close-outline"></ion-icon>
@@ -17,30 +17,38 @@
 <ion-content>
   <div class style="text-align: center;">
     <div *ngIf="reportSent; else mainPageBlock">
+      <div class="message" >
       Thanks for helping us.
       We will analyze your report as soon as we can.
     </div>
+    </div>
     <ng-template #mainPageBlock>
-      <div *ngIf="!genericProblem && !hoursProblem; else genericProblemBlock">
+      <div *ngIf="!genericProblem && !hoursProblem; else genericProblemBlock" >
+        <div class="message">
         What kind of problem do you have found within the service <b>{{name}}</b>?
+      </div>
+      <div class="button">
         <ion-row>
           <ion-col>
-            <ion-button type="submit" color="primary" (click)="setGenericProblem()" expand="block">Generic Problem
+            <ion-button type="submit" color="primary" (click)="setGenericProblem()" size="medium">Generic Problem
             </ion-button>
           </ion-col>
           <ion-col>
-            <ion-button type="submit" color="primary" (click)="setHoursProblem()" expand="block">Hours Problem
+            <ion-button type="submit" color="primary" (click)="setHoursProblem()" size="medium">Hours Problem
             </ion-button>
           </ion-col>
         </ion-row>
       </div>
+      </div>
     </ng-template>
     <ng-template #genericProblemBlock>
       <div *ngIf="genericProblem; else hoursProblemBlock">
-        <ion-item>
-          <ion-textarea rows="6" cols="20" (ionChange)="setDescription($event.detail.value)" placeholder="Tell us which problem have you encountered"></ion-textarea>
+        <ion-item style="margin-top:50px; width: 80%; border-radius: 20px; border:solid;position: relative;left:10%;border-color: #dcdcdc;">
+          <ion-textarea rows="6" cols="20" (ionChange)="setDescription($event.detail.value)" placeholder="Tell us which problem have you encountered" line="noline"></ion-textarea>
         </ion-item>
-        <ion-button type="submit" color="primary" [disabled]="description==''" (click)="report('generic')" expand="block">Report</ion-button>
+        <div style="position:relative; top:200px;">
+        <ion-button type="submit" color="primary" [disabled]="description==''" (click)="report('generic')" size="medium">Report</ion-button>
+      </div>
       </div>
       <ng-template #hoursProblemBlock>
         <!--
@@ -71,23 +79,28 @@
           </ion-select>
         </ion-item>
       -->
-        <ion-row>
+      <div class="message" style="position: relative; top:50px; font-size:medium">
+        <ion-row style="height:70px">
+          
           <b>Insert the correct hour:</b>(referred to today)
         </ion-row>
         <ion-item>
-          <ion-label>Opened</ion-label>
-          <ion-datetime displayFormat="HH:mm" (ionChange)="setOpenedDate($event.detail.value)">
-            <!-- -->
+          <ion-label><b>Opened</b></ion-label>
+          <ion-datetime displayFormat="HH:mm" (ionChange)="setOpenedDate($event.detail.value)" placeholder="select Hour">
+         
           </ion-datetime>
         </ion-item>
         <ion-item>
-          <ion-label>Closed</ion-label>
+          <ion-label><b>Closed</b></ion-label>
           <ion-datetime displayFormat="HH:mm" [disabled]="!openedDate" [(ngModel)]="openedDate"
-            (ionChange)="setClosedDate($event.detail.value)">
+            (ionChange)="setClosedDate($event.detail.value)" placeholder="select Hour">
             <!-- value={selectedDate} onIonChange={e=> setSelectedDate(e.detail.value!)}-->
           </ion-datetime>
         </ion-item>
-        <ion-button type="submit" color="primary" expand="block" (click)="report('hours')" [disabled]="!canReport">Report</ion-button>
+      </div>
+      <div style="position:relative;top:180px;">
+        <ion-button type="submit" color="primary" size="medium" (click)="report('hours')" [disabled]="!canReport">Report</ion-button>
+      </div>
       </ng-template>
     </ng-template>
   </div>

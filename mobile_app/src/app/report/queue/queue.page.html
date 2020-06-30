@@ -17,7 +17,7 @@
 </ion-header>
 
 <ion-content style="text-align: center;">
-  <div *ngIf="reportSent; else mainPageBlock">
+  <div class="message" *ngIf="reportSent; else mainPageBlock">
     Thanks for helping us.
     We will analyze your report as soon as we can.
   </div>
@@ -82,29 +82,32 @@
     </div>
   </div>
     <div *ngIf="review">
+      <div style="margin-top:30px" class="queue">
       <span class="line divider one-line">Recap <ion-icon name="book-sharp"></ion-icon> </span>
-      <ion-row>
-        <ion-col><b>Number of Persons:</b></ion-col>
-        <ion-col>{{numberOfPersonsSelected}}</ion-col>
+      <ion-row style="height:60px">
+        <ion-col ><b>Number of Persons:</b></ion-col>
+        <ion-col >{{numberOfPersonsSelected}}</ion-col>
       </ion-row>
-      <ion-row>
-        <ion-col><b>Estimated Time:</b></ion-col>
-        <ion-col>{{estimatedTimeSelected}}</ion-col>
+      <ion-row style="height:60px">
+        <ion-col ><b>Estimated Time:</b></ion-col>
+        <ion-col >{{estimatedTimeSelected}}</ion-col>
       </ion-row>
-      <ion-row>
-        <ion-col><b>Queue Speed:</b></ion-col>
-        <ion-col>{{queueSpeed}}</ion-col>
+      <ion-row style="height:60px"> 
+        <ion-col ><b>Queue Speed:</b></ion-col>
+        <ion-col >{{queueSpeed}}</ion-col>
       </ion-row>
-    
+      </div>
+      <div style="margin-top:110px;">
       <ion-row>
         <ion-col>
-          <ion-button type="submit" color="danger" (click)="dismiss()" expand="block">Cancel</ion-button>
+          <ion-button type="submit" color="title" (click)="dismiss()" size="medium">Cancel</ion-button>
         </ion-col>
         <ion-col>
-          <ion-button type="submit" color="success" [disabled]="!numberOfPersonsSelected || !estimatedTimeSelected"
-            (click)="sendReview()" expand="block">Send</ion-button>
+          <ion-button type="submit" color="signin" [disabled]="!numberOfPersonsSelected || !estimatedTimeSelected"
+            (click)="sendReview()" size="medium">Send</ion-button>
         </ion-col>
       </ion-row>
+    </div>
     </div>
   </ng-template>
 </ion-content>
