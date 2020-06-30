@@ -1,5 +1,5 @@
 <ion-header>
-  
+
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
@@ -8,7 +8,9 @@
       <ion-row>
         <ion-col size="10">
 
-          <ion-searchbar showCancelButton="focus" (ionChange)="search($event.detail.value)" class="icon"></ion-searchbar>
+          <ion-searchbar [disabled]="filterSection && filter.type!=null && filter.status!=null"
+            (ionChange)="search($event.detail.value)" class="icon">
+          </ion-searchbar>
 
         </ion-col>
         <ion-col>
@@ -25,35 +27,51 @@
   <div *ngIf="queueSearch!=null && !viewResult" style="text-align: center;">
     <ion-toolbar>
       <ion-title>
-        <h3>Results for " {{queueSearch}} "</h3>
+        <h3>Results for "{{queueSearch}}" <h4 *ngIf="filter.type!=null || filter.status!=null">(
+            {{filter.status == 1 ? 'Opened' : (filter.status == 0 ? 'Closed' : '')}} {{filter.type}} )</h4>
+        </h3>
       </ion-title>
       <ion-buttons slot="end">
-        <ion-button [disabled]="searchList.length==0">
+        <ion-button *ngIf="filter.type!=null || filter.status!=null" (click)="clearFilter()">
+          Clear
+          <ion-icon name="refresh-outline"></ion-icon>
+        </ion-button>
+        <ion-button [disabled]="searchList.length==0 && !filterSection && filter.type==null && filter.status==null"
+          (click)="changeFilterSection()">
           Filter By
-          <ion-icon slot="end" name="caret-down-outline"></ion-icon>
+          <ion-icon *ngIf="!filterSection" slot="end" name="caret-down-outline"></ion-icon>
+          <ion-icon *ngIf="filterSection" slot="end" name="caret-up-outline"></ion-icon>
         </ion-button>
       </ion-buttons>
     </ion-toolbar>
-    <ion-row>
-      <h3><b>Service:</b></h3>
-    </ion-row>
-    <ion-row>
-      <ion-radio-group value="biff">
-        <ion-col>
-          <ion-radio value="canteen"></ion-radio>
-          <ion-label> Canteen</ion-label>
-        </ion-col>
-        <ion-col>
-          <ion-radio value="secretariat"></ion-radio>
-          <ion-label> Secretariat</ion-label>
-        </ion-col>
-        <ion-col>
-          <ion-radio value="officehours"></ion-radio>
-          <ion-label> Office Hours</ion-label>
-        </ion-col>
-      </ion-radio-group>
-    </ion-row>
-    <ion-item button #queue (click)="selectQueue(queue)" detail *ngFor="let queue of searchList">
+    <div *ngIf="filterSection">
+      <ion-row>
+        <ion-label><b>Service:</b></ion-label>
+      </ion-row>
+      <ion-row>
+        <ion-radio-group [(ngModel)]="filter.type">
+          <ion-col *ngFor="let filter of filters.type">
+            <ion-radio value="{{filter.value}}" (click)="selectType(filter.value)"></ion-radio>
+            <ion-label>{{filter.name}}</ion-label>
+          </ion-col>
+        </ion-radio-group>
+      </ion-row>
+      <ion-row>
+        <ion-label><b>Status:</b></ion-label>
+      </ion-row>
+      <ion-row>
+        <ion-radio-group [(ngModel)]="filter.status">
+          <ion-col *ngFor="let filter of filters.status">
+            <ion-radio value="{{filter.value}}" (click)="selectStatus(filter.value)"></ion-radio>
+            <ion-label>{{filter.name}}</ion-label>
+          </ion-col>
+        </ion-radio-group>
+      </ion-row>
+    </div>
+    <ion-item-divider>
+    </ion-item-divider>
+    <ion-item button #queue (click)="selectQueue(queue)" [disabled]="filterSection" detail
+      *ngFor="let queue of searchList">
       <ion-grid>
         <ion-row>
           <ion-col size="8">

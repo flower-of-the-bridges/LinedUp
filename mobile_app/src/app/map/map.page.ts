@@ -22,6 +22,25 @@ export class MapPage implements OnInit {
   private searchList: Array<any> = [];
   private viewResult: boolean = false;
 
+  private filters: any = {
+    type: [
+      { name: "Secretariat", value: "secretariat" },
+      { name: "Office hours", value: "office hours" },
+      { name: "Canteen", value: "canteen" }
+    ],
+    status: [
+      { name: "Opened", value: 1 },
+      { name: "Closed", value: 0 }
+    ]
+  }
+
+  private filter: any = {
+    type: null,
+    status: null
+  }
+
+  private filterSection: boolean = false;
+
   constructor(private geolocation: Geolocation, private authService: AuthService, private httpClient: HttpClient, private router: Router, public menuCtrl: MenuController) {
 
     this.geoController = new GeoController(this.geolocation);
@@ -57,7 +76,7 @@ export class MapPage implements OnInit {
       }
 
 
-      this.authService.searchQueue(queue, null).subscribe(res => {
+      this.authService.searchQueue(queue, this.filter).subscribe(res => {
         if (Array.isArray(res)) {
           this.searchList = res;
         }
@@ -91,5 +110,28 @@ export class MapPage implements OnInit {
         this.mapController.getPositions();
       }
     });
+  }
+
+  selectType(type: string) {
+    this.filter.type = type;
+    console.log("filter is %o", this.filter);
+    this.search(this.queueSearch);
+  }
+
+  selectStatus(status: number) {
+    this.filter.status = status;
+    console.log("filter is %o", this.filter);
+    this.search(this.queueSearch);
+  }
+
+  changeFilterSection() {
+    this.filterSection = !this.filterSection;
+  }
+
+  clearFilter() {
+    this.filter.type = null;
+    this.filter.status = null;
+
+    this.search(this.queueSearch);
   }
 }

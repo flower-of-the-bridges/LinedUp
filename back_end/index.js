@@ -176,12 +176,28 @@ router.post('/search', (req, res) => {
     let payload = req.body;
 
     let university = universities[payload.university];
+    let filter = payload.filter;
 
     let list =  [];
     if(university){
         university.places.forEach(place => {
             if(place.name.toUpperCase().startsWith(payload.queue.toUpperCase())){
-                list.push(place);
+                let pushQueue = true;
+
+                if(filter.type != null){
+                    if(place.type != filter.type){
+                        pushQueue = false;
+                    }
+                }
+                if(filter.status != null){
+                    console.log(filter.status, place.status);
+                    if(place.status != filter.status){
+                        console.log("ok")
+                        pushQueue = false;
+                    }
+                }
+
+                pushQueue && list.push(place);
             }
         })
 
