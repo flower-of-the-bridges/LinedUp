@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>News</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col align-self-center>
+        <div class="home">
+          <h3 style="text-align: center;"> Here you can find the news related to the services hostesd by your
+            university. </h3>
+
+          <span class="line divider one-line">Latest News <ion-icon name="newspaper"></ion-icon></span>
+
+          <ion-item-divider></ion-item-divider>
+          <div style="text-align: start;">
+            <ion-item button #news (click)="selectNews(news.place)" detail *ngFor="let news of newsList">
+              <ion-grid>
+                <ion-row >
+                  <ion-col size="8">
+                    <ion-label>
+                      <b>{{news.content.ts}}</b>:{{news.content.description}}
+                    </ion-label>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-item>
+          </div>
+        </div>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

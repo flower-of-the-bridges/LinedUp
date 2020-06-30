@@ -18,6 +18,8 @@ export class MapPage implements OnInit {
   private geoController: GeoController
   private mapController: MapController
 
+  private openQueues = false;
+
   private queueSearch: string = null;
   private searchList: Array<any> = [];
   private viewResult: boolean = false;
@@ -52,9 +54,18 @@ export class MapPage implements OnInit {
       console.log("is logged in res %o", res);
       if (/**res*/true) {
 
-        this.menuCtrl.enable(true, 'menu');
+        this.authService.getPlace().subscribe(place => {
+          console.log("place is %o", place);
+          this.menuCtrl.enable(true, 'menu');
+          if (place != null) {
+            this.initMap(null, place.name);
+          }
+          else {
 
-        this.initMap(null, null);
+            this.initMap(null, null);
+          }
+        })
+
         //const callback = (evt) => { console.log(evt); document.getElementById("reportForm").onsubmit = (evt) => evt.preventDefault(); };
 
       }
@@ -62,6 +73,14 @@ export class MapPage implements OnInit {
         this.router.navigateByUrl('home');
       }
     })
+  }
+
+  
+  ionViewWillLeave(){
+    if(this.mapController){
+      this.mapController.destroyMap();
+      console.log("map destroyed");
+    }
   }
 
   search(queue: string) {
@@ -134,4 +153,9 @@ export class MapPage implements OnInit {
 
     this.search(this.queueSearch);
   }
+
+  changeMarkers(){
+    this.mapController.changeQueues(this.openQueues);
+  }
+
 }

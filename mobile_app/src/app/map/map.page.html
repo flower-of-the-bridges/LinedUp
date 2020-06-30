@@ -107,4 +107,8 @@
       </ion-grid>
     </ion-item>
   </div>
+  <ion-item id="refreshButton">
+    <ion-label>Open Queues Only</ion-label>
+    <ion-toggle color="success" (ionChange)="changeMarkers()" [(ngModel)]="openQueues"></ion-toggle>
+  </ion-item>
 </ion-content>

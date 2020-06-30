@@ -8,8 +8,19 @@
   
     <ion-row>
       <ion-col>
-       <center> <ion-icon name="{{isFavourite}}" class="star" ></ion-icon> </center>
+       <center> <ion-icon name="{{isFavourite ? 'star' : 'star-outline'}}" class="star" (click)="addToFavourites()"></ion-icon> </center>
       </ion-col>
+      <ion-col *ngIf="hasNews">
+        <center> <ion-icon name="newspaper-outline" class="news" (click)="goToNews()"></ion-icon> </center>
+       </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+       <center> {{isFavourite ? 'Remove from Favourites' : 'Add to Favourites'}}</center>
+      </ion-col>
+      <ion-col *ngIf="hasNews">
+        <center> Latest News</center>
+       </ion-col>
     </ion-row>
     </div>
     

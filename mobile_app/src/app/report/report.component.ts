@@ -1,7 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ProblemPage } from './problem/problem.page';
 import { QueuePage } from './queue/queue.page';
+import { AuthService } from '../auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-report',
@@ -14,11 +16,28 @@ export class ReportComponent implements OnInit {
   @Input() street: string = "";
   @Input() status: boolean = false;
   @Input() isNear: boolean = false;
-  @Input() isFavourite: string = "star-outlined";
+  @Input() isFavourite: boolean = false;
+  @Input() hasNews: boolean = false;
 
-  constructor(public modalController: ModalController) { }
+  private interval: any = null;
+
+  constructor(private ref: ChangeDetectorRef, private router: Router, private authService: AuthService, public modalController: ModalController) {
+    ref.detach();
+    this.interval = setInterval(() => {
+      this.ref.detectChanges();
+    }, 500);
+  }
 
   ngOnInit() {
+    this.authService.getFavourites().then(favourites => {
+      favourites != null && favourites.forEach(favourite => {
+        if (favourite == this.name) {
+          this.isFavourite = true;
+        }
+      })
+      clearInterval(this.interval);
+      this.ref.reattach();
+    })
   }
 
   async problemModal() {
@@ -43,5 +62,13 @@ export class ReportComponent implements OnInit {
     return await modal.present();
   }
 
+  addToFavourites() {
+    this.isFavourite = !this.isFavourite;
+    this.authService.addToFavourites(this.name);
+  }
+
+  goToNews(){
+    this.router.navigateByUrl("/news");
+  }
 
 }

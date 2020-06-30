@@ -47,8 +47,13 @@ export class AppComponent {
         icon: "add-circle"
       },
       {
-        title: "Favourite",
-        url: "/favourite",
+        title: "News",
+        url: "/news",
+        icon: "newspaper"
+      },
+      {
+        title: "Favourites",
+        url: "/favourites",
         icon: "star"
       },
       {

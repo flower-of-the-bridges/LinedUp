@@ -7,6 +7,7 @@ import { ModalController } from '@ionic/angular';
 import { RecapPage } from 'src/app/insert/map/recap/recap.page';
 
 export class MapController {
+    
 
     private map: Map;
     private userPosition: Position;
@@ -14,7 +15,8 @@ export class MapController {
     private userCircle: Circle;
     private userMarker: Marker;
     private httpClient: HttpClient;
-    private places: Array<any>;
+    private places: Array<any> = [];
+    private hiddenPlaces: Array<any> = [];
     private showPopup: string = "";
 
     private static ENDPOINT = "http://localhost:3000";
@@ -30,7 +32,7 @@ export class MapController {
         iconUrl: 'assets/icon/green_marker.png',
         iconSize: [40, 40],
         popupAnchor: [0, -20],
-        
+
     });
 
     private static RED_MARKER = icon({
@@ -51,8 +53,8 @@ export class MapController {
         }).addTo(this.map);
     }
 
-    destroyMap(){
-        if(this.map){
+    destroyMap() {
+        if (this.map) {
             this.map.off();
             this.map.remove();
         }
@@ -81,19 +83,20 @@ export class MapController {
                 Array.isArray(res) && res.forEach(place => {
                     let posMarker = marker(place.position, { icon: place.status == 0 ? MapController.RED_MARKER : MapController.GREEN_MARKER })
                         .bindPopup(
-                            this.createPlacePopup(place.name, place.status, place.street, place.position)
+                            this.createPlacePopup(place.name, place.status, place.street, place.position, place.news.length)
                             , { autoClose: true })
                         .on('click', (evt) => {
-                            let popup = this.createPlacePopup(place.name, place.status, place.street, null);
+                            let popup = this.createPlacePopup(place.name, place.status, place.street, null, place.news.length);
                             popup.isNear = this.isNear(place.position);
-                            evt.target.bindPopup(popup, {autoClose: true});
+                            evt.target.bindPopup(popup, { autoClose: true });
                         })
                         .addTo(this.map);
-                    
-                    if(this.showPopup && this.showPopup == place.name){
+
+                    if (this.showPopup && this.showPopup == place.name) {
                         console.log("opening");
                         posMarker.openPopup();
                     }
+                    this.places.push({ marker: posMarker, status: place.status });
                 })
             }
         )
@@ -124,37 +127,57 @@ export class MapController {
         return Math.abs(circleCenterPoint.distanceTo(point)) <= radius;
     }
 
-    createPlacePopup(name, status, street, pos) {
+    createPlacePopup(name, status, street, pos, newsCount) {
         let popupEl: NgElement & WithProperties<ReportComponent> = document.createElement('popup-element') as any;
         popupEl.name = name;
         popupEl.status = status != 0;
         popupEl.street = street;
-        popupEl.isFavourite = "star";
+        popupEl.hasNews = newsCount > 0;
         if (pos) {
             popupEl.isNear = this.isNear(pos);
         }
         return popupEl;
     }
 
-    reverseGeocoding(lat : number, long: number, modalController: ModalController) {
+    reverseGeocoding(lat: number, long: number, modalController: ModalController) {
         let url = MapController.GEOCODING.replace("{lat}", lat.toString()).replace("{lon}", long.toString());
         this.httpClient.get(url).subscribe((res: any) => {
-            if(res && res.address){
-                let street = res.address.road+" "+(res.address.house_number || "")+", "+res.address.town+" ("+res.address.country_code.toUpperCase()+")";
+            if (res && res.address) {
+                let street = res.address.road + " " + (res.address.house_number || "") + ", " + res.address.town + " (" + res.address.country_code.toUpperCase() + ")";
                 this.presentModal(modalController, null, street);
             }
         });
 
     }
 
-    async presentModal(modalController : ModalController, place: any, street: string) {
+    async presentModal(modalController: ModalController, place: any, street: string) {
         const modal = await modalController.create({
-          component: RecapPage,
-          componentProps: {
-              "place": place,
-              "street": street
-          }
+            component: RecapPage,
+            componentProps: {
+                "place": place,
+                "street": street
+            }
         });
         return await modal.present();
-      }
+    }
+
+    changeQueues(openQueues: boolean) {
+        if(openQueues){
+            this.places.forEach(place => {
+                let markerToHide : Marker = place.marker;
+                if(place.status == 0){
+                    markerToHide.remove();
+                    this.hiddenPlaces.push(markerToHide);
+                }
+            })
+        }
+        else{
+            this.hiddenPlaces.forEach((place : Marker) => {
+                place.addTo(this.map);
+            })
+            this.hiddenPlaces = [];
+        }
+    }
+
+
 }

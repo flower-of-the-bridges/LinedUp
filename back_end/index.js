@@ -16,7 +16,7 @@ router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
 const database = new sqlite3.Database("./my.db");
 
-const universities = {
+var universities = {
     "Sapienza": {
         faculties: [
             "Engineering in Computer Science",
@@ -30,6 +30,12 @@ const universities = {
                 building: "S.P.V. (San Pietro In Vincoli)",
                 street: "Via Eudossiana 18",
                 type: "secretariat",
+                news: [
+                    {
+                        description: "The hour scheduled for today has been delayed to tomorrow.",
+                        ts: new Date().toTimeString().split(" ")[0].split(":")[0] + ":" + new Date().toTimeString().split(" ")[0].split(":")[1]
+                    }
+                ],
                 status: 0
             },
             {
@@ -40,6 +46,7 @@ const universities = {
                 people: "10 - 20",
                 time: "20 - 40",
                 type: "office hours",
+                news: [],
                 hour: "16:00-18:00"
             },
             {
@@ -50,6 +57,7 @@ const universities = {
                 street: "Via Eudossiana 18",
                 building: "Ex-Poste",
                 type: "canteen",
+                news: [],
                 hour: "11:30-15:00"
             }
         ]
@@ -112,7 +120,7 @@ router.post('/positions', (req, res) => {
             let lat = userPosition.latitude + 0.0003 + index * 0.0001 * (index % 2 == 0 ? -1 : 1);
             place["position"] = { lon: lon, lat: lat };
         });
-        
+
         res.status(200).send(places);
     }
     else {
@@ -122,7 +130,7 @@ router.post('/positions', (req, res) => {
 
 router.post('/insert', (req, res) => {
     console.log("/insert: received new queue %o", req.body);
-    res.status(200).send({msg: "ok"});
+    res.status(200).send({ msg: "ok" });
 });
 
 router.post('/register', (req, res) => {
@@ -178,20 +186,20 @@ router.post('/search', (req, res) => {
     let university = universities[payload.university];
     let filter = payload.filter;
 
-    let list =  [];
-    if(university){
+    let list = [];
+    if (university) {
         university.places.forEach(place => {
-            if(place.name.toUpperCase().startsWith(payload.queue.toUpperCase())){
+            if (place.name.toUpperCase().startsWith(payload.queue.toUpperCase())) {
                 let pushQueue = true;
 
-                if(filter.type != null){
-                    if(place.type != filter.type){
+                if (filter.type != null) {
+                    if (place.type != filter.type) {
                         pushQueue = false;
                     }
                 }
-                if(filter.status != null){
+                if (filter.status != null) {
                     console.log(filter.status, place.status);
-                    if(place.status != filter.status){
+                    if (place.status != filter.status) {
                         console.log("ok")
                         pushQueue = false;
                     }
@@ -203,9 +211,39 @@ router.post('/search', (req, res) => {
 
         return res.status(200).send(list);
     }
-    else{
-        return res.status(404).send({msg: "University not found"});
+    else {
+        return res.status(404).send({ msg: "University not found" });
     }
+})
+
+router.post('/news', (req, res) => {
+    let body = req.body;
+
+    let university = universities[body.university];
+    let newsList = [];
+    university && university.places.forEach(place => {
+        place.news.forEach(item => {
+            newsList.push({ content: item, place: place });
+        })
+    })
+
+    return res.status(200).send(newsList);
+})
+
+router.post('/favourites', (req, res) => {
+    let body = req.body;
+    console.log("[Favourites] received %o", body);
+    let favourites = body.favourites;
+    let university = universities[body.university];
+
+    let placeList = [];
+    university && university.places.forEach(place => {
+        if (favourites.includes(place.name)) {
+            placeList.push(place);
+        }
+    })
+
+    return res.status(200).send(placeList);
 })
 
 app.use(router);

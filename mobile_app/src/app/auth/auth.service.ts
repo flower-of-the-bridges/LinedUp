@@ -10,12 +10,13 @@ import { AuthResponse } from './auth-response';
   providedIn: 'root'
 })
 export class AuthService {
-
+  
   AUTH_SERVER_ADDRESS: string = 'http://localhost:3000';
   authSubject = new BehaviorSubject(false);
   registerSubject = new BehaviorSubject(null);
   buildingSubject = new BehaviorSubject(null);
   insertSubject = new BehaviorSubject(false);
+  placeSubject = new BehaviorSubject(null);
 
   constructor(private httpClient: HttpClient, private storage: Storage) { }
 
@@ -62,8 +63,20 @@ export class AuthService {
     this.buildingSubject.next(building);
   }
 
+  async selectPlace(place: any) {
+    this.placeSubject.next(place);
+  }
+
   getBuilding() {
     return this.buildingSubject.asObservable();
+  }
+
+  getPlace(){
+    return this.placeSubject.asObservable();
+  }
+
+  getFavourites() : Promise<any>{
+    return this.storage.get("FAVOURITES");
   }
 
   isLoggedIn() {
@@ -92,12 +105,58 @@ export class AuthService {
       }));
   }
 
-  
+
   searchQueue(queue: string, filter: any) {
-    let request = {queue: queue, filter: filter, university: "Sapienza"};
+    let request = { queue: queue, filter: filter, university: "Sapienza" };
     return this.httpClient.post(`${this.AUTH_SERVER_ADDRESS}/search`, request).pipe(
       tap(async (res: any) => {
         console.log("res is %o", res);
       }));
+  }
+
+  getNews() {
+    let request = { university: "Sapienza" };
+    return this.httpClient.post(`${this.AUTH_SERVER_ADDRESS}/news`, request).pipe(
+      tap(async (res: any) => {
+        console.log("res is %o", res);
+      }));
+  }
+
+  getFavouritePlaces(favourites: Array<any>) {
+    let request = { university: "Sapienza", favourites: favourites };
+    return this.httpClient.post(`${this.AUTH_SERVER_ADDRESS}/favourites`, request).pipe(
+      tap(async (res: any) => {
+        console.log("res is %o", res);
+      }));
+  }
+
+  addToFavourites(name: string) {
+    this.storage.get("FAVOURITES").then(favourites => {
+      if(favourites!=null && favourites.length>0){
+        let removed = false;
+        favourites.forEach((favourite, index) => {
+          if(favourite == name){
+            favourites.splice(index, 1);
+            removed = true;
+            this.storage.set("FAVOURITES", favourites).then(() => {
+              console.log("removed element %s from favourites", name);
+            });
+          }
+        })
+        if(!removed){
+          favourites.push(name);
+          this.storage.set("FAVOURITES", favourites).then(() => {
+            console.log("added %s to favourites", name);
+          });
+        }
+      }
+      else{
+        let newFavourites = [];
+        newFavourites.push(name);
+        this.storage.set("FAVOURITES", newFavourites).then(() => {
+          console.log("added %s to favourites", name);
+        });
+      }
+    })
   }
 }
