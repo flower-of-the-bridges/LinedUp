@@ -2,7 +2,7 @@ import { Component, OnInit, ComponentFactoryResolver, Injector } from '@angular/
 import { GeoController } from '../../component/controller/GeoController';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { MapController } from '../../component/controller/MapController';
-import { MenuController } from '@ionic/angular';
+import { MenuController, LoadingController } from '@ionic/angular';
 import { AuthService } from '../auth/auth.service';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -43,13 +43,16 @@ export class MapPage implements OnInit {
 
   private filterSection: boolean = false;
 
-  constructor(private geolocation: Geolocation, private authService: AuthService, private httpClient: HttpClient, private router: Router, public menuCtrl: MenuController) {
+  constructor(public loadingController: LoadingController, private geolocation: Geolocation, private authService: AuthService, private httpClient: HttpClient, private router: Router, public menuCtrl: MenuController) {
 
     this.geoController = new GeoController(this.geolocation);
   }
 
-  ngOnInit() {
+  ionViewWillEnter(){
 
+    this.presentLoading();
+  }
+  ngOnInit() {
     this.authService.isLoggedIn().subscribe((res: boolean) => {
       console.log("is logged in res %o", res);
       if (/**res*/true) {
@@ -64,6 +67,7 @@ export class MapPage implements OnInit {
 
             this.initMap(null, null);
           }
+
         })
 
         //const callback = (evt) => { console.log(evt); document.getElementById("reportForm").onsubmit = (evt) => evt.preventDefault(); };
@@ -73,6 +77,18 @@ export class MapPage implements OnInit {
         this.router.navigateByUrl('home');
       }
     })
+  }
+
+  async presentLoading() {
+    const loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Please wait...',
+      duration: 2000
+    });
+    await loading.present();
+
+    const { role, data } = await loading.onDidDismiss();
+    console.log('Loading dismissed!');
   }
 
   
