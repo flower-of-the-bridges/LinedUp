@@ -63,7 +63,7 @@ var universities = {
                 street: "Via Eudossiana 18",
                 status: 1,
                 people: "10 - 20",
-                time: "20 - 40",
+                time: "30 - 60",
                 type: "office hours",
                 news: [],
                 hour: "16:00-18:00"
@@ -71,8 +71,8 @@ var universities = {
             {
                 name: "Mensa",
                 status: 1,
-                people: "< 5",
-                time: "10 - 20",
+                people: "< 10",
+                time: "10 - 30",
                 street: "Via Eudossiana 18",
                 building: "Ex-Poste",
                 type: "canteen",
@@ -564,6 +564,25 @@ router.post('/favourites', (req, res) => {
     })
 
     return res.status(200).send(placeList);
+})
+
+router.post('/review', (req, res) => {
+    let result = false;
+    let body = req.body;
+    console.log("[Review] received %o", body);
+    let persons = body.request.persons;
+    let time = body.request.time;
+    let university = universities[body.university];
+
+    university && university.places.forEach(place => {
+        if (body.name == place.name) {
+            place.people = persons;
+            place.time = time;
+            result = true;
+        }
+    })
+
+    return res.status(200).send({msg: result, persons: persons, time: time});
 })
 
 app.use(router);

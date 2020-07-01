@@ -127,7 +127,7 @@ export class AuthService {
     return this.httpClient.post(`${this.AUTH_SERVER_ADDRESS}/favourites`, request).pipe(
       tap(async (res: any) => {
         console.log("res is %o", res);
-      }));
+    }));
   }
 
   addToFavourites(name: string) {
@@ -158,5 +158,14 @@ export class AuthService {
         });
       }
     })
+  }
+
+  sendReview(request: any) {
+    request["university"] = "Sapienza"
+    
+    return this.httpClient.post(`${this.AUTH_SERVER_ADDRESS}/review`, request).pipe(
+      tap(async (res: any) => {
+        console.log("res is %o", res);
+    }));
   }
 }

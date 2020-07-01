@@ -18,6 +18,7 @@ export class MapController {
     private places: Array<any> = [];
     private hiddenPlaces: Array<any> = [];
     private showPopup: string = "";
+    private defaultZoom: number = 23;
 
     private static ENDPOINT = "http://localhost:3000";
     private static GEOCODING = "https://nominatim.openstreetmap.org/reverse?format=json&lat={lat}&lon={lon}&zoom=18&addressdetails=1"
@@ -47,7 +48,7 @@ export class MapController {
         this.viewPosition = viewPosition;
         this.showPopup = showPopup;
 
-        this.map = new Map(div).setView([this.viewPosition.getLatitude(), this.viewPosition.getLongitude()], 23);
+        this.map = new Map(div).setView([this.viewPosition.getLatitude(), this.viewPosition.getLongitude()], this.defaultZoom);
         tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(this.map);
@@ -83,10 +84,10 @@ export class MapController {
                 Array.isArray(res) && res.forEach(place => {
                     let posMarker = marker(place.position, { icon: place.status == 0 ? MapController.RED_MARKER : MapController.GREEN_MARKER })
                         .bindPopup(
-                            this.createPlacePopup(place.name, place.status, place.street, place.position, place.news.length)
+                            this.createPlacePopup(place.name, place.status, place.street, place.position, place.people || null, place.time || null, place.news.length)
                             , { autoClose: true })
                         .on('click', (evt) => {
-                            let popup = this.createPlacePopup(place.name, place.status, place.street, null, place.news.length);
+                            let popup = this.createPlacePopup(place.name, place.status, place.street, null, place.people || null, place.time || null, place.news.length);
                             popup.isNear = this.isNear(place.position);
                             evt.target.bindPopup(popup, { autoClose: true });
                         })
@@ -94,6 +95,7 @@ export class MapController {
 
                     if (this.showPopup && this.showPopup == place.name) {
                         console.log("opening");
+                        this.map.setView(posMarker.getLatLng(), this.defaultZoom, {animate: true});
                         posMarker.openPopup();
                     }
                     this.places.push({ marker: posMarker, status: place.status });
@@ -127,10 +129,14 @@ export class MapController {
         return Math.abs(circleCenterPoint.distanceTo(point)) <= radius;
     }
 
-    createPlacePopup(name, status, street, pos, newsCount) {
+    createPlacePopup(name, status, street, pos, people, time, newsCount) {
         let popupEl: NgElement & WithProperties<ReportComponent> = document.createElement('popup-element') as any;
         popupEl.name = name;
         popupEl.status = status != 0;
+        if(status == 1){
+            popupEl.persons = people;
+            popupEl.time = time;
+        }
         popupEl.street = street;
         popupEl.hasNews = newsCount > 0;
         if (pos) {
