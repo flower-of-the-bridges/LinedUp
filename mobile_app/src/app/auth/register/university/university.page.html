@@ -37,9 +37,7 @@
         <ion-select-option *ngFor="let university of universities" value="{{university}}">{{university}}</ion-select-option>
         </ion-select>
         </ion-item>
-        <div class="sizelabel">
-        <center><br><a>University not present? Send request to add</a></center>
-        </div>
+      
       
 
     <span class="divider line one-line form" *ngIf="university!=null" style="margin-top:50px"> Select your Faculty</span>
@@ -49,8 +47,8 @@
         <ion-select-option *ngFor="let faculty of faculties[university].faculties" value="{{faculty}}">{{faculty}}</ion-select-option>
       </ion-select>
     </ion-item>
-    <ion-item *ngIf="university!=null"  lines="none">
-     <ion-label class="text sizelabel"> <a >Faculty not present? Send request to add</a></ion-label>
+    <ion-item lines="none">
+     <ion-label class="text sizelabel"> <a >University or/and Faculty not present? Send request to add</a></ion-label>
     </ion-item>
   </div>
     <ion-row>
