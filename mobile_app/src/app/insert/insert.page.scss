@@ -12,7 +12,7 @@
 .line {
     align-items: center;
     margin: 1em -1em;
-    color: #cccccc;
+    color:  #595454;;
     
     &:before,
     &:after {
@@ -48,6 +48,15 @@ h1.home{
     font-style: oblique;
     font-size: 6vh;
     margin-bottom: 20px;
+}
+
+div.home{
+    
+    text-align: center;
+    font-style: oblique;
+    font-size: 6vh;
+    margin-bottom: 20px;
+    margin-top: 60px;
 }
 
 span.home{
