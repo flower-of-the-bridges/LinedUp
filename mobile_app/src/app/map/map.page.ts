@@ -49,9 +49,9 @@ export class MapPage implements OnInit {
   }
 
   ionViewWillEnter(){
-
     this.presentLoading();
   }
+
   ngOnInit() {
     this.authService.isLoggedIn().subscribe((res: boolean) => {
       console.log("is logged in res %o", res);

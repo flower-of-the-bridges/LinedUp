@@ -5,7 +5,7 @@ import { AuthService } from 'src/app/auth/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
-import { ModalController } from '@ionic/angular';
+import { ModalController, ToastController, LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-map',
@@ -16,9 +16,24 @@ export class MapPage implements OnInit {
 
   private geoController: GeoController
   private mapController: MapController
-  constructor(private geolocation: Geolocation, private authService: AuthService, private httpClient: HttpClient, private router: Router, public modalController : ModalController) {
-
+  constructor(public loadingController: LoadingController, private geolocation: Geolocation, private authService: AuthService, private httpClient: HttpClient, private router: Router, public modalController: ModalController, public toastController: ToastController) {
     this.geoController = new GeoController(this.geolocation);
+  }
+
+  ionViewWillEnter() {
+    this.presentLoading();
+  }
+
+  async presentLoading() {
+    const loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Please wait...',
+      duration: 2000
+    });
+    await loading.present();
+
+    const { role, data } = await loading.onDidDismiss();
+    console.log('Loading dismissed!');
   }
 
   ngOnInit() {
@@ -42,6 +57,25 @@ export class MapPage implements OnInit {
         this.router.navigateByUrl('home');
       }
     })
+  }
+
+  async showHelp() {
+    const toast = await this.toastController.create({
+      header: 'Need some help?',
+      message: 'Double tap where the queue is located',
+      position: 'top',
+      buttons: [
+        {
+          text: '',
+          icon: 'close-circle-outline',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+    toast.present();
   }
 
 }
