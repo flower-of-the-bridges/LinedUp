@@ -90,12 +90,17 @@ export class MapController {
                             let popup = this.createPlacePopup(place.name, place.status, place.street, null, place.people || null, place.time || null, place.news.length);
                             popup.isNear = this.isNear(place.position);
                             evt.target.bindPopup(popup, { autoClose: true });
+                            place.position.lat > this.userPosition.getLatitude() && this.map.setView([place.position.lat + 0.001, place.position.lon], this.defaultZoom, {animate: true});
+                        })
+                        .on('popupclose', ()=> {
+                            console.log("popup closed.");
+                            place.position.lat > this.userPosition.getLatitude() && this.map.setView([this.userPosition.getLatitude(), this.userPosition.getLongitude()], this.defaultZoom, {animate: true});
                         })
                         .addTo(this.map);
 
                     if (this.showPopup && this.showPopup == place.name) {
                         console.log("opening");
-                        this.map.setView(posMarker.getLatLng(), this.defaultZoom, {animate: true});
+                        place.position.lat > this.userPosition.getLatitude() && this.map.setView([place.position.lat + 0.005, place.position.lon], this.defaultZoom, {animate: true});
                         posMarker.openPopup();
                     }
                     this.places.push({ marker: posMarker, status: place.status });
