@@ -50,11 +50,17 @@
 
   ion-icon.news{
     font-size: 40px;
+    color:rgb(38, 0, 255);
   }
 
-  ion-searchbar.icon{
+   ion-searchbar.icon{
     --icon-color: #8b0000;
     --cancel-button-color: #8b0000;
+  }
+
+  ion-icon.menu{
+    
+    font-size: 24px;
   }
 
   
@@ -63,3 +69,10 @@
   .leaflet-popup-content-wrapper {
     width:350px !important;
     }
+
+    .alert-wrapper {
+      width: 50% !important;
+      max-width: 30% !important;
+      }
+
+   

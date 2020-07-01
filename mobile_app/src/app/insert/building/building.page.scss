@@ -3,12 +3,28 @@ div.info{
     border-style: solid;
     border-color:#dcdcdc;
     width: 80%;
-    height: 45%;
+    height: 250px;
     padding:20px;
-    padding-top: 56px;
+    padding-top: 50px;
     border-radius:20px;
     position: relative;
     left:10%;
     top:1%;
-    margin-top: 1%;
+    margin-top: 80px;
+    font-size: 15vw;
 }
+
+
+div.home{
+    
+    text-align: center;
+    font-style: oblique;
+    font-size: 6vh;
+    margin-bottom: 20px;
+    margin-top: 60px;
+}
+
+.sizelabel{ font-size: 20px !important; }
+.sizelabel1{ font-size: 20px !important; }
+
+.text{ text-align: center !important;}

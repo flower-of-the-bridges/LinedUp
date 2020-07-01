@@ -2,7 +2,7 @@
   <ion-menu side="start" menuId="menu" [content]="content" contentId="content1">
     <ion-header>
       <ion-toolbar>
-        <ion-title>LinedUp
+        <ion-title color="title">LinedUp
         
         </ion-title>
 
@@ -12,7 +12,7 @@
       <ion-list *ngFor="let pages of navigate">
         <ion-menu-toggle auto-hide="true">
           <ion-item [routerLink]="pages.url" routerDirection="forward">
-            <ion-icon [name]="pages.icon" slot="start"></ion-icon>
+            <ion-icon [name]="pages.icon" slot="start" class="menu"></ion-icon>
             {{pages.title}}
           </ion-item>
         </ion-menu-toggle>
