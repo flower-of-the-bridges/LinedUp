@@ -24,7 +24,7 @@ export class QueuePage implements OnInit {
     "40 >": "More than 40"
   };
   private numberOfPersonsKeys: Array<string> = Object.keys(this.numberOfPersons);
-  private personChips: Array<any> = [];
+  private personChips: any = {};
   private numberOfPersonsSelected: string = null;
 
   private estimatedTime: any = {
@@ -35,10 +35,10 @@ export class QueuePage implements OnInit {
     "60 >": "More than 60 minutes"
   };
   private estimatedTimeKeys: Array<string> = Object.keys(this.estimatedTime);
-  private timeChips: Array<any> = [];
+  private timeChips: any = {};
   private estimatedTimeSelected: string = null;
 
-  private queueSpeed: string = "Slow";
+  private queueSpeed: number = 1;
   private requestResult: any = null;
 
   private request = {
@@ -63,31 +63,33 @@ export class QueuePage implements OnInit {
   }
 
   selectNumberOfPersons(chip: any) {
-    let persons = this.select(chip, "person", this.personChips);
+    let persons = this.select(chip, this.personChips);
 
     this.request.persons = persons;
     this.numberOfPersonsSelected = this.numberOfPersons[persons];
+    console.log(this.numberOfPersonsSelected);
   }
 
   selectEstimatedTime(chip: any) {
-    let time = this.select(chip, "time", this.timeChips);
+    let time = this.select(chip, this.timeChips);
 
     this.request.time = time;
     this.estimatedTimeSelected = this.estimatedTime[time];
+    console.log(this.selectEstimatedTime);
   }
-  select(chip: any, type: string, chipArray: Array<any>) {
+  select(chip: any, chipContainer: any) {
     let outline = !chip.el.getAttribute("outline");
 
     chip.el.setAttribute("outline", chip.el.getAttribute("outline") == "" ? "false" : outline);
 
-    if (!chip.el.getAttribute("id")) {
-      chip.el.setAttribute("id", type + chipArray.length);
-      chipArray.push(chip.el);
+    if (!chipContainer[chip.el.getAttribute("id")]) {
+      chipContainer[chip.el.getAttribute("id")] = chip.el;
     }
 
-    chipArray.forEach(personChip => {
-      if (personChip.getAttribute("id") != chip.el.getAttribute("id") && personChip.getAttribute("outline") == "false") {
-        personChip.setAttribute("outline", "true");
+    Object.keys(chipContainer).forEach(chipId => {
+      let storedChip = chipContainer[chipId];
+      if (storedChip.getAttribute("id") != chip.el.getAttribute("id") && storedChip.getAttribute("outline") == "false") {
+        storedChip.setAttribute("outline", "true");
       }
     });
 
@@ -95,7 +97,7 @@ export class QueuePage implements OnInit {
   }
 
   setSpeed(speed: number) {
-    this.queueSpeed = speed == 1 ? "Slow" : (speed == 2 ? "Medium" : "Fast");
+    this.queueSpeed = speed;
   }
 
   reviewSection() {
@@ -103,9 +105,17 @@ export class QueuePage implements OnInit {
   }
 
   mainPage() {
-    this.estimatedTimeSelected = null;
-    this.numberOfPersonsSelected = null;
     this.review = false;
+    console.log(this.personChips, this.timeChips);
+    this.request.persons && Object.keys(this.personChips).forEach(chipIndex => {
+      let chip = this.personChips[chipIndex];
+      console.log(chip);
+      if (this.request.persons == chip.textContent) {
+        let domChip = document.getElementById(chip.id);
+        chip.setAttribute("outline", "false");
+        console.log("changed");
+      }
+    })
   }
 
   sendReview() {

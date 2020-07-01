@@ -38,8 +38,8 @@
     </ion-item>
      -->
       <ul>
-        <li *ngFor="let tag of numberOfPersonsKeys">
-          <ion-chip outline #chip (click)="selectNumberOfPersons(chip)">
+        <li *ngFor="let tag of numberOfPersonsKeys; let i=index">
+          <ion-chip id="person_{{i}}" [outline]="this.request.persons!=tag" #chip (click)="selectNumberOfPersons(chip)">
             <ion-label>{{tag}}</ion-label>
           </ion-chip>
         </li>
@@ -53,16 +53,16 @@
     </ion-item>
     -->
       <ul style="margin-left:-40px;">
-        <li *ngFor="let tag of estimatedTimeKeys">
+        <li *ngFor="let tag of estimatedTimeKeys; let i=index">
           
-          <ion-chip outline #chip (click)="selectEstimatedTime(chip)">
+          <ion-chip [outline]="this.request.time!=tag" id="time_{{i}}" #chip (click)="selectEstimatedTime(chip)">
             <ion-label>{{tag}}</ion-label>
           </ion-chip>
           
         </li>
       </ul>
       <span class="line divider one-line">Queue Speed</span>
-      <ion-range min="1" max="3" color="secondary" (ionChange)="setSpeed($event.detail.value)" snaps step="1">
+      <ion-range min="1" max="3" color="secondary" [(ngModel)]="queueSpeed" (ionChange)="setSpeed($event.detail.value)" snaps step="1">
         <ion-label slot="start">Slow</ion-label>
         <ion-label slot="end">Fast</ion-label>
       </ion-range>
@@ -94,7 +94,7 @@
       </ion-row>
       <ion-row style="height:60px"> 
         <ion-col ><b>Queue Speed:</b></ion-col>
-        <ion-col >{{queueSpeed}}</ion-col>
+        <ion-col >{{queueSpeed == 1 ? 'Slow' : (queueSpeed == 2 ? 'Medium' : 'Fast')}}</ion-col>
       </ion-row>
       </div>
       <div style="margin-top:110px;">
