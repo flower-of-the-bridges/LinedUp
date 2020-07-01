@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 import { ProblemPage } from './problem/problem.page';
 import { QueuePage } from './queue/queue.page';
 import { AuthService } from '../auth/auth.service';
@@ -37,7 +37,7 @@ export class ReportComponent implements OnInit {
     "30 - 60": "Between 30 and 60 minutes",
     "60 >": "More than 60 minutes"};
 
-  constructor(private ref: ChangeDetectorRef, private router: Router, private authService: AuthService, public modalController: ModalController) {
+  constructor(private ref: ChangeDetectorRef, private router: Router, private authService: AuthService, public modalController: ModalController, public toastController: ToastController) {
     ref.detach();
     this.interval = setInterval(() => {
       this.ref.detectChanges();
@@ -100,10 +100,19 @@ export class ReportComponent implements OnInit {
   addToFavourites() {
     this.isFavourite = !this.isFavourite;
     this.authService.addToFavourites(this.name);
+    this.presentToast();
   }
 
   goToNews(){
     this.router.navigateByUrl("/news");
+  }
+
+  async presentToast() {
+    const toast = await this.toastController.create({
+      message: this.name+(this.isFavourite ? " has been added to your favourites." : " has been removed from your favourites."),
+      duration: 2000,
+    });
+    toast.present();
   }
 
 }
