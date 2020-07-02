@@ -22,10 +22,17 @@
 <ion-content style="text-align: center;">
   <div class="home">
   <div *ngIf="buildingSection">
+<<<<<<< HEAD
     <h4>Select the building where the queue is located.
       The building you were looking at can't be found?</h4>
       <ion-label class="text sizelabel"><a>Search On Map</a></ion-label>
       <div style="margin-top:60px;">
+=======
+    <h3>Select the building where the queue is located.
+      The building you were looking at can't be found?</h3>
+      <ion-label class="text sizelabel"><a [routerLink]="['/insert/map']">Search On Map</a></ion-label>
+      <div style="margin-top:80px;">
+>>>>>>> 0196bf545ad6a3d4b4bf16b31325fe34047d1392
     <ion-item button #building (click)="selectBuilding(building)" detail *ngFor="let building of buildings">
       <ion-label>
         {{building.name}}

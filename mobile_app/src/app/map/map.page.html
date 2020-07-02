@@ -23,7 +23,6 @@
 </ion-header>
 
 <ion-content>
-  <div id="map" style="position: relative; height: 100%;" *ngIf="queueSearch==null || viewResult"></div>
   <div *ngIf="queueSearch!=null && !viewResult" style="text-align: center;">
     <ion-toolbar>
       
@@ -111,6 +110,7 @@
     </ion-item>
    
   </div>
+  <div id="map" style="position: relative; height: 100%;" *ngIf="queueSearch==null || viewResult"></div>
   <ion-item id="refreshButton">
     <ion-label>Open Queues Only</ion-label>
     <ion-toggle color="success" (ionChange)="changeMarkers()" [(ngModel)]="openQueues"></ion-toggle>
