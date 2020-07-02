@@ -6,41 +6,55 @@
         <ion-icon name="arrow-back-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>Report New Queue</ion-title>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="10">
+          <ion-title color="title" style="margin-top: 28px;">
+            Report New Queue
+          </ion-title>
+        </ion-col>
+        <ion-col>
+         <center> <img src="../../assets/icon/linedup.png" style="width:70px;"/></center>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </ion-toolbar>
 </ion-header>
 
 <ion-content style="text-align: center;">
-  <div class="home" *ngIf="serviceSection">
+  <div  *ngIf="serviceSection">
+    <div class="home">
     <h3>
       Insert some information about the service provided by the queue you would like to add.
     </h3>
-
+  </div>
 
 
     <form #form="ngForm" (ngSubmit)="review(form.value)">
-      <span class="line divider one-line">Service Description</span>
+      <div class="form">
+      <span class="line divider home one-line">Service Description</span>
       <ion-item lines="full">
-        <ion-label position="floating"><b>Name:*</b></ion-label>
-        <ion-input type="text" name="name" placeholder="Enter queue name..." ngModel required></ion-input>
+        <ion-label position="floating" class="sizelabel"><b>Name:*</b></ion-label>
+        <ion-input type="text" name="name" placeholder="Enter queue name..." style="font-style: oblique;" ngModel required></ion-input>
       </ion-item>
 
-      <ion-item>
-        <ion-label position="floating"><b>Description:*</b></ion-label>
+      <ion-item lines="none">
+        <ion-label position="floating" class="sizelabel"><b>Description:*</b></ion-label>
         <ion-textarea rows="6" cols="20" name="description"
-          placeholder="Enter here a short description about the queue..." ngModel></ion-textarea>
+          placeholder="Enter here a short description about the queue..." style="font-style: oblique;" ngModel></ion-textarea>
       </ion-item>
 
-      <span class="line divider one-line">Type of Service</span>
+      <span class="line divider home one-line">Type of Service</span>
       <ion-item>
-        <ion-label><b>Select type of service*:</b></ion-label>
-        <ion-select name="type" placeholder="Select queue's service" ngModel required>
+        <ion-label style="font-size:16px;font-style: oblique;"><b>Select type of service*:</b></ion-label>
+        <ion-select name="type" placeholder=" service" style="font-style: oblique;" ngModel required>
           <ion-select-option *ngFor="let service of services" value="{{service}}">{{service}}</ion-select-option>
         </ion-select>
       </ion-item>
+    </div>
       <ion-row>
         <ion-col>
-          <ion-button type="submit" color="success" [disabled]="form.invalid" size="medium"
+          <ion-button type="submit" color="signin" [disabled]="form.invalid" size="medium"
             style="margin-top: 5%;margin-bottom:30px;">Review
           </ion-button>
         </ion-col>
@@ -48,10 +62,16 @@
 
 
     </form>
-
   </div>
   <div *ngIf="!serviceSection">
-    <span class="line divider one-line">Position </span>
+    <div class="home" style=" margin-top: 30px">
+      <h1 class="home" style="margin-bottom: 30px;">
+       Recap Page
+      </h1>
+     <h3>Check the information before send them</h3>
+    </div>
+    <div class="form">
+    <span class="line divider home one-line">Position </span>
     <ion-row>
       <ion-col><b>Building:</b></ion-col>
       <ion-col>{{request.building}}</ion-col>
@@ -68,7 +88,7 @@
       <ion-col><b>Room's Number:</b></ion-col>
       <ion-col>{{request.number}}</ion-col>
     </ion-row>
-    <span class="line divider one-line">Informations</span>
+    <span class="line divider home one-line">Informations</span>
     <ion-row>
       <ion-col><b>Name:</b></ion-col>
       <ion-col>{{request.name}}</ion-col>
@@ -81,14 +101,16 @@
       <ion-col><b>Type of Service:</b></ion-col>
       <ion-col>{{request.service}}</ion-col>
     </ion-row>
+  </div>
     <ion-row>
       <ion-col align-self-center>
-        <ion-button type="submit" color="success" (click)="insertQueue()" expand="block">Send</ion-button>
+        <ion-button type="submit" color="signin" (click)="insertQueue()"size="medium"
+        style="margin-top:70px ;margin-bottom:30px;">Send</ion-button>
       </ion-col>
     </ion-row>
-    <ion-item>
-      <ion-checkbox color="primary" slot="start"></ion-checkbox>
-      <ion-label>Notify me when the request has been processed</ion-label>
+    <ion-item lines="none" style="margin-top:30px">
+      <ion-checkbox color="primary" ></ion-checkbox>
+      <ion-label style="font-style: oblique; font-weight: bold; font-size: 15px;">Notify me when the request has been processed</ion-label>
     </ion-item>
 
   </div>

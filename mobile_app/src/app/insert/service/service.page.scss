@@ -43,12 +43,44 @@ h1.home {
     text-align: center;
     color: #8b0000;
     font-style: oblique;
-    font-size: 6vh;
+    font-size: 25px;
     margin-bottom: 20px;
 }
 
 span.home {
     font-weight: bold;
+    color: #443c3c;
     font-style: oblique;
-    font-size: x-large;
+    font-size:medium;
+}
+
+.sizelabel{ 
+    font-size: 20px !important; 
+    font-style: oblique;
+    font-weight: normal;
+}
+
+div.form{
+   
+    
+   
+    padding-left:10px;
+    padding-right:10px;
+    padding-bottom:5px;
+    padding-top: 10px;
+    
+    position: relative;
+    
+    top:2%;
+    margin-top: 4%;
+   
+  }
+
+div.home{
+    
+    text-align: center;
+    font-style: oblique;
+    font-size: 6vh;
+    margin-bottom: 20px;
+    margin-top: 60px;
 }
