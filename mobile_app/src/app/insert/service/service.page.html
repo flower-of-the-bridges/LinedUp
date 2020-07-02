@@ -35,19 +35,19 @@
       <span class="line divider home one-line">Service Description</span>
       <ion-item lines="full">
         <ion-label position="floating" class="sizelabel"><b>Name:*</b></ion-label>
-        <ion-input type="text" name="name" placeholder="Enter queue name..." style="font-style: oblique;" ngModel required></ion-input>
+        <ion-input type="text" name="name" placeholder="Enter queue name..." style="font-style: oblique;" [(ngModel)]="request.name" required></ion-input>
       </ion-item>
 
       <ion-item lines="none">
         <ion-label position="floating" class="sizelabel"><b>Description:*</b></ion-label>
         <ion-textarea rows="6" cols="20" name="description"
-          placeholder="Enter here a short description about the queue..." style="font-style: oblique;" ngModel></ion-textarea>
+          placeholder="Enter here a short description about the queue..." [(ngModel)]="request.description" style="font-style: oblique;"></ion-textarea>
       </ion-item>
 
       <span class="line divider home one-line">Type of Service</span>
       <ion-item>
         <ion-label style="font-size:16px;font-style: oblique;"><b>Select type of service*:</b></ion-label>
-        <ion-select name="type" placeholder=" service" style="font-style: oblique;" ngModel required>
+        <ion-select name="type" placeholder="Select queue's service" style="font-style: oblique;"  [(ngModel)]="request.service" required>
           <ion-select-option *ngFor="let service of services" value="{{service}}">{{service}}</ion-select-option>
         </ion-select>
       </ion-item>

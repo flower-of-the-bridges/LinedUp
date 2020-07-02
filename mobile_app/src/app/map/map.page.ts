@@ -48,35 +48,30 @@ export class MapPage implements OnInit {
     this.geoController = new GeoController(this.geolocation);
   }
 
-  ionViewWillEnter(){
+  ionViewWillEnter() {
     this.presentLoading();
+    
+    
+
+  }
+
+  ionViewDidEnter(){
+
+    this.authService.getPlace().subscribe(place => {
+      console.log("place is %o", place);
+      this.menuCtrl.enable(true, 'menu');
+      if (place != null) {
+        this.initMap(null, place.name);
+      }
+      else {
+
+        this.initMap(null, null);
+      }
+
+    })
   }
 
   ngOnInit() {
-    this.authService.isLoggedIn().subscribe((res: boolean) => {
-      console.log("is logged in res %o", res);
-      if (/**res*/true) {
-
-        this.authService.getPlace().subscribe(place => {
-          console.log("place is %o", place);
-          this.menuCtrl.enable(true, 'menu');
-          if (place != null) {
-            this.initMap(null, place.name);
-          }
-          else {
-
-            this.initMap(null, null);
-          }
-
-        })
-
-        //const callback = (evt) => { console.log(evt); document.getElementById("reportForm").onsubmit = (evt) => evt.preventDefault(); };
-
-      }
-      else {
-        this.router.navigateByUrl('home');
-      }
-    })
   }
 
   async presentLoading() {
@@ -91,9 +86,9 @@ export class MapPage implements OnInit {
     console.log('Loading dismissed!');
   }
 
-  
-  ionViewWillLeave(){
-    if(this.mapController){
+
+  ionViewWillLeave() {
+    if (this.mapController) {
       this.mapController.destroyMap();
       console.log("map destroyed");
     }
@@ -170,7 +165,7 @@ export class MapPage implements OnInit {
     this.search(this.queueSearch);
   }
 
-  changeMarkers(){
+  changeMarkers() {
     this.mapController.changeQueues(this.openQueues);
   }
 

@@ -46,6 +46,10 @@ const routes: Routes = [
   {
     path: 'favourites',
     loadChildren: () => import('./favourites/favourites.module').then( m => m.FavouritesPageModule)
+  },
+  {
+    path: 'home-auth',
+    loadChildren: () => import('./home-auth/home-auth.module').then( m => m.HomeAuthPageModule)
   }
 ];
 

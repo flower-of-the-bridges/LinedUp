@@ -9,15 +9,21 @@ import { AuthService } from '../auth.service';
 })
 export class LoginPage implements OnInit {
 
+  private showPassword = false;
+
   constructor(private  authService:  AuthService, private  router:  Router) { }
 
   ngOnInit() {
   }
 
-  login(form){
+  login(form: any){
     this.authService.login(form.value).subscribe((res)=>{
-      this.router.navigateByUrl('home');
+      this.router.navigateByUrl('home-auth');
     });
+  }
+
+  togglePassword(): void {
+    this.showPassword = !this.showPassword;
   }
 
 }

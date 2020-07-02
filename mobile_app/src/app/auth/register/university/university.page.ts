@@ -11,10 +11,14 @@ export class UniversityPage implements OnInit {
 
   private university: string;
   private universities: Array<string>;
+  private isGoogleAuth: string = null;
   private faculties: any;
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
+    this.authService.isGoogleAuthentication().subscribe(res => {
+      this.isGoogleAuth = res;
+    })
     this.authService.getUniversities().subscribe(res => {
 
       this.universities = Object.keys(res);
@@ -23,9 +27,16 @@ export class UniversityPage implements OnInit {
     })
   }
 
-  addUniversity(form) {
-    this.authService.addUniversities(form.value);
-    this.router.navigateByUrl('register');
+  addUniversity(form: any) {
+    if (this.isGoogleAuth == null) {
+      this.authService.addUniversities(form.value);
+      this.router.navigateByUrl('register');
+    }
+    else{
+      this.authService.finishGoogleRegistration(this.isGoogleAuth, form.value.university, form.value.faculty).subscribe(res => {
+        res && res.msg && res.msg == "ok" && this.router.navigateByUrl('home');
+      });
+    }
   }
 
   selectUniversity(value: string) {

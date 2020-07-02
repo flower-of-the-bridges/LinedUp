@@ -40,10 +40,9 @@ export class MapPage implements OnInit {
 
     this.authService.isLoggedIn().subscribe((res: boolean) => {
       console.log("is logged in res %o", res);
-      if (/**res*/true) {
+      if (res) {
         let marker = null;
 
-        const callback = (evt) => { console.log(evt); document.getElementById("reportForm").onsubmit = (evt) => evt.preventDefault(); };
         this.geoController.getUserPosition().then(pos => {
           console.debug("my pos is : " + pos);
           if (pos) {
@@ -52,9 +51,6 @@ export class MapPage implements OnInit {
             this.mapController.getBuildings(this.modalController);
           }
         });
-      }
-      else {
-        this.router.navigateByUrl('home');
       }
     })
   }
