@@ -5,20 +5,26 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { Storage } from '@ionic/storage';
 import { User } from './user';
 import { AuthResponse } from './auth-response';
+import { GooglePlus } from '@ionic-native/google-plus/ngx';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  
+
   AUTH_SERVER_ADDRESS: string = 'http://localhost:3000';
   authSubject = new BehaviorSubject(false);
   registerSubject = new BehaviorSubject(null);
   buildingSubject = new BehaviorSubject(null);
   insertSubject = new BehaviorSubject(false);
   placeSubject = new BehaviorSubject(null);
+  googleSubject = new BehaviorSubject(null);
 
-  constructor(private httpClient: HttpClient, private storage: Storage) { }
+  /** google variables */
+  private gapiSetup: boolean = false;
+  private googleAuthInstance: any;
+
+  constructor(private httpClient: HttpClient, private storage: Storage, private googlePlus: GooglePlus) { }
 
   addUniversities(value: any) {
     this.registerSubject.next(value);
@@ -71,17 +77,19 @@ export class AuthService {
     return this.buildingSubject.asObservable();
   }
 
-  getPlace(){
+  getPlace() {
     return this.placeSubject.asObservable();
   }
 
-  getFavourites() : Promise<any>{
+  getFavourites(): Promise<any> {
     return this.storage.get("FAVOURITES");
   }
 
   isLoggedIn() {
     this.storage.ready().then(storage => storage.getItem("ACCESS_TOKEN").then(res => {
-      res != null && console.log(res);
+      if(res!=null){
+        this.authSubject.next(true);
+      }
     }));
     return this.authSubject.asObservable();
   }
@@ -127,15 +135,15 @@ export class AuthService {
     return this.httpClient.post(`${this.AUTH_SERVER_ADDRESS}/favourites`, request).pipe(
       tap(async (res: any) => {
         console.log("res is %o", res);
-    }));
+      }));
   }
 
   addToFavourites(name: string) {
     this.storage.get("FAVOURITES").then(favourites => {
-      if(favourites!=null && favourites.length>0){
+      if (favourites != null && favourites.length > 0) {
         let removed = false;
         favourites.forEach((favourite, index) => {
-          if(favourite == name){
+          if (favourite == name) {
             favourites.splice(index, 1);
             removed = true;
             this.storage.set("FAVOURITES", favourites).then(() => {
@@ -143,14 +151,14 @@ export class AuthService {
             });
           }
         })
-        if(!removed){
+        if (!removed) {
           favourites.push(name);
           this.storage.set("FAVOURITES", favourites).then(() => {
             console.log("added %s to favourites", name);
           });
         }
       }
-      else{
+      else {
         let newFavourites = [];
         newFavourites.push(name);
         this.storage.set("FAVOURITES", newFavourites).then(() => {
@@ -162,10 +170,89 @@ export class AuthService {
 
   sendReview(request: any) {
     request["university"] = "Sapienza"
-    
+
     return this.httpClient.post(`${this.AUTH_SERVER_ADDRESS}/review`, request).pipe(
       tap(async (res: any) => {
         console.log("res is %o", res);
-    }));
+      }));
   }
+
+  googleSignUp(isNative: boolean, callback: Function) {
+    if (isNative) {
+      return this.googlePlus.login({});
+    }
+    else {
+      this.authenticate(callback);
+    }
+
+  }
+
+  async initGoogleAuth(): Promise<void> {
+    //  Create a new Promise where the resolve 
+    // function is the callback passed to gapi.load
+    const pload = new Promise((resolve) => {
+      gapi.load('auth2', resolve);
+    });
+
+    // When the first promise resolves, it means we have gapi
+    // loaded and that we can call gapi.init
+    return pload.then(async () => {
+      await gapi.auth2
+        .init({ client_id: '90433769635-lc48o02jipfrufd0re9kgq0i3vq94cl7.apps.googleusercontent.com' })
+        .then(auth => {
+          this.gapiSetup = true;
+          this.googleAuthInstance = auth;
+        });
+    });
+  }
+
+  async authenticate(callback: Function): Promise<gapi.auth2.GoogleUser> {
+    // Initialize gapi if not done yet
+    if (!this.gapiSetup) {
+      await this.initGoogleAuth();
+    }
+
+    // Resolve or reject signin Promise
+    return new Promise(async () => {
+      await this.googleAuthInstance.signIn().then(
+        (user: any) => {
+          console.log(user);
+          this.checkGoogleAccount(user.Qt, user.wc).subscribe(res => {
+            this.googleSubject.next(user.Qt.Au);
+            if (res.found != false) {
+              this.authSubject.next(true);
+            }
+            else {
+              callback(res.found);
+            }
+          });
+        },
+        (error: any) => console.log(error));
+    });
+
+  }
+
+  checkGoogleAccount(userInfo: any, userToken: any) {
+    this.storage.set("ACCESS_TOKEN", userToken.access_token);
+    this.storage.set("EXPIRES_IN", userToken.expires_in);
+
+    return this.httpClient.post(`${this.AUTH_SERVER_ADDRESS}/googlecheck`, { mail: userInfo.Au, name: userInfo.zW, surname: userInfo.zU }).pipe(
+      tap(async (res: any) => {
+        console.log("res is %o", res);
+      })
+    );
+  }
+
+  isGoogleAuthentication() {
+    return this.googleSubject.asObservable();
+  }
+
+  finishGoogleRegistration(mail: string, univerisity: string, faculty: string) {
+    return this.httpClient.post(`${this.AUTH_SERVER_ADDRESS}/googleupdate`, { mail: mail, university: univerisity, faculty: faculty }).pipe(
+      tap(async (res: any) => {
+        console.log("res is %o", res);
+        res && res.msg && res.msg == "ok" && this.authSubject.next(true);
+      }));
+  }
+
 }

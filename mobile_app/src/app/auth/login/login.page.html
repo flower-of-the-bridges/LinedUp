@@ -17,12 +17,14 @@
     <form #form="ngForm" (ngSubmit)="login(form)">
       <ion-item lines="full">
         <ion-label position="floating">Email</ion-label>
-        <ion-input type="email" name="email" ngModel required></ion-input>
+        <ion-input type="email" name="email" pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}" ngModel required></ion-input>
       </ion-item>
 
       <ion-item lines="full">
         <ion-label position="floating">Password</ion-label>
-        <ion-input type="password" name="password" ngModel required></ion-input>
+        <ion-input [type]="showPassword ? 'text' : 'password'" name="password" placeholder="Password" ngModel required>
+        </ion-input>
+        <ion-icon slot="end" [name]="showPassword ? 'eye-off' : 'eye'" (click)="togglePassword()"></ion-icon>
       </ion-item>
 
       <ion-row>

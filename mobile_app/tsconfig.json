@@ -14,7 +14,8 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "types": ["gapi.auth2"]
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,

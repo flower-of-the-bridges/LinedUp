@@ -11,19 +11,18 @@ export class RegisterPage implements OnInit {
 
   private university: string;
   private faculty: string;
-  
-  showPassword=false;
-  passwordtoggleicon='eye';
-  
+
+  private showPassword: boolean = false;
+  private showConfirmedPassword: boolean = false;
+
   constructor(private authService: AuthService, private router: Router) { }
-  
-  togglePassword():void{
+
+  togglePassword(): void {
     this.showPassword = !this.showPassword;
-    if(this.passwordtoggleicon == 'eye'){
-      this.passwordtoggleicon='eye-off';
-    }else{
-      this.passwordtoggleicon = 'eye';
-    }
+  }
+
+  toggleConfirmedPassword(): void {
+    this.showConfirmedPassword = !this.showConfirmedPassword;
   }
 
 

@@ -16,33 +16,34 @@ router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
 const database = new sqlite3.Database("./my.db");
 
+const faculties = [
+    "Engineering in Computer Science",
+    "Ingegneria dell'Informazione",
+    "Giurisprudenza",
+    "Economia",
+    "Economia aziendale",
+    "Ingegneria Meccanica",
+    "Ingegneria Civile ed Industrale",
+    "Ingegneria Ambientale",
+    "Psicologia",
+    "Lettere",
+    "Medicina",
+    "Chimica",
+    "Fisica",
+    "Matematica",
+    "Scienze della Formazione",
+    "Scienze Statistiche",
+    "Scienze Politiche",
+    "Lingua Letteratura e Culture Straniere",
+    "Graphics Design",
+    "Storia dell'arte",
+    "Scienze delle Comunicazioni",
+    "Biologia"
+];
+
 var universities = {
     "Sapienza": {
-        faculties: [
-            "Engineering in Computer Science",
-            "Ingegneria dell'Informazione",
-            "Giurisprudenza",
-            "Economia",
-            "Economia aziendale",
-            "Ingegneria Meccanica",
-            "Ingegneria Civile ed Industrale",
-            "Ingegneria Ambientale",
-            "Psicologia",
-            "Lettere",
-            "Medicina",
-            "Chimica",
-            "Fisica",
-            "Matematica",
-            "Scienze della Formazione",
-            "Scienze Statistiche",
-            "Scienze Politiche",
-            "Lingua Letteratura e Culture Straniere",
-            "Graphics Design",
-            "Storia dell'arte",
-            "Scienze delle Comunicazioni",
-            "Biologia"
-       ],
-
+        faculties: faculties,
         places: [
             {
                 name: "Segreteria Didattica",
@@ -82,314 +83,39 @@ var universities = {
         ]
     },
     "RomaTre": {
-        faculties:
-            [
-                  "Engineering in Computer Science",
-            "Ingegneria dell'Informazione",
-            "Giurisprudenza",
-            "Economia",
-            "Economia aziendale",
-            "Ingegneria Meccanica",
-            "Ingegneria Civile ed Industrale",
-            "Ingegneria Ambientale",
-            "Psicologia",
-            "Lettere",
-            "Medicina",
-            "Chimica",
-            "Fisica",
-            "Matematica",
-            "Scienze della Formazione",
-            "Scienze dell'educazione per educatori",
-            "Scienze Statistiche",
-            "Scienze Politiche",
-            "Lingua Letteratura e Culture Straniere",
-            "Graphics Design",
-            "Storia dell'arte",
-            "Scienze delle Comunicazioni",
-            "Biologia"
-            ]
+        faculties: faculties
     },
 
     "Tor Vergata": {
-        faculties:
-            [
-                  "Engineering in Computer Science",
-            "Ingegneria dell'Informazione",
-            "Giurisprudenza",
-            "Economia",
-            "Economia aziendale",
-            "Ingegneria Meccanica",
-            "Ingegneria Civile ed Industrale",
-            "Ingegneria Ambientale",
-            "Psicologia",
-            "Lettere",
-            "Medicina",
-            "Chimica",
-            "Fisica",
-            "Matematica",
-            "Scienze della Formazione",
-            "Scienze dell'educazione per educatori",
-            "Scienze Statistiche",
-            "Scienze Politiche",
-            "Lingua Letteratura e Culture Straniere",
-            "Graphics Design",
-            "Storia dell'arte",
-            "Scienze delle Comunicazioni",
-            "Biologia"
-            ]
+        faculties: faculties
     },
     "Politecnico di Milano": {
-        faculties:
-            [
-                  "Engineering in Computer Science",
-            "Ingegneria dell'Informazione",
-            "Giurisprudenza",
-            "Economia",
-            "Economia aziendale",
-            "Ingegneria Meccanica",
-            "Ingegneria Civile ed Industrale",
-            "Ingegneria Ambientale",
-            "Psicologia",
-            "Lettere",
-            "Medicina",
-            "Chimica",
-            "Fisica",
-            "Matematica",
-            "Scienze della Formazione",
-            "Scienze dell'educazione per educatori",
-            "Scienze Statistiche",
-            "Scienze Politiche",
-            "Lingua Letteratura e Culture Straniere",
-            "Graphics Design",
-            "Storia dell'arte",
-            "Scienze delle Comunicazioni",
-            "Biologia"
-            ]
+        faculties: faculties
     },
 
     "Politecnico di Torino": {
-        faculties:
-            [
-             "Engineering in Computer Science",
-            "Ingegneria dell'Informazione",
-            "Giurisprudenza",
-            "Economia",
-            "Economia aziendale",
-            "Ingegneria Meccanica",
-            "Ingegneria Civile ed Industrale",
-            "Ingegneria Ambientale",
-            "Psicologia",
-            "Lettere",
-            "Medicina",
-            "Chimica",
-            "Fisica",
-            "Matematica",
-            "Scienze della Formazione",
-            "Scienze dell'educazione per educatori",
-            "Scienze Statistiche",
-            "Scienze Politiche",
-            "Lingua Letteratura e Culture Straniere",
-            "Graphics Design",
-            "Storia dell'arte",
-            "Scienze delle Comunicazioni",
-            "Biologia"
-            ]
+        faculties: faculties
     },
     "Università degli studi dell'Aquila": {
-        faculties:
-            [
-             "Engineering in Computer Science",
-            "Ingegneria dell'Informazione",
-            "Giurisprudenza",
-            "Economia",
-            "Economia aziendale",
-            "Ingegneria Meccanica",
-            "Ingegneria Civile ed Industrale",
-            "Ingegneria Ambientale",
-            "Psicologia",
-            "Lettere",
-            "Medicina",
-            "Chimica",
-            "Fisica",
-            "Matematica",
-            "Scienze della Formazione",
-            "Scienze dell'educazione per educatori",
-            "Scienze Statistiche",
-            "Scienze Politiche",
-            "Lingua Letteratura e Culture Straniere",
-            "Graphics Design",
-            "Storia dell'arte",
-            "Scienze delle Comunicazioni",
-            "Biologia"
-            ]
+        faculties: faculties
     },
     "Università degli studi di Siena": {
-        faculties:
-            [
-             "Engineering in Computer Science",
-            "Ingegneria dell'Informazione",
-            "Giurisprudenza",
-            "Economia",
-            "Economia aziendale",
-            "Ingegneria Meccanica",
-            "Ingegneria Civile ed Industrale",
-            "Ingegneria Ambientale",
-            "Psicologia",
-            "Lettere",
-            "Medicina",
-            "Chimica",
-            "Fisica",
-            "Matematica",
-            "Scienze della Formazione",
-            "Scienze dell'educazione per educatori",
-            "Scienze Statistiche",
-            "Scienze Politiche",
-            "Lingua Letteratura e Culture Straniere",
-            "Graphics Design",
-            "Storia dell'arte",
-            "Scienze delle Comunicazioni",
-            "Biologia"
-            ]
+        faculties: faculties
     },
     "Università degli studi di Perugia": {
-        faculties:
-            [
-             "Engineering in Computer Science",
-            "Ingegneria dell'Informazione",
-            "Giurisprudenza",
-            "Economia",
-            "Economia aziendale",
-            "Ingegneria Meccanica",
-            "Ingegneria Civile ed Industrale",
-            "Ingegneria Ambientale",
-            "Psicologia",
-            "Lettere",
-            "Medicina",
-            "Chimica",
-            "Fisica",
-            "Matematica",
-            "Scienze della Formazione",
-            "Scienze dell'educazione per educatori",
-            "Scienze Statistiche",
-            "Scienze Politiche",
-            "Lingua Letteratura e Culture Straniere",
-            "Graphics Design",
-            "Storia dell'arte",
-            "Scienze delle Comunicazioni",
-            "Biologia"
-            ]
+        faculties: faculties
     },
     "Università degli studi Milano Bicocca": {
-        faculties:
-            [
-             "Engineering in Computer Science",
-            "Ingegneria dell'Informazione",
-            "Giurisprudenza",
-            "Economia",
-            "Economia aziendale",
-            "Ingegneria Meccanica",
-            "Ingegneria Civile ed Industrale",
-            "Ingegneria Ambientale",
-            "Psicologia",
-            "Lettere",
-            "Medicina",
-            "Chimica",
-            "Fisica",
-            "Matematica",
-            "Scienze della Formazione",
-            "Scienze dell'educazione per educatori",
-            "Scienze Statistiche",
-            "Scienze Politiche",
-            "Lingua Letteratura e Culture Straniere",
-            "Graphics Design",
-            "Storia dell'arte",
-            "Scienze delle Comunicazioni",
-            "Biologia"
-            ]
+        faculties: faculties
     },
     "University of Fine Arts": {
-        faculties:
-            [
-             "Engineering in Computer Science",
-            "Ingegneria dell'Informazione",
-            "Giurisprudenza",
-            "Economia",
-            "Economia aziendale",
-            "Ingegneria Meccanica",
-            "Ingegneria Civile ed Industrale",
-            "Ingegneria Ambientale",
-            "Psicologia",
-            "Lettere",
-            "Medicina",
-            "Chimica",
-            "Fisica",
-            "Matematica",
-            "Scienze della Formazione",
-            "Scienze dell'educazione per educatori",
-            "Scienze Statistiche",
-            "Scienze Politiche",
-            "Lingua Letteratura e Culture Straniere",
-            "Graphics Design",
-            "Storia dell'arte",
-            "Scienze delle Comunicazioni",
-            "Biologia"
-            ]
+        faculties: faculties
     },
     "UniMi": {
-        faculties:
-            [
-             "Engineering in Computer Science",
-            "Ingegneria dell'Informazione",
-            "Giurisprudenza",
-            "Economia",
-            "Economia aziendale",
-            "Ingegneria Meccanica",
-            "Ingegneria Civile ed Industrale",
-            "Ingegneria Ambientale",
-            "Psicologia",
-            "Lettere",
-            "Medicina",
-            "Chimica",
-            "Fisica",
-            "Matematica",
-            "Scienze della Formazione",
-            "Scienze dell'educazione per educatori",
-            "Scienze Statistiche",
-            "Scienze Politiche",
-            "Lingua Letteratura e Culture Straniere",
-            "Graphics Design",
-            "Storia dell'arte",
-            "Scienze delle Comunicazioni",
-            "Biologia"
-            ]
+        faculties: faculties
     },
     "UniBas": {
-        faculties:
-            [
-             "Engineering in Computer Science",
-            "Ingegneria dell'Informazione",
-            "Giurisprudenza",
-            "Economia",
-            "Economia aziendale",
-            "Ingegneria Meccanica",
-            "Ingegneria Civile ed Industrale",
-            "Ingegneria Ambientale",
-            "Psicologia",
-            "Lettere",
-            "Medicina",
-            "Chimica",
-            "Fisica",
-            "Matematica",
-            "Scienze della Formazione",
-            "Scienze dell'educazione per educatori",
-            "Scienze Statistiche",
-            "Scienze Politiche",
-            "Lingua Letteratura e Culture Straniere",
-            "Graphics Design",
-            "Storia dell'arte",
-            "Scienze delle Comunicazioni",
-            "Biologia"
-            ]
+        faculties: faculties
     }
 }
 
@@ -416,6 +142,18 @@ const findUserByEmail = (email, cb) => {
 
 const createUser = (user, cb) => {
     return database.run('INSERT INTO users (name, surname, email, birthdate, university, faculty, password) VALUES (?,?,?,?,?,?,?)', user, (err) => {
+        cb(err)
+    });
+}
+
+const createGoogleUser = (user, cb) => {
+    return database.run('INSERT INTO users (name, surname, email) VALUES (?,?,?)', user, (err) => {
+        cb(err)
+    });
+}
+
+const updateGoogleUser = (user, cb) => {
+    return database.run('UPDATE users SET university = ?, faculty = ? WHERE email = ?', user, (err) => {
         cb(err)
     });
 }
@@ -584,6 +322,42 @@ router.post('/review', (req, res) => {
 
     return res.status(200).send({msg: result, persons: persons, time: time});
 })
+
+router.post('/googlecheck', (req, res) =>{
+    console.log("received req %o", req.body);
+    findUserByEmail(req.body.mail, (err, user) => {
+        if (err) return res.status(500).send('Server error!');
+        else{
+            console.log(user);
+            let found = user != null && user.university!=null;
+            if(user==null){
+                createGoogleUser([req.body.name, req.body.surname, req.body.mail], (err) => {
+                    if (err) {
+                        console.error(err);
+                        return res.status(500).send("Server error!");
+                    }
+                });
+            }
+            return res.status(200).send({"user": user, "found": found});
+        }
+    });
+})
+
+router.post('/googleupdate', (req, res) => {
+    console.log("received %o", req.body);
+    updateGoogleUser([req.body.university, req.body.faculty, req.body.mail], (err) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).send("Server error!");
+        }
+        else{
+            
+            console.log(`Row(s) updated: ${this.changes}`);
+            return res.status(200).send({msg: "ok"});
+        }
+    });
+
+});
 
 app.use(router);
 const port = process.env.PORT || 3000;

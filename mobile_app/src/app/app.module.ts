@@ -10,6 +10,7 @@ import { AuthModule } from  './auth/auth.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { GooglePlus} from '@ionic-native/google-plus/ngx';
 import { ReportComponent } from './report/report.component';
 import { createCustomElement } from '@angular/elements';
 
@@ -20,6 +21,7 @@ import { createCustomElement } from '@angular/elements';
     StatusBar,
     SplashScreen,
     Geolocation,
+    GooglePlus,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent],

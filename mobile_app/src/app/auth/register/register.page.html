@@ -44,12 +44,12 @@
     </ion-item>
     <ion-item lines="full" class="sizelabel">
       <ion-input [type]="showPassword ? 'text' : 'password'" name="password" placeholder="Password" ngModel required></ion-input>
-      <ion-icon slot="end" [name]="passwordtoggleicon" (click)="togglePassword()"></ion-icon>
+      <ion-icon slot="end" [name]="showPassword ? 'eye-off' : 'eye'" (click)="togglePassword()"></ion-icon>
     </ion-item>
 
     <ion-item lines="full" class="sizelabel">
-      <ion-input [type]="showPassword ? 'text' : 'password'" name="confirm" placeholder="Confirm Password" ngModel required></ion-input>
-      <ion-icon slot="end" [name]="passwordtoggleicon" (click)="togglePassword()"></ion-icon>
+      <ion-input [type]="showConfirmedPassword ? 'text' : 'password'" name="confirm" placeholder="Confirm Password" ngModel required></ion-input>
+      <ion-icon slot="end" [name]="showConfirmedPassword ? 'eye-off' : 'eye'" (click)="toggleConfirmedPassword()"></ion-icon>
     </ion-item>
   </div>
     <ion-row>

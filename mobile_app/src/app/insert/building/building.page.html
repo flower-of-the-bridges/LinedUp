@@ -24,7 +24,7 @@
   <div *ngIf="buildingSection">
     <h3>Select the building where the queue is located.
       The building you were looking at can't be found?</h3>
-      <ion-label class="text sizelabel"><a>Search On Map</a></ion-label>
+      <ion-label class="text sizelabel"><a [routerLink]="['/insert/map']">Search On Map</a></ion-label>
       <div style="margin-top:80px;">
     <ion-item button #building (click)="selectBuilding(building)" detail *ngFor="let building of buildings">
       <ion-label>
