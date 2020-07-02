@@ -13,7 +13,7 @@ import { GooglePlus } from '@ionic-native/google-plus/ngx';
 export class AuthService {
 
   AUTH_SERVER_ADDRESS: string = 'http://localhost:3000';
-  authSubject = new BehaviorSubject(false);
+  authSubject: BehaviorSubject<any> = new BehaviorSubject(false);
   registerSubject = new BehaviorSubject(null);
   buildingSubject = new BehaviorSubject(null);
   insertSubject = new BehaviorSubject(false);
@@ -38,7 +38,7 @@ export class AuthService {
           await this.storage.set("ACCESS_TOKEN", res.user.access_token);
           await this.storage.set("EXPIRES_IN", res.user.expires_in);
 
-          this.authSubject.next(true);
+          //this.authSubject.next(true);
         }
       })
     );
@@ -53,7 +53,7 @@ export class AuthService {
           await this.storage.set("ACCESS_TOKEN", res.user.access_token);
           await this.storage.set("EXPIRES_IN", res.user.expires_in);
 
-          this.authSubject.next(true);
+          //this.authSubject.next(true);
         }
       })
     );
@@ -85,15 +85,13 @@ export class AuthService {
     return this.storage.get("FAVOURITES");
   }
 
-  isLoggedIn() {
-    this.storage.ready().then(storage => storage.getItem("ACCESS_TOKEN").then(res => {
-      if(res!=null){
-        this.authSubject.next(true);
-      }
-    }));
-    return this.authSubject.asObservable();
+  async isLoggedIn(): Promise<any> {
+    return this.storage.ready().then(storage => storage.getItem("ACCESS_TOKEN"));
   }
 
+  hasUserLoggedIn(){
+    return this.authSubject.asObservable();
+  }
   hasUniversitySelected() {
     return this.registerSubject.asObservable();
   }
@@ -219,12 +217,7 @@ export class AuthService {
           console.log(user);
           this.checkGoogleAccount(user.Qt, user.wc).subscribe(res => {
             this.googleSubject.next(user.Qt.Au);
-            if (res.found != false) {
-              this.authSubject.next(true);
-            }
-            else {
-              callback(res.found);
-            }
+            callback(res.found);
           });
         },
         (error: any) => console.log(error));

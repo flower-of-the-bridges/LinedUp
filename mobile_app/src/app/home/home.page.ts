@@ -13,7 +13,7 @@ export class HomePage implements OnInit {
   constructor(private authService: AuthService, public menuCtrl: MenuController, private platform: Platform, private router: Router) { }
 
   ngOnInit() {
-    this.authService.isLoggedIn().subscribe((res: boolean) => {
+    this.authService.isLoggedIn().then((res: boolean) => {
       console.log("is logged in res %o", res);
       if (res) {
         this.router.navigateByUrl("/home-auth");
@@ -21,17 +21,29 @@ export class HomePage implements OnInit {
     })
   }
 
+  ionViewWillEnter(){
+    this.menuCtrl.enable(false, 'menu');
+  }
+
   googleSignUp() {
     this.authService.googleSignUp(this.platform.is('cordova'), this.googleCallback.bind(this));
   }
 
   googleCallback(found: boolean) {
+    console.log("found is %s", found);
     if (!found) {
-      this.router.navigateByUrl("register/university");
+      this.router.navigateByUrl("/register/university");
     }
     else {
-      this.router.navigateByUrl("register/university");
+      this.menuCtrl.enable(true, "menu");
+      this.router.navigateByUrl("/home-auth");
     }
   }
+
+  
+  goToMap(){
+    this.router.navigateByUrl("/map");
+  }
+
 
 }

@@ -36,12 +36,17 @@ export class RegisterPage implements OnInit {
     })
   }
 
-  register(form) {
+  register(form: any) {
     form.value["faculty"] = this.faculty;
     form.value["university"] = this.university;
     console.log("form is %o", form.value);
-    this.authService.register(form.value).subscribe((res) => {
-      this.router.navigateByUrl('home-auth');
+    this.authService.register(form.value).subscribe((res: any) => {
+
+      if (res.access_token!=null) {
+        this.authService.authSubject.next(res.access_token);
+        console.log("navigating");
+        this.router.navigateByUrl('/home-auth');
+      }
     });
   }
 

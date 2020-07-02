@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
-import { MenuController, Platform } from '@ionic/angular';
+import { MenuController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,27 +10,26 @@ import { Router } from '@angular/router';
 })
 export class HomeAuthPage implements OnInit {
 
-  isLoggedIn: boolean = false;
-
   constructor(private authService: AuthService, public menuCtrl: MenuController, private router: Router) { }
 
   ngOnInit() {
 
-    this.authService.isLoggedIn().subscribe((res: boolean) => {
-      console.log("is logged in res %o", res);
-      if (res) {
-        this.isLoggedIn = true;
+    this.menuCtrl.enable(true, "menu");
 
-        this.menuCtrl.enable(this.isLoggedIn, 'menu');
-      }
-      else{
-        this.router.navigateByUrl("/home");
+    this.authService.isLoggedIn().then((res: boolean) => {
+      console.log("is logged in res %o", res);
+      if (!res) {
+        this.authService.hasUserLoggedIn().subscribe(res => {
+          if (res == null) {
+            this.router.navigateByUrl("/home");
+          }
+        })
       }
 
     })
   }
-
-  goToMap(){
+  
+  goToMap() {
     this.router.navigateByUrl("/map");
   }
 

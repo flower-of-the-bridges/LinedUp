@@ -43,23 +43,19 @@ export class MapPage implements OnInit {
 
   private filterSection: boolean = false;
 
-  constructor(public loadingController: LoadingController, private geolocation: Geolocation, private authService: AuthService, private httpClient: HttpClient, private router: Router, public menuCtrl: MenuController) {
+  constructor(public loadingController: LoadingController, private geolocation: Geolocation, private authService: AuthService, private httpClient: HttpClient, private router: Router) {
 
     this.geoController = new GeoController(this.geolocation);
   }
 
   ionViewWillEnter() {
     this.presentLoading();
-    
-    
-
   }
 
   ionViewDidEnter(){
 
     this.authService.getPlace().subscribe(place => {
       console.log("place is %o", place);
-      this.menuCtrl.enable(true, 'menu');
       if (place != null) {
         this.initMap(null, place.name);
       }

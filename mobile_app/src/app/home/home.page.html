@@ -24,25 +24,43 @@
 
           <span class="line divider home one-line">Lets start!</span>
 
+          <ion-row>
+            <ion-col>
+              <center>
+                <ion-button [routerLink]="['/register/university']" color="primary" size="large">Sign Up</ion-button>
+              </center>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <center>
+                <ion-button (click)='googleSignUp()' color="light" size="large">Sign Up with <ion-icon
+                    name="logo-google">
+                  </ion-icon>
+                </ion-button>
+              </center>
+            </ion-col>
+          </ion-row>
+          <span class="line divider home one-line">or already a user?</span>
 
-          <center>
 
-            <ion-button [routerLink]="['/register/university']" color="primary" size="large">Sign Up</ion-button>
-            <br />
-            <ion-button (click)='googleSignUp()' color="light" size="large">Sign Up with <ion-icon name="logo-google">
-              </ion-icon>
-            </ion-button>
-            <span class="line divider home one-line">or already a user?</span>
-
-
-
-            <ion-button [routerLink]="['/login']" color="signin" size="large">Sign In</ion-button>
-            <br />
-            <ion-button (click)='googleSignUp()' color="light" size="large">Sign In with <ion-icon name="logo-google">
-              </ion-icon>
-            </ion-button>
-
-          </center>
+          <ion-row>
+            <ion-col>
+              <center>
+                <ion-button [routerLink]="['/login']" color="signin" size="large">Sign In</ion-button>
+              </center>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <center>
+                <ion-button (click)='googleSignUp()' color="light" size="large">Sign In with <ion-icon
+                    name="logo-google">
+                  </ion-icon>
+                </ion-button>
+              </center>
+            </ion-col>
+          </ion-row>
 
 
         </div>

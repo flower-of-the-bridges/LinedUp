@@ -111,7 +111,7 @@
    
   </div>
   <div id="map" style="position: relative; height: 100%;" *ngIf="queueSearch==null || viewResult"></div>
-  <ion-item id="refreshButton">
+  <ion-item id="refreshButton" *ngIf="queueSearch==null || viewResult">
     <ion-label>Open Queues Only</ion-label>
     <ion-toggle color="success" (ionChange)="changeMarkers()" [(ngModel)]="openQueues"></ion-toggle>
   </ion-item>

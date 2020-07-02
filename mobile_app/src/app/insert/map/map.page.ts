@@ -38,7 +38,7 @@ export class MapPage implements OnInit {
 
   ngOnInit() {
 
-    this.authService.isLoggedIn().subscribe((res: boolean) => {
+    this.authService.isLoggedIn().then((res: boolean) => {
       console.log("is logged in res %o", res);
       if (res) {
         let marker = null;
