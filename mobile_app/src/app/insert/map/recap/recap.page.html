@@ -1,27 +1,46 @@
-<div style="text-align: center;">
-  <ion-title><b>Position Recap</b></ion-title>
+
+<ion-header>
+  <ion-toolbar>
+      
+      <ion-grid>
+        <ion-row>
+          <ion-col >
+          <ion-title color="title">
+            Position Recap
+            </ion-title>
+          </ion-col>
+          
+        </ion-row>
+      </ion-grid>
+  
+    </ion-toolbar>
+  </ion-header>
+<ion-content>
+<div style="text-align: center;" class="home">
+  
   <h4>Your queue is located at:</h4>
   <div *ngIf="place!=null; else streetBlock">
-    <h3><b>{{place.street}}</b></h3>
+    <h3 ><b>{{place.street}}</b></h3>
     <h4><b>{{place.building}}</b> is associated to this street.</h4>
   </div>
   <ng-template #streetBlock>
     <h3><b>{{street}}</b></h3>
     <h4>No building is associated to this street.</h4>
   </ng-template>
-  <ion-grid>
+  <ion-grid style="margin-top: 150px;">
     <ion-row>
       <ion-col align-self-center>
-        <h4>Confirm?</h4>
+        <h4><b>Confirm?</b></h4>
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col>
-        <ion-button color="danger" (click)="dismiss()" expand="block">No</ion-button>
+        <ion-button color="title" (click)="dismiss()" size="medium">No</ion-button>
       </ion-col>
       <ion-col>
-        <ion-button color="success" (click)="selectPlace()" expand="block">Yes</ion-button>
+        <ion-button color="signin" (click)="selectPlace()" size="medium">Yes</ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>
 </div>
+</ion-content>

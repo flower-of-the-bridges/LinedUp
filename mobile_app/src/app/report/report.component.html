@@ -1,8 +1,9 @@
-<div style="text-align: center;">
-  <h3><b>{{name}}</b></h3>
-  <h4>{{street}}</h4>
-  <h4><b>{{status ? "Opened" : "Closed"}}</b></h4>
-
+<div style="text-align: center; ">
+ <div style="font-size: 17px;">
+  <b>{{name}}</b><br/>
+  {{street}}<br>
+  <b>{{status ? "Opened" : "Closed"}}</b>
+</div>
 
   <ion-row>
     <ion-col>
@@ -43,13 +44,12 @@
     </ion-col>
   </ion-row>
 </ion-grid>
-<center>
+
   <ion-row>
     <ion-col *ngIf="isNear && status">
-      <ion-button type="submit" color="primary" (click)="queueModal()" size="small">I'm in Queue</ion-button>
+      <center><ion-button type="submit" color="primary" (click)="queueModal()" size="small" style="font-size:x-small;">I'm in Queue</ion-button></center>
     </ion-col>
     <ion-col>
-      <ion-button type="submit" color="primary" (click)="problemModal()" size="small">Report Problem</ion-button>
+      <center><ion-button type="submit" color="primary" (click)="problemModal()" size="small" style="font-size:x-small;">Report Problem</ion-button></center>
     </ion-col>
   </ion-row>
-</center>

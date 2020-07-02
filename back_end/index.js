@@ -58,9 +58,9 @@ var universities = {
                 status: 0
             },
             {
-                name: "Ricevimento Professore",
+                name: "Ricevimento Professore ",
                 building: "D.I.A.G. (Dipartimento Ingegneria Automatica e Gestionale)",
-                street: "Via Eudossiana 18",
+                street: "Via Ariosto 18",
                 status: 1,
                 people: "10 - 20",
                 time: "30 - 60",

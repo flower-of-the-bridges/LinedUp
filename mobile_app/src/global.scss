@@ -67,12 +67,19 @@
 
 
   .leaflet-popup-content-wrapper {
-    width:350px !important;
+    width:360px !important;
+    height: 300px;
     }
 
     .alert-wrapper {
       width: 50% !important;
       max-width: 30% !important;
+      }
+
+
+      .leaflet-popup-content{
+
+        width:350px !important;
       }
 
    

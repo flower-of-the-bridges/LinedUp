@@ -26,11 +26,13 @@
   <div id="map" style="position: relative; height: 100%;" *ngIf="queueSearch==null || viewResult"></div>
   <div *ngIf="queueSearch!=null && !viewResult" style="text-align: center;">
     <ion-toolbar>
-      <ion-title>
-        <h3>Results for "{{queueSearch}}" <h4 *ngIf="filter.type!=null || filter.status!=null">(
+      
+      
+        <h3 class="home">Results for <b>"{{queueSearch}}"</b> <h4 *ngIf="filter.type!=null || filter.status!=null">(
             {{filter.status == 1 ? 'Opened' : (filter.status == 0 ? 'Closed' : '')}} {{filter.type}} )</h4>
         </h3>
-      </ion-title>
+     
+      
       <ion-buttons slot="end">
         <ion-button *ngIf="filter.type!=null || filter.status!=null" (click)="clearFilter()">
           Clear
@@ -44,12 +46,12 @@
         </ion-button>
       </ion-buttons>
     </ion-toolbar>
-    <div *ngIf="filterSection">
+    <div *ngIf="filterSection" class="filter">
       <ion-row>
-        <ion-label><b>Service:</b></ion-label>
+        <ion-label color="title" style="font-style: oblique;margin-bottom:10px"><b>Service:</b></ion-label>
       </ion-row>
       <ion-row>
-        <ion-radio-group [(ngModel)]="filter.type">
+        <ion-radio-group [(ngModel)]="filter.type" style="font-style: oblique;margin-bottom:50px">
           <ion-col *ngFor="let filter of filters.type">
             <ion-radio value="{{filter.value}}" (click)="selectType(filter.value)"></ion-radio>
             <ion-label>{{filter.name}}</ion-label>
@@ -57,10 +59,10 @@
         </ion-radio-group>
       </ion-row>
       <ion-row>
-        <ion-label><b>Status:</b></ion-label>
+        <ion-label color="title" style="font-style: oblique;margin-bottom:10px"><b>Status:</b></ion-label>
       </ion-row>
       <ion-row>
-        <ion-radio-group [(ngModel)]="filter.status">
+        <ion-radio-group [(ngModel)]="filter.status" style="font-style: oblique;">
           <ion-col *ngFor="let filter of filters.status">
             <ion-radio value="{{filter.value}}" (click)="selectStatus(filter.value)"></ion-radio>
             <ion-label>{{filter.name}}</ion-label>
@@ -70,42 +72,44 @@
     </div>
     <ion-item-divider>
     </ion-item-divider>
+   
     <ion-item button #queue (click)="selectQueue(queue)" [disabled]="filterSection" detail
       *ngFor="let queue of searchList">
       <ion-grid>
         <ion-row>
           <ion-col size="8">
-            <ion-label>
+            <ion-label style="font-style: oblique; font-size:15px">
               {{queue.name}}
             </ion-label>
           </ion-col>
-          <ion-col size="4">
-            <ion-label *ngIf="queue.status==1" style="color: greenyellow;">
+          <ion-col size="4" style="position:relative; top:20px; ">
+            <ion-label *ngIf="queue.status==1" style="color:rgb( 50,205,50);font-weight: bold;font-size: 15px; font-style: oblique;">
               Opened
             </ion-label>
 
-            <ion-label *ngIf="queue.status==0" style="color: red;">
+            <ion-label *ngIf="queue.status==0" style="color: #8b0000;font-weight: bold;font-size:15px; font-style: oblique;">
               Closed
             </ion-label>
           </ion-col>
         </ion-row>
         <ion-row *ngIf="queue.status==1">
           <ion-col size="4">
-            <ion-label>
-              <ion-icon name="people"></ion-icon>
+            <ion-label style="font-style: oblique; font-size:15px">
+              <ion-icon name="people" style="font-size:small"></ion-icon>
               {{queue.people}}
             </ion-label>
           </ion-col>
           <ion-col size="6">
-            <ion-label>
+            <ion-label style="font-style: oblique; font-size:15px">
 
-              <ion-icon name="time-outline"></ion-icon>
+              <ion-icon name="time" style="font-size:small"></ion-icon>
               {{queue.time}} min
             </ion-label>
           </ion-col>
         </ion-row>
       </ion-grid>
     </ion-item>
+   
   </div>
   <ion-item id="refreshButton">
     <ion-label>Open Queues Only</ion-label>
