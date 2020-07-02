@@ -10,6 +10,10 @@ export class ProblemPage implements OnInit {
 
   @Input() name: string = "";
 
+  @Input() id: number;
+
+  @Input() university: string = "";
+
   private genericProblem: boolean = false;
 
   private hoursProblem: boolean = false;

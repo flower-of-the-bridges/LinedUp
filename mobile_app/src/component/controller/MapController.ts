@@ -17,7 +17,7 @@ export class MapController {
     private httpClient: HttpClient;
     private places: Array<any> = [];
     private hiddenPlaces: Array<any> = [];
-    private showPopup: string = "";
+    private showPopup: any = null;
     private defaultZoom: number = 23;
 
     private static ENDPOINT = "http://localhost:3000";
@@ -42,7 +42,7 @@ export class MapController {
         popupAnchor: [0, 0]
     });
 
-    constructor(div: string, position: Position, viewPosition: Position, httpClient: HttpClient, showPopup: string) {
+    constructor(div: string, position: Position, viewPosition: Position, httpClient: HttpClient, showPopup: any) {
         this.httpClient = httpClient;
         this.userPosition = position;
         this.viewPosition = viewPosition;
@@ -76,18 +76,18 @@ export class MapController {
 
     }
 
-    public getPositions() {
-        this.httpClient.post(MapController.ENDPOINT + "/positions", { position: this.userPosition, university: "Sapienza" }).subscribe(
+    public getPositions(university: string ) {
+        this.httpClient.post(MapController.ENDPOINT + "/positions", { position: this.userPosition, university: university }).subscribe(
             res => {
                 /** server returns a list of places */
                 console.log("positions %o", res);
                 Array.isArray(res) && res.forEach(place => {
                     let posMarker = marker(place.position, { icon: place.status == 0 ? MapController.RED_MARKER : MapController.GREEN_MARKER })
                         .bindPopup(
-                            this.createPlacePopup(place.name, place.status, place.street, place.position, place.people || null, place.time || null, place.news.length)
+                            this.createPlacePopup(place.id, place.name, place.type, university, place.status, place.street, place.position, place.people || null, place.time || null, place.news.length)
                             , { autoClose: true })
                         .on('click', (evt) => {
-                            let popup = this.createPlacePopup(place.name, place.status, place.street, null, place.people || null, place.time || null, place.news.length);
+                            let popup = this.createPlacePopup(place.id, place.name, place.type, university, place.status, place.street, null, place.people || null, place.time || null, place.news.length);
                             popup.isNear = this.isNear(place.position);
                             evt.target.bindPopup(popup, { autoClose: true });
                             place.position.lat > this.userPosition.getLatitude() && this.map.setView([place.position.lat + 0.001, place.position.lon], this.defaultZoom, {animate: true});
@@ -98,7 +98,7 @@ export class MapController {
                         })
                         .addTo(this.map);
 
-                    if (this.showPopup && this.showPopup == place.name) {
+                    if (this.showPopup && this.showPopup == place.id) {
                         console.log("opening");
                         place.position.lat > this.userPosition.getLatitude() && this.map.setView([place.position.lat + 0.005, place.position.lon], this.defaultZoom, {animate: true});
                         posMarker.openPopup();
@@ -109,8 +109,8 @@ export class MapController {
         )
     }
 
-    public getBuildings(modalController: ModalController) {
-        this.httpClient.post(MapController.ENDPOINT + "/positions", { position: this.userPosition, university: "Sapienza" }).subscribe(
+    public getBuildings(modalController: ModalController, university) {
+        this.httpClient.post(MapController.ENDPOINT + "/positions", { position: this.userPosition, university: university }).subscribe(
             res => {
                 /** server returns a list of places */
                 console.log("positions %o", res);
@@ -134,10 +134,14 @@ export class MapController {
         return Math.abs(circleCenterPoint.distanceTo(point)) <= radius;
     }
 
-    createPlacePopup(name, status, street, pos, people, time, newsCount) {
+    createPlacePopup(id: number, name:string, type: string, university: string, status: number, street: string, pos: any, people: string, time: string, newsCount: number) {
         let popupEl: NgElement & WithProperties<ReportComponent> = document.createElement('popup-element') as any;
+        popupEl.identifier = id;
         popupEl.name = name;
+        popupEl.type = type;
         popupEl.status = status != 0;
+        popupEl.university = university;
+
         if(status == 1){
             popupEl.persons = people;
             popupEl.time = time;

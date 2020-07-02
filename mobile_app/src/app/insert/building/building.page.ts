@@ -15,30 +15,32 @@ export class BuildingPage implements OnInit {
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
-    this.authService.getUniversities().subscribe(res => {
-      res["Sapienza"].places.forEach((place: any, index: number) => {
-        this.buildings.push({name: place.building, street: place.street, index: index});
-      });
-      console.log(this.buildings);
-    })
+    this.authService.getUniversity().then(university => {
+      this.authService.getUniversities().subscribe(res => {
+        res[university].places.forEach((place: any, index: number) => {
+          !place.building.includes("Room") && this.buildings.push({ id: place.id, name: place.building, street: place.street, index: index });
+        });
+        console.log(this.buildings);
+      })
+    });
   }
 
-  selectBuilding(building: any){
+  selectBuilding(building: any) {
     console.log(building);
     this.building = building;
     this.buildingSection = false;
   }
 
-  back(){
-    if(this.buildingSection){
+  back() {
+    if (this.buildingSection) {
       this.router.navigateByUrl("/insert");
     }
-    else{
+    else {
       this.buildingSection = true;
     }
   }
 
-  confirm(form: any){
+  confirm(form: any) {
     console.log(form.value);
     this.authService.setBuilding({
       building: this.building,

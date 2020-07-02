@@ -13,23 +13,25 @@ export class FavouritesPage implements OnInit {
   private interval: any = null;
 
   constructor(private authService: AuthService, private router: Router) {
- 
+
   }
 
   ngOnInit() {
-    this.authService.getFavourites().then(favourites => {
-      console.log("favourites are %o", favourites);
-      if (favourites && favourites.length > 0) {
-        this.authService.getFavouritePlaces(favourites).subscribe(res => {
-          if (Array.isArray(res)) {
-            this.placeList = res;
-          }
-        })
-      }
-    })
+    this.authService.getUniversity().then(university => {
+      this.authService.getFavourites().then(favourites => {
+        console.log("favourites are %o", favourites);
+        if (favourites && favourites.length > 0) {
+          this.authService.getFavouritePlaces(favourites,university).subscribe(res => {
+            if (Array.isArray(res)) {
+              this.placeList = res;
+            }
+          })
+        }
+      })
+    });
   }
 
-  selectQueue(queue){
+  selectQueue(queue) {
     this.authService.selectPlace(queue);
     this.router.navigateByUrl("/map");
   }

@@ -10,6 +10,8 @@ import { AuthService } from 'src/app/auth/auth.service';
 })
 export class QueuePage implements OnInit {
 
+  @Input() id: number;
+  @Input() university: string;
   @Input() name: string;
   @Input() street: string;
   @Input() status: boolean;
@@ -121,7 +123,8 @@ export class QueuePage implements OnInit {
   sendReview() {
     this.reportSent = true;
     this.review = false;
-    this.authService.sendReview({ name: this.name, request: this.request }).subscribe(res => {
+    this.request["university"] = this.university;
+    this.authService.sendReview({ id: this.id, request: this.request }).subscribe(res => {
       this.requestResult = res;
     })
   }

@@ -43,6 +43,8 @@ export class MapPage implements OnInit {
 
   private filterSection: boolean = false;
 
+  private university: string = null;
+
   constructor(public loadingController: LoadingController, private geolocation: Geolocation, private authService: AuthService, private httpClient: HttpClient, private router: Router) {
 
     this.geoController = new GeoController(this.geolocation);
@@ -52,18 +54,21 @@ export class MapPage implements OnInit {
     this.presentLoading();
   }
 
-  ionViewDidEnter(){
+  ionViewDidEnter() {
 
-    this.authService.getPlace().subscribe(place => {
-      console.log("place is %o", place);
-      if (place != null) {
-        this.initMap(null, place.name);
-      }
-      else {
+    this.authService.getUniversity().then(university => {
+      this.university = university;
+      this.authService.getPlace().subscribe(place => {
+        console.log("place is %o", place);
+        if (place != null) {
+          this.initMap(null, place.id);
+        }
+        else {
 
-        this.initMap(null, null);
-      }
+          this.initMap(null, null);
+        }
 
+      })
     })
   }
 
@@ -121,10 +126,10 @@ export class MapPage implements OnInit {
   selectQueue(queue: any) {
     console.log("queue is %o", queue);
     this.viewResult = true;
-    this.initMap(new Position(queue.position.lat, queue.position.lon, 100), queue.name);//JSON.stringify(queue.position));
+    this.initMap(new Position(queue.position.lat, queue.position.lon, 100), queue.id);//JSON.stringify(queue.position));
   }
 
-  initMap(queuePosition: any, showPopup: string) {
+  initMap(queuePosition: any, showPopup: any) {
 
     let marker = null;
 
@@ -133,7 +138,7 @@ export class MapPage implements OnInit {
       if (pos) {
         this.mapController = new MapController('map', pos, queuePosition || pos, this.httpClient, showPopup);
         marker = this.mapController.addUser();
-        this.mapController.getPositions();
+        this.mapController.getPositions(this.university);
       }
     });
   }

@@ -11,48 +11,41 @@
           </ion-title>
         </ion-col>
         <ion-col>
-         <center> <img src="../../assets/icon/linedup.png" style="width:70px;"/></center>
+          <center> <img src="../../assets/icon/linedup.png" style="width:70px;" /></center>
         </ion-col>
       </ion-row>
     </ion-grid>
-    
+
   </ion-toolbar>
 </ion-header>
 
 <ion-content style="text-align: center;">
   <div class="home">
-  <div *ngIf="buildingSection">
-<<<<<<< HEAD
-    <h4>Select the building where the queue is located.
-      The building you were looking at can't be found?</h4>
-      <ion-label class="text sizelabel"><a>Search On Map</a></ion-label>
-      <div style="margin-top:60px;">
-=======
-    <h3>Select the building where the queue is located.
-      The building you were looking at can't be found?</h3>
+    <div *ngIf="buildingSection">
+      <h4>Select the building where the queue is located.
+        The building you were looking at can't be found?</h4>
       <ion-label class="text sizelabel"><a [routerLink]="['/insert/map']">Search On Map</a></ion-label>
-      <div style="margin-top:80px;">
->>>>>>> 0196bf545ad6a3d4b4bf16b31325fe34047d1392
-    <ion-item button #building (click)="selectBuilding(building)" detail *ngFor="let building of buildings">
-      <ion-label>
-        {{building.name}}
-      </ion-label>
-    </ion-item>
+      <div style="margin-top:60px;">
+        <ion-item button #building (click)="selectBuilding(building)" detail *ngFor="let building of buildings">
+          <ion-label>
+            {{building.name}}
+          </ion-label>
+        </ion-item>
+      </div>
     </div>
   </div>
-</div>
   <div *ngIf="!buildingSection">
     <div class="home">
-      <h3 >Your building is located at</h3>
+      <h3>Your building is located at</h3>
       <ion-title color="title" style="font-size: 24px;"><b>{{building.name}}</b></ion-title>
-      
+
     </div>
 
     <form #form="ngForm" (ngSubmit)="confirm(form)">
       <div class="info">
         <ion-item lines="full">
           <ion-label position="floating" class="sizelabel1">Room Name:</ion-label>
-          <ion-input type="text" name="room"  placeholder="Insert name" ngModel required></ion-input>
+          <ion-input type="text" name="room" placeholder="Insert name" ngModel required></ion-input>
         </ion-item>
 
         <ion-item lines="full">
@@ -63,7 +56,7 @@
       <div style="position:relative; top:170px;">
         <ion-row>
           <ion-col>
-            <ion-button type="submit" color="primary" size="medium" >Confirm
+            <ion-button type="submit" color="primary" size="medium">Confirm
             </ion-button>
           </ion-col>
         </ion-row>

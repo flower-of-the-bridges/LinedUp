@@ -12,7 +12,10 @@ import { Router } from '@angular/router';
 })
 export class ReportComponent implements OnInit {
 
+  @Input() identifier: number = 0;
   @Input() name: string = "";
+  @Input() type: string = "";
+  @Input() university: string = "";
   @Input() street: string = "";
   @Input() status: boolean = false;
   @Input() isNear: boolean = false;
@@ -36,6 +39,12 @@ export class ReportComponent implements OnInit {
     "10 - 30": "Between 10 and 30 minutes",
     "30 - 60": "Between 30 and 60 minutes",
     "60 >": "More than 60 minutes"};
+  
+  private viewedType: any = {
+    "office hours": "Office Hours",
+    "canteen": "University Canteen",
+    "secretariat": "Secretariat"
+  }
 
   constructor(private ref: ChangeDetectorRef, private router: Router, private authService: AuthService, public modalController: ModalController, public toastController: ToastController) {
     ref.detach();
@@ -68,7 +77,9 @@ export class ReportComponent implements OnInit {
     const modal = await this.modalController.create({
       component: ProblemPage,
       componentProps: {
-        "name": this.name
+        "identifier": this.identifier,
+        "name": this.name,
+        "university": this.university
       }
     });
     return await modal.present();
@@ -78,6 +89,8 @@ export class ReportComponent implements OnInit {
     const modal = await this.modalController.create({
       component: QueuePage,
       componentProps: {
+        "id": this.identifier,
+        "university": this.university,
         "name": this.name,
         "street": this.street,
         "status": this.status
@@ -99,7 +112,7 @@ export class ReportComponent implements OnInit {
 
   addToFavourites() {
     this.isFavourite = !this.isFavourite;
-    this.authService.addToFavourites(this.name);
+    this.authService.addToFavourites(this.identifier);
     this.presentToast();
   }
 

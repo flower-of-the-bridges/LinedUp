@@ -13,16 +13,21 @@ export class InsertPage implements OnInit {
   constructor(private authService: AuthService, public modalController: ModalController) { }
 
   ngOnInit() {
-    this.authService.insertSubject.asObservable().subscribe(msg => {
-      if (msg) {
-        this.insertModal();
-      }
-    })
+    this.authService.getUniversity().then(university => {
+      this.authService.insertSubject.asObservable().subscribe(msg => {
+        if (msg) {
+          this.insertModal(university);
+        }
+      })
+    });
   }
 
-  async insertModal() {
+  async insertModal(university) {
     const modal = await this.modalController.create({
-      component: ModalComponent
+      component: ModalComponent,
+      componentProps: {
+        "university": university
+      }
     });
     return await modal.present();
   }

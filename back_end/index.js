@@ -41,81 +41,116 @@ const faculties = [
     "Biologia"
 ];
 
+const places = [
+    {
+        id: 0,
+        name: "Student's Secretariat",
+        building: "S.P.V. (San Pietro In Vincoli)",
+        street: "Via Eudossiana 18",
+        type: "secretariat",
+        news: [
+            {
+                description: "The slot scheduled for today has been delayed to tomorrow.",
+                ts: new Date().toTimeString().split(" ")[0].split(":")[0] + ":" + new Date().toTimeString().split(" ")[0].split(":")[1]
+            },
+            
+            {
+                description: "The slot scheduled for today has been delayed for one hour.",
+                ts: new Date(new Date().setHours(12)).toTimeString().split(" ")[0].split(":")[0] + ":" + new Date().toTimeString().split(" ")[0].split(":")[1]
+            }
+        ],
+        status: 0
+    },
+    {
+        id: 1,
+        name: "De Lollis ",
+        building: "D.I.A.G. (Dipartimento Ingegneria Automatica e Gestionale)",
+        street: "Via Ariosto 18",
+        status: 1,
+        people: "10 - 20",
+        time: "30 - 60",
+        type: "office hours",
+        news: [],
+        hour: "16:00-18:00"
+    },
+    {
+        id: 2,
+        name: "De Lollis",
+        status: 1,
+        people: "< 10",
+        time: "10 - 30",
+        street: "Via Cesare De Lollis 24",
+        building: "Ex-Poste",
+        type: "canteen",
+        news: [],
+        hour: "11:30-15:00"
+    },
+    {
+        id: 3,
+        name: "Rossi Correction",
+        building: "Ex Poste (Room A 31)",
+        street: "Via dello Scalo San Lorenzo",
+        type: "office hours",
+        news: [
+            {
+                description: "The correction has been delayed to next week.",
+                ts: new Date().toTimeString().split(" ")[0].split(":")[0] + ":" + new Date().toTimeString().split(" ")[0].split(":")[1]
+            }
+        ],
+        status: 0
+    },
+];
+
 var universities = {
     "Sapienza": {
         faculties: faculties,
-        places: [
-            {
-                name: "Segreteria Didattica",
-                building: "S.P.V. (San Pietro In Vincoli)",
-                street: "Via Eudossiana 18",
-                type: "secretariat",
-                news: [
-                    {
-                        description: "The hour scheduled for today has been delayed to tomorrow.",
-                        ts: new Date().toTimeString().split(" ")[0].split(":")[0] + ":" + new Date().toTimeString().split(" ")[0].split(":")[1]
-                    }
-                ],
-                status: 0
-            },
-            {
-                name: "Ricevimento Professore ",
-                building: "D.I.A.G. (Dipartimento Ingegneria Automatica e Gestionale)",
-                street: "Via Ariosto 18",
-                status: 1,
-                people: "10 - 20",
-                time: "30 - 60",
-                type: "office hours",
-                news: [],
-                hour: "16:00-18:00"
-            },
-            {
-                name: "Mensa",
-                status: 1,
-                people: "< 10",
-                time: "10 - 30",
-                street: "Via Eudossiana 18",
-                building: "Ex-Poste",
-                type: "canteen",
-                news: [],
-                hour: "11:30-15:00"
-            }
-        ]
+        places: places
     },
     "RomaTre": {
-        faculties: faculties
+        faculties: faculties,
+        places: places
     },
 
     "Tor Vergata": {
-        faculties: faculties
+        faculties: faculties,
+        places: places
     },
     "Politecnico di Milano": {
-        faculties: faculties
+        faculties: faculties,
+        places: places
     },
 
     "Politecnico di Torino": {
-        faculties: faculties
+        faculties: faculties,
+        places: places
     },
     "Università degli studi dell'Aquila": {
-        faculties: faculties
+        faculties: faculties,
+        places: places
     },
     "Università degli studi di Siena": {
-        faculties: faculties
+        faculties: faculties,
+        places: places
     },
     "Università degli studi di Perugia": {
-        faculties: faculties
+        faculties: faculties,
+        places: places
     },
     "Università degli studi Milano Bicocca": {
-        faculties: faculties
+        faculties: faculties,
+        places: places
     },
     "University of Fine Arts": {
-        faculties: faculties
+        faculties: faculties,
+        places: places
     },
     "UniMi": {
-        faculties: faculties
+        faculties: faculties,
+        places: places
     },
     "UniBas": {
-        faculties: faculties
+        faculties: faculties,
+        places: places
     }
 }
 
@@ -174,8 +209,8 @@ router.post('/positions', (req, res) => {
         let userPosition = req.body.position;
         let places = universities[req.body.university].places;
         places.forEach((place, index) => {
-            let lon = userPosition.longitude + 0.0003 + index * 0.0001 * (index % 2 == 0 ? -1 : 1);
-            let lat = userPosition.latitude + 0.0003 + index * 0.0001 * (index % 2 == 0 ? -1 : 1);
+            let lon = userPosition.longitude + (0.0001 *(index % 2 == 0 ? -1 : 1)) + index * 0.0001 * (index % 2 == 0 ? -1 : 1);
+            let lat = userPosition.latitude + (0.0001 *(index % 2 == 0 ? -1 : 1)) + index * 0.0001 * (index % 2 == 0 ? -1 : 1);
             place["position"] = { lon: lon, lat: lat };
         });
 
@@ -296,7 +331,7 @@ router.post('/favourites', (req, res) => {
 
     let placeList = [];
     university && university.places.forEach(place => {
-        if (favourites.includes(place.name)) {
+        if (favourites.includes(place.id)) {
             placeList.push(place);
         }
     })
@@ -313,9 +348,10 @@ router.post('/review', (req, res) => {
     let university = universities[body.university];
 
     university && university.places.forEach(place => {
-        if (body.name == place.name) {
+        if (body.id == place.id) {
             place.people = persons;
             place.time = time;
+            universities[body.university] = place;
             result = true;
         }
     })

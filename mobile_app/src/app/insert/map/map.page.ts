@@ -38,20 +38,18 @@ export class MapPage implements OnInit {
 
   ngOnInit() {
 
-    this.authService.isLoggedIn().then((res: boolean) => {
-      console.log("is logged in res %o", res);
-      if (res) {
-        let marker = null;
+    this.authService.getUniversity().then(university => {
+      let marker = null;
 
-        this.geoController.getUserPosition().then(pos => {
-          console.debug("my pos is : " + pos);
-          if (pos) {
-            this.mapController = new MapController('map_queue', pos, pos, this.httpClient, null);
-            marker = this.mapController.addUser();
-            this.mapController.getBuildings(this.modalController);
-          }
-        });
-      }
+      this.geoController.getUserPosition().then(pos => {
+        console.debug("my pos is : " + pos);
+        if (pos) {
+          this.mapController = new MapController('map_queue', pos, pos, this.httpClient, null);
+          marker = this.mapController.addUser();
+          this.mapController.getBuildings(this.modalController, university);
+        }
+      });
+
     })
   }
 

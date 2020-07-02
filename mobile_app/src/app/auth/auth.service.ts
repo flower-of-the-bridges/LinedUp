@@ -37,7 +37,7 @@ export class AuthService {
         if (res.user) {
           await this.storage.set("ACCESS_TOKEN", res.user.access_token);
           await this.storage.set("EXPIRES_IN", res.user.expires_in);
-
+          await this.storage.set("UNIVERSITY", user.university);
           //this.authSubject.next(true);
         }
       })
@@ -47,12 +47,12 @@ export class AuthService {
 
   login(user: User): Observable<AuthResponse> {
     return this.httpClient.post(`${this.AUTH_SERVER_ADDRESS}/login`, user).pipe(
-      tap(async (res: AuthResponse) => {
+      tap(async (res: any) => {
         console.log("res is %o", res);
         if (res.user) {
           await this.storage.set("ACCESS_TOKEN", res.user.access_token);
           await this.storage.set("EXPIRES_IN", res.user.expires_in);
-
+          await this.storage.set("UNIVERSITY", res.user.university);
           //this.authSubject.next(true);
         }
       })
@@ -87,6 +87,10 @@ export class AuthService {
 
   async isLoggedIn(): Promise<any> {
     return this.storage.ready().then(storage => storage.getItem("ACCESS_TOKEN"));
+  }
+
+  async getUniversity(): Promise<any> {
+    return this.storage.ready().then(storage => storage.getItem("UNIVERSITY"));
   }
 
   hasUserLoggedIn(){
@@ -128,47 +132,45 @@ export class AuthService {
       }));
   }
 
-  getFavouritePlaces(favourites: Array<any>) {
-    let request = { university: "Sapienza", favourites: favourites };
+  getFavouritePlaces(favourites: Array<any>, university: string) {
+    let request = { university: university, favourites: favourites };
     return this.httpClient.post(`${this.AUTH_SERVER_ADDRESS}/favourites`, request).pipe(
       tap(async (res: any) => {
         console.log("res is %o", res);
       }));
   }
 
-  addToFavourites(name: string) {
+  addToFavourites(id: number) {
     this.storage.get("FAVOURITES").then(favourites => {
       if (favourites != null && favourites.length > 0) {
         let removed = false;
         favourites.forEach((favourite, index) => {
-          if (favourite == name) {
+          if (favourite == id) {
             favourites.splice(index, 1);
             removed = true;
             this.storage.set("FAVOURITES", favourites).then(() => {
-              console.log("removed element %s from favourites", name);
+              console.log("removed element %d from favourites", id);
             });
           }
         })
         if (!removed) {
-          favourites.push(name);
+          favourites.push(id);
           this.storage.set("FAVOURITES", favourites).then(() => {
-            console.log("added %s to favourites", name);
+            console.log("added %d to favourites", id);
           });
         }
       }
       else {
         let newFavourites = [];
-        newFavourites.push(name);
+        newFavourites.push(id);
         this.storage.set("FAVOURITES", newFavourites).then(() => {
-          console.log("added %s to favourites", name);
+          console.log("added %s to favourites", id);
         });
       }
     })
   }
 
   sendReview(request: any) {
-    request["university"] = "Sapienza"
-
     return this.httpClient.post(`${this.AUTH_SERVER_ADDRESS}/review`, request).pipe(
       tap(async (res: any) => {
         console.log("res is %o", res);
@@ -232,6 +234,9 @@ export class AuthService {
     return this.httpClient.post(`${this.AUTH_SERVER_ADDRESS}/googlecheck`, { mail: userInfo.Au, name: userInfo.zW, surname: userInfo.zU }).pipe(
       tap(async (res: any) => {
         console.log("res is %o", res);
+        if(res.found){
+          this.storage.set("UNIVERSITY", res.user.university);
+        }
       })
     );
   }
@@ -240,10 +245,11 @@ export class AuthService {
     return this.googleSubject.asObservable();
   }
 
-  finishGoogleRegistration(mail: string, univerisity: string, faculty: string) {
-    return this.httpClient.post(`${this.AUTH_SERVER_ADDRESS}/googleupdate`, { mail: mail, university: univerisity, faculty: faculty }).pipe(
+  finishGoogleRegistration(mail: string, university: string, faculty: string) {
+    return this.httpClient.post(`${this.AUTH_SERVER_ADDRESS}/googleupdate`, { mail: mail, university: university, faculty: faculty }).pipe(
       tap(async (res: any) => {
         console.log("res is %o", res);
+        this.storage.set("UNIVERSITY", university);
         res && res.msg && res.msg == "ok" && this.authSubject.next(true);
       }));
   }
