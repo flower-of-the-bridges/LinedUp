@@ -26,22 +26,7 @@
 
 
           <center>
-
-            <ion-button [routerLink]="['/register/university']" color="primary" size="large">Sign Up</ion-button>
-            <br />
-            <ion-button (click)='googleSignUp()' color="light" size="large">Sign Up with <ion-icon name="logo-google">
-              </ion-icon>
-            </ion-button>
-            <span class="line divider home one-line">or already a user?</span>
-
-
-
-            <ion-button [routerLink]="['/login']" color="signin" size="large">Sign In</ion-button>
-            <br />
-            <ion-button (click)='googleSignUp()' color="light" size="large">Sign In with <ion-icon name="logo-google">
-              </ion-icon>
-            </ion-button>
-
+            <ion-button (click)="goToMap()" size="large" color="signin">Go To Map</ion-button>
           </center>
 
 

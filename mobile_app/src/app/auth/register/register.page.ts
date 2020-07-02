@@ -41,7 +41,7 @@ export class RegisterPage implements OnInit {
     form.value["university"] = this.university;
     console.log("form is %o", form.value);
     this.authService.register(form.value).subscribe((res) => {
-      this.router.navigateByUrl('home');
+      this.router.navigateByUrl('home-auth');
     });
   }
 

@@ -9,33 +9,28 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
-  
-  isLoggedIn : boolean = false;
-  
+
   constructor(private authService: AuthService, public menuCtrl: MenuController, private platform: Platform, private router: Router) { }
 
   ngOnInit() {
-    
     this.authService.isLoggedIn().subscribe((res: boolean) => {
       console.log("is logged in res %o", res);
       if (res) {
-        this.isLoggedIn = true;
+        this.router.navigateByUrl("/home-auth");
       }
-      
-      this.menuCtrl.enable(this.isLoggedIn, 'menu'); 
     })
   }
 
-  googleSignUp(){
+  googleSignUp() {
     this.authService.googleSignUp(this.platform.is('cordova'), this.googleCallback.bind(this));
   }
 
-  googleCallback(found: boolean){
-    if(!found){
+  googleCallback(found: boolean) {
+    if (!found) {
       this.router.navigateByUrl("register/university");
     }
-    else{
-      this.isLoggedIn = true;
+    else {
+      this.router.navigateByUrl("register/university");
     }
   }
 
