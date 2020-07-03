@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class UniversityPage implements OnInit {
 
   private university: string;
-  private universities: Array<string>;
+  private universities: Array<string> = [];
   private isGoogleAuth: string = null;
   private faculties: any;
   constructor(private authService: AuthService, private router: Router) { }

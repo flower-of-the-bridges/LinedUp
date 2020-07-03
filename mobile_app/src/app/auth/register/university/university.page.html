@@ -40,7 +40,7 @@
         <ion-label>University</ion-label>
         <ion-select name="university" placeholder="University" #C (ionChange)="selectUniversity(C.value)" ngModel
           required>
-          <ion-select-option *ngFor="let university of universities" value="{{university}}">{{university}}
+          <ion-select-option *ngFor="let university of universities.sort()" value="{{university}}">{{university}}
           </ion-select-option>
         </ion-select>
       </ion-item>
@@ -50,7 +50,7 @@
       <ion-item *ngIf="university!=null" class="sizelabel">
         <ion-label class="sizelabel">Faculty</ion-label>
         <ion-select name="faculty" placeholder="Faculty" ngModel required>
-          <ion-select-option *ngFor="let faculty of faculties[university].faculties" value="{{faculty}}">{{faculty}}
+          <ion-select-option *ngFor="let faculty of faculties[university].faculties.sort()" value="{{faculty}}">{{faculty}}
           </ion-select-option>
         </ion-select>
       </ion-item>
