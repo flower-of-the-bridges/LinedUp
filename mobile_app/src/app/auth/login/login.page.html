@@ -14,7 +14,7 @@
 
   </div>
   <div class="login">
-    <form #form="ngForm" (ngSubmit)="login(form)">
+    <form #form="ngForm" (ngSubmit)="login(form)" >
       <ion-item lines="full">
         
         <ion-input type="email" name="email" pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}" placeholder="E-mail" style="font-style: oblique;" ngModel required></ion-input>
