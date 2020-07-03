@@ -1,6 +1,7 @@
 div.login{
     border-style: solid;
-    border-color:#dcdcdc;
+    border-color:#ffffffff;
+    background:inherit;
     width: 80%;
     height: 45%;
     padding:20px;
@@ -10,10 +11,15 @@ div.login{
     left:10%;
     top:1%;
     margin-top: 1%;
+    -webkit-box-shadow: -1px 5px 28px 2px rgba(190,187,191,1);
+    -moz-box-shadow: -1px 5px 28px 2px rgba(190,187,191,1);
+    box-shadow: -1px 5px 28px 2px rgba(190,187,191,1);
+    
 }
 
 img.login{
     margin-top: 4%;
+    width:350px;
 }
 
 div.reg{
@@ -26,10 +32,11 @@ div.reg{
 }
 
 h4.reg{
-    margin-top:5vw;
-    font-weight: bold;
-    color: #000000;
-    font-style: oblique;
-    font-size:large;
+    margin-top:2vw;
+  margin-bottom:2vw;
+ 
+  color: #000000;
+  font-style: oblique;
+  font-size:medium;
    
 }

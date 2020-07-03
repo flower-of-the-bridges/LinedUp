@@ -29,28 +29,30 @@
 }
 
 div.reg{
-  margin-top:5vw;
+  margin-top:3vw;
+  margin-bottom:3vw;
  
   color: #000000;
   font-style: oblique;
-  font-size:large;
- 
+  font-size:medium;
 }
 
 div.form{
   border-style: solid;
-  border-color:#dcdcdc;
-  width: 80%;
-  height: 45%;
-  padding:15px;
-  padding-left:1px;
-  padding-right:1px;
-  font-size: 15vw;
-  border-radius:20px;
-  position: relative;
-  left:10%;
-  top:2%;
-  margin-top: 4%;
+    border-color:#ffffffff;
+    background:inherit;
+    width: 80%;
+    height: 45%;
+    padding:20px;
+    padding-top: 56px;
+    border-radius:20px;
+    position: relative;
+    left:10%;
+    top:1%;
+    margin-top: 1%;
+    -webkit-box-shadow: -1px 5px 28px 2px rgba(190,187,191,1);
+    -moz-box-shadow: -1px 5px 28px 2px rgba(190,187,191,1);
+    box-shadow: -1px 5px 28px 2px rgba(190,187,191,1);
 }
 
 span.form{
@@ -62,6 +64,11 @@ span.form{
  
 }
 
-.sizelabel{ font-size: 15px !important; }
+.sizelabel{ 
+
+font-size: 15px !important; 
+font-style: oblique;
+
+}
 
 .text{ text-align: center !important;}

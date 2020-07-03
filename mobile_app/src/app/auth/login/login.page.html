@@ -16,13 +16,12 @@
   <div class="login">
     <form #form="ngForm" (ngSubmit)="login(form)">
       <ion-item lines="full">
-        <ion-label position="floating">Email</ion-label>
-        <ion-input type="email" name="email" pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}" ngModel required></ion-input>
+        
+        <ion-input type="email" name="email" pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}" placeholder="E-mail" style="font-style: oblique;" ngModel required></ion-input>
       </ion-item>
 
       <ion-item lines="full">
-        <ion-label position="floating">Password</ion-label>
-        <ion-input [type]="showPassword ? 'text' : 'password'" name="password" placeholder="Password" ngModel required>
+        <ion-input [type]="showPassword ? 'text' : 'password'" name="password" placeholder="Password" style="font-style: oblique;" ngModel required>
         </ion-input>
         <ion-icon slot="end" [name]="showPassword ? 'eye-off' : 'eye'" (click)="togglePassword()"></ion-icon>
       </ion-item>
@@ -30,7 +29,7 @@
       <ion-row>
         <ion-col>
           <center>
-            <ion-button type="submit" color="signin" size="medium" style="margin-top: 5%;margin-bottom:30px;">Sign In
+            <ion-button type="submit" color="signin" size="medium" style="margin-top: 9%;margin-bottom:20px;">Sign In
             </ion-button><br>
             <a href="#" class="small-text">Forgot Password?</a>
           </center>
