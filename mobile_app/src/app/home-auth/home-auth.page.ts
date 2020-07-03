@@ -16,11 +16,12 @@ export class HomeAuthPage implements OnInit {
 
     this.menuCtrl.enable(true, "menu");
 
-    this.authService.isLoggedIn().then((res: boolean) => {
+    this.authService.isLoggedIn().then((res: any) => {
       console.log("is logged in res %o", res);
       if (!res) {
-        this.authService.hasUserLoggedIn().subscribe(res => {
-          if (res == null) {
+        this.authService.hasUserLoggedIn().subscribe((response: any) => {
+          console.log("has logged in res %o", response);
+          if (response == false) {
             this.router.navigateByUrl("/home");
           }
         })

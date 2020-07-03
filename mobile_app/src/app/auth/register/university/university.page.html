@@ -44,9 +44,7 @@
           </ion-select-option>
         </ion-select>
       </ion-item>
-
-
-
+      
       <span class="divider line one-line form" *ngIf="university!=null" style="margin-top:50px"> Select your
         Faculty</span>
       <ion-item *ngIf="university!=null" class="sizelabel">
@@ -57,7 +55,7 @@
         </ion-select>
       </ion-item>
       <ion-item lines="none">
-        <ion-label class="text sizelabel"> <a>University or/and Faculty not present? Send request to add</a></ion-label>
+        <ion-label class="text sizelabel"> <a [routerLink]="['/request']">{{university!=null ? 'Faculty' : 'University'}} not present? Send request to add</a></ion-label>
       </ion-item>
     </div>
     <ion-row>

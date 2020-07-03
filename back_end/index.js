@@ -124,19 +124,19 @@ var universities = {
         faculties: faculties,
         places: places
     },
-    "Università degli studi dell'Aquila": {
+    "Università degli Studi dell'Aquila": {
         faculties: faculties,
         places: places
     },
-    "Università degli studi di Siena": {
+    "Università degli Studi di Siena": {
         faculties: faculties,
         places: places
     },
-    "Università degli studi di Perugia": {
+    "Università degli Studi di Perugia": {
         faculties: faculties,
         places: places
     },
-    "Università degli studi Milano Bicocca": {
+    "Università degli Studi Milano Bicocca": {
         faculties: faculties,
         places: places
     },
@@ -394,6 +394,25 @@ router.post('/googleupdate', (req, res) => {
     });
 
 });
+
+router.post('/request', (req, res) => {
+    let body = req.body;
+
+    console.log("[request] received: %o", body);
+    if(body.isNewUniversity){
+        console.log("adding university %s to universities", body.university);
+        universities[body.university] = {
+            places: places,
+            faculties: faculties
+        }
+    }
+    if(body.isNewFaculty){
+        console.log("adding faculty %s to %s", body.faculty, body.university);
+        universities[body.university].faculties.push(body.faculty);
+    }
+
+    return res.status(200).send({msg: "ok"});
+})
 
 app.use(router);
 const port = process.env.PORT || 3000;

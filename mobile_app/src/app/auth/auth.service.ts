@@ -19,6 +19,7 @@ export class AuthService {
   insertSubject = new BehaviorSubject(false);
   placeSubject = new BehaviorSubject(null);
   googleSubject = new BehaviorSubject(null);
+  universitySubject = new BehaviorSubject(null);
 
   /** google variables */
   private gapiSetup: boolean = false;
@@ -93,7 +94,7 @@ export class AuthService {
     return this.storage.ready().then(storage => storage.getItem("UNIVERSITY"));
   }
 
-  hasUserLoggedIn(){
+  hasUserLoggedIn() {
     return this.authSubject.asObservable();
   }
   hasUniversitySelected() {
@@ -121,8 +122,18 @@ export class AuthService {
     return this.httpClient.post(`${this.AUTH_SERVER_ADDRESS}/search`, request).pipe(
       tap(async (res: any) => {
         console.log("res is %o", res);
-      }));
+      })
+    );
   }
+
+  sendUniversityRequest(request: any) {
+    return this.httpClient.post(`${this.AUTH_SERVER_ADDRESS}/request`, request).pipe(
+      tap(async (res: any) => {
+        console.log("res is %o", res);
+      })
+    );
+  }
+
 
   getNews() {
     let request = { university: "Sapienza" };
@@ -234,7 +245,7 @@ export class AuthService {
     return this.httpClient.post(`${this.AUTH_SERVER_ADDRESS}/googlecheck`, { mail: userInfo.Au, name: userInfo.zW, surname: userInfo.zU }).pipe(
       tap(async (res: any) => {
         console.log("res is %o", res);
-        if(res.found){
+        if (res.found) {
           this.storage.set("UNIVERSITY", res.user.university);
         }
       })
@@ -252,6 +263,14 @@ export class AuthService {
         this.storage.set("UNIVERSITY", university);
         res && res.msg && res.msg == "ok" && this.authSubject.next(true);
       }));
+  }
+
+  setSelectedUniversity(university: string) {
+    this.universitySubject.next(university);
+  }
+
+  getSelectedUniversity() {
+    return this.universitySubject.asObservable();
   }
 
 }

@@ -1,0 +1,63 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/register/university"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Request Information</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content style="text-align: center;">
+
+  <div *ngIf="insertedUniversity == null">
+    <ion-label>
+      Seems that your university is not on the list. We're sorry for the incovenience. Please enter the name below, we
+      will try to add it as soon as possible.
+    </ion-label>
+    <div class="request">
+      <ion-item class="sizelabel">
+        <ion-label><b>University Name:</b></ion-label>
+        <ion-input type="text" [(ngModel)]="university"></ion-input>
+      </ion-item>
+      <ion-item class="sizelabel">
+        <ion-label><b>Faculty:</b></ion-label>
+        <ion-select [disabled]="!(university!=null && university!='')" name="faculty" placeholder="Choose your faculty"
+          [(ngModel)]="selectedFaculty">
+          <ion-select-option *ngFor="let faculty of faculties" value="{{faculty}}">{{faculty}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item class="sizelabel">
+        <ion-label><b>Is your faculty not on the list?</b></ion-label>
+        <ion-toggle [disabled]="!(university!=null && university!='' && selectedFaculty == null)"
+          [(ngModel)]="enterFaculty"></ion-toggle>
+      </ion-item>
+      <ion-item *ngIf="university!=null && university!='' && enterFaculty!=false" class="sizelabel">
+        <ion-label><b>Faculty Name:</b></ion-label>
+        <ion-input type="text" [(ngModel)]="insertedFaculty" required></ion-input>
+      </ion-item>
+      <center>
+        <ion-button color="primary" (click)="send()"
+          [disabled]="(university==null || university=='') || ((selectedFaculty == null || selectedFaculty == '') && (insertedFaculty == null || insertedFaculty == ''))">
+          Send</ion-button>
+      </center>
+    </div>
+  </div>
+  <div *ngIf="insertedUniversity != null">
+    <ion-label>
+      Seems that your faculty is not on the list. We're sorry for the incovenience. Please enter the name below, we
+      will try to add it as soon as possible.
+    </ion-label>
+    <div class="facultyrequest">
+      <ion-item class="sizelabel">
+        <ion-label><b>Faculty Name:</b></ion-label>
+        <ion-input type="text" [(ngModel)]="insertedFaculty" required></ion-input>
+      </ion-item>
+      <center>
+        <ion-button color="primary" (click)="send()"
+          [disabled]="insertedFaculty == null || insertedFaculty == ''">
+          Send</ion-button>
+      </center>
+    </div>
+  </div>
+</ion-content>

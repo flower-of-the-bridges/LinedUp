@@ -50,6 +50,10 @@ const routes: Routes = [
   {
     path: 'home-auth',
     loadChildren: () => import('./home-auth/home-auth.module').then( m => m.HomeAuthPageModule)
+  },
+  {
+    path: 'request',
+    loadChildren: () => import('./auth/register/request/request.module').then( m => m.RequestPageModule)
   }
 ];
 

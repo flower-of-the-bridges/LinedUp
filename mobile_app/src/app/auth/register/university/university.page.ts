@@ -41,6 +41,7 @@ export class UniversityPage implements OnInit {
 
   selectUniversity(value: string) {
     this.university = value;
+    this.authService.setSelectedUniversity(this.university);
   }
 
 }
