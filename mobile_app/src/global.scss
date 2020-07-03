@@ -26,7 +26,60 @@
 @import "~@ionic/angular/css/flex-utils.css";
 
 
+ion-button.green {
+  --background: #4E9258;
+  border: none;
+  border-radius: 45px;
+  -webkit-box-shadow: -22px 35px 150px -30px rgba(14,14,15,1);
+  -moz-box-shadow: -22px 35px 150px -30px rgba(14,14,15,1);
+  box-shadow: -22px 35px 150px -30px rgba(14,14,15,1);
+ -webkit-transition: all 250ms ease-in-out;
+  -moz-transition: all 250ms ease-in-out;
+  -ms-transition: all 250ms ease-in-out;
+  -o-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
+  cursor: pointer;
+  outline: none;
+    }
+  
+  .green:hover {
+    --background:#4E9258;
+    box-shadow: 0px 15px 20px#4E9258;
+    color: #000;
+    -webkit-transform: scale(1.1,1.1);
+    -moz-transform: scale(1.1,1.1);
+    -o-transform: scale(1.1,1.1);
+    -ms-transform: scale(1.1,1.1);
+    transform: scale(1.1,1.1);
+  }
 
+  ion-button.blue {
+    
+    --background: #3880ff;
+    border: none;
+    border-radius: 45px;
+    -webkit-box-shadow: -22px 35px 150px -30px rgba(14,14,15,1);
+    -moz-box-shadow: -22px 35px 150px -30px rgba(14,14,15,1);
+    box-shadow: -22px 35px 150px -30px rgba(14,14,15,1);
+   -webkit-transition: all 250ms ease-in-out;
+    -moz-transition: all 250ms ease-in-out;
+    -ms-transition: all 250ms ease-in-out;
+    -o-transition: all 250ms ease-in-out;
+    transition: all 250ms ease-in-out;
+    cursor: pointer;
+    outline: none;
+      }
+    
+    .blue:hover {
+      --background:#3880ff;
+      box-shadow: 0px 15px 20px#3880ff;
+      color: #000;
+      -webkit-transform: scale(1.1,1.1);
+      -moz-transform: scale(1.1,1.1);
+      -o-transform: scale(1.1,1.1);
+      -ms-transform: scale(1.1,1.1);
+      transform: scale(1.1,1.1);
+    }
 
 
 .searchbar-input.sc-ion-searchbar-md {
