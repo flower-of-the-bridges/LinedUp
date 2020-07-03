@@ -16,26 +16,26 @@
         <div class="home">
           <h1 class="home"> Welcome to </h1>
 
-          <center><img src="../../assets/lineadupLogo.png" width="400" height="100"/></center>
+          <center><img src="../../assets/lineadupLogo.png" /></center>
 
           <span class="line divider home one-line">Keep track of queues</span>
 
-          <h4 class="home">Find canteen, office-hours and secratiart near-by your department</h4>
+          <h4 style="text-align: center;">Find canteen, office-hours and secratiart near-by your department</h4>
 
           <span class="line divider home one-line">Lets start!</span>
 
           <ion-row>
             <ion-col>
               <center>
-                <ion-button [routerLink]="['/register/university']" color="primary" size="medium">Sign Up</ion-button>
+                <ion-button [routerLink]="['/register/university']" class="blue" size="medium">Sign Up</ion-button>
               </center>
             </ion-col>
           </ion-row>
           <ion-row>
             <ion-col>
               <center>
-                <ion-button (click)='googleSignUp()' color="light" size="medium">Sign Up with <ion-icon
-                  src="../../assets/Google.svg" >
+                <ion-button (click)='googleSignUp()'  size="medium" class="effect">Sign Up with <ion-icon
+                  src="../../assets/Google.svg">
                   </ion-icon>
                 </ion-button>
               </center>
@@ -47,14 +47,14 @@
           <ion-row>
             <ion-col>
               <center>
-                <ion-button [routerLink]="['/login']" color="signin" size="medium">Sign In</ion-button>
+                <ion-button [routerLink]="['/login']" class="green" size="medium">Sign In</ion-button>
               </center>
             </ion-col>
           </ion-row>
           <ion-row>
             <ion-col>
               <center>
-                <ion-button (click)='googleSignUp()' color="light" size="medium">Sign In with <ion-icon
+                <ion-button (click)='googleSignUp()' size="medium" class="effect2">Sign In with <ion-icon
                   src="../../assets/Google.svg">
                   </ion-icon>
                 </ion-button>

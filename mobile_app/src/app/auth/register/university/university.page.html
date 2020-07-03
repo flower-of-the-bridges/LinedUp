@@ -22,7 +22,7 @@
 <ion-content>
   <div class="ion-text-center reg">
     <ion-label *ngIf="isGoogleAuth==null">
-      <h1>Lined Up</h1> gives you the opportunity to view and report all the queues within the university. We first need
+      <h1>Lined Up</h1> gives you the opportunity to view and report all the queues within the university.<br> We first need
       some informations about your university life.
     </ion-label>
     <ion-label *ngIf="isGoogleAuth!=null">Before you can start using <h1>LinedUp</h1>, we need to know who you are, to make
@@ -55,7 +55,7 @@
         </ion-select>
       </ion-item>
       <ion-item lines="none">
-        <ion-label class="text sizelabel"> <a [routerLink]="['/request']">{{university!=null ? 'Faculty' : 'University'}} not present? Send request to add</a></ion-label>
+        <div class=" sizelabel"> <a class="text" [routerLink]="['/request']">{{university!=null ? 'Faculty' : 'University'}} not present? Send request to add</a></div>
       </ion-item>
     </div>
     <ion-row>

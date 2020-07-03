@@ -4,7 +4,7 @@ div.request {
     width: 80%;
     height: 300px;
     padding: 20px;
-    padding-top: 50px;
+    padding-top: 56px;
     border-radius: 20px;
     position: relative;
     left: 10%;
@@ -13,23 +13,18 @@ div.request {
     font-size: 15vw;
 }
 
-div.facultyrequest {
-    border-style: solid;
-    border-color: #dcdcdc;
-    width: 80%;
-    height: 200px;
-    padding: 20px;
-    padding-top: 50px;
-    border-radius: 20px;
-    position: relative;
-    left: 10%;
-    top: 1%;
-    margin-top: 80px;
-    font-size: 15vw;
-}
 
 
 .sizelabel {
     font-size: 15px !important;
     font-style: oblique;
 }
+
+div.reg{
+    margin-top:3vw;
+    margin-bottom:3vw;
+    color: #000000;
+    font-style: oblique;
+    font-size:medium;
+   
+  }
