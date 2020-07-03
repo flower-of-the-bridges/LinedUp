@@ -55,8 +55,8 @@ export class ReportComponent implements OnInit {
 
   ngOnInit() {
     this.authService.getFavourites().then(favourites => {
-      favourites != null && favourites.forEach(favourite => {
-        if (favourite == this.name) {
+      favourites != null && favourites.forEach((favourite: number) => {
+        if (favourite == this.identifier) {
           this.isFavourite = true;
         }
       })
