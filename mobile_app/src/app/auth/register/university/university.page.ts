@@ -34,7 +34,7 @@ export class UniversityPage implements OnInit {
     }
     else{
       this.authService.finishGoogleRegistration(this.isGoogleAuth, form.value.university, form.value.faculty).subscribe(res => {
-        res && res.msg && res.msg == "ok" && this.router.navigateByUrl('home');
+        res && res.msg && res.msg == "ok" && this.router.navigateByUrl('/home-auth');
       });
     }
   }
