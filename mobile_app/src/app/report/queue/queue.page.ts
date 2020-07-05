@@ -43,6 +43,9 @@ export class QueuePage implements OnInit {
   private queueSpeed: number = 1;
   private requestResult: any = null;
 
+  private experiment: boolean = false;
+  private timer: number;
+
   private request = {
     persons: null,
     time: null,
@@ -53,6 +56,7 @@ export class QueuePage implements OnInit {
 
   ngOnInit() {
     console.log("Report Queue: %s ", this.name);
+    this.timer = Date.now();
   }
 
   dismiss() {
@@ -126,6 +130,8 @@ export class QueuePage implements OnInit {
     this.request["university"] = this.university;
     this.authService.sendReview({ id: this.id, request: this.request }).subscribe(res => {
       this.requestResult = res;
+      this.timer = Date.now() - this.timer;
+      console.info("Interface %d running time: %d ms", this.experiment ? 2 : 1, this.timer);
     })
   }
 }
