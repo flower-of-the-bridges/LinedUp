@@ -31,7 +31,7 @@ export class RegisterPage implements OnInit {
 
   ngOnInit() {
     
-    this.isBrowser = this.platform.is("mobileweb");
+    this.isBrowser = !this.platform.is("cordova");
     
     /** receives university information from previous page */
     this.authService.hasUniversitySelected().subscribe(req => {
