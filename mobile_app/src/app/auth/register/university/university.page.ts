@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../auth.service';
 import { Router } from '@angular/router';
+import { Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-university',
@@ -13,6 +14,7 @@ export class UniversityPage implements OnInit {
   private universities: Array<string> = [];
   private isGoogleAuth: string = null;
   private faculties: any;
+  
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {

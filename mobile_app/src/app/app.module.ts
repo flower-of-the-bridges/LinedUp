@@ -6,11 +6,11 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { IonicStorageModule } from '@ionic/storage';
-import { AuthModule } from  './auth/auth.module';
+import { AuthModule } from './auth/auth.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
-import { GooglePlus} from '@ionic-native/google-plus/ngx';
+import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { ReportComponent } from './report/report.component';
 import { createCustomElement } from '@angular/elements';
 
@@ -30,7 +30,7 @@ import { createCustomElement } from '@angular/elements';
 export class AppModule {
 
   constructor(private injector: Injector) {
-    const PopupElement = createCustomElement(ReportComponent, {injector});
+    const PopupElement = createCustomElement(ReportComponent, { injector });
     // Register the custom element with the browser.
     customElements.define('popup-element', PopupElement);
   }

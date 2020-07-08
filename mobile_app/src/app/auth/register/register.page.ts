@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { AuthService } from '../auth.service';
+import { Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-register',
@@ -15,7 +16,9 @@ export class RegisterPage implements OnInit {
   private showPassword: boolean = false;
   private showConfirmedPassword: boolean = false;
 
-  constructor(private authService: AuthService, private router: Router) { }
+  private isBrowser: boolean = true;
+
+  constructor(private authService: AuthService, private router: Router, private platform: Platform) { }
 
   togglePassword(): void {
     this.showPassword = !this.showPassword;
@@ -27,6 +30,9 @@ export class RegisterPage implements OnInit {
 
 
   ngOnInit() {
+    
+    this.isBrowser = this.platform.is("mobileweb");
+    
     /** receives university information from previous page */
     this.authService.hasUniversitySelected().subscribe(req => {
       if (req != null) {

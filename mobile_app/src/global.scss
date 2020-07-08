@@ -16,7 +16,7 @@
 @import "~@ionic/angular/css/normalize.css";
 @import "~@ionic/angular/css/structure.css";
 @import "~@ionic/angular/css/typography.css";
-@import '~@ionic/angular/css/display.css';
+@import "~@ionic/angular/css/display.css";
 
 /* Optional CSS utils that can be commented out */
 @import "~@ionic/angular/css/padding.css";
@@ -25,117 +25,119 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
-
 ion-button.green {
-  --background: #4E9258;
+  --background: #4e9258;
   border: none;
   border-radius: 45px;
-  -webkit-box-shadow: -22px 35px 150px -30px rgba(14,14,15,1);
-  -moz-box-shadow: -22px 35px 150px -30px rgba(14,14,15,1);
-  box-shadow: -22px 35px 150px -30px rgba(14,14,15,1);
- -webkit-transition: all 250ms ease-in-out;
+  -webkit-box-shadow: -22px 35px 150px -30px rgba(14, 14, 15, 1);
+  -moz-box-shadow: -22px 35px 150px -30px rgba(14, 14, 15, 1);
+  box-shadow: -22px 35px 150px -30px rgba(14, 14, 15, 1);
+  -webkit-transition: all 250ms ease-in-out;
   -moz-transition: all 250ms ease-in-out;
   -ms-transition: all 250ms ease-in-out;
   -o-transition: all 250ms ease-in-out;
   transition: all 250ms ease-in-out;
   cursor: pointer;
   outline: none;
-    }
-  
-  .green:hover {
-    --background:#4E9258;
-    box-shadow: 0px 15px 20px#4E9258;
-    color: #000;
-    -webkit-transform: scale(1.1,1.1);
-    -moz-transform: scale(1.1,1.1);
-    -o-transform: scale(1.1,1.1);
-    -ms-transform: scale(1.1,1.1);
-    transform: scale(1.1,1.1);
-  }
+}
 
-  ion-button.blue {
-    
-    --background: #3880ff;
-    border: none;
-    border-radius: 45px;
-    -webkit-box-shadow: -22px 35px 150px -30px rgba(14,14,15,1);
-    -moz-box-shadow: -22px 35px 150px -30px rgba(14,14,15,1);
-    box-shadow: -22px 35px 150px -30px rgba(14,14,15,1);
-   -webkit-transition: all 250ms ease-in-out;
-    -moz-transition: all 250ms ease-in-out;
-    -ms-transition: all 250ms ease-in-out;
-    -o-transition: all 250ms ease-in-out;
-    transition: all 250ms ease-in-out;
-    cursor: pointer;
-    outline: none;
-      }
-    
-    .blue:hover {
-      --background:#3880ff;
-      box-shadow: 0px 15px 20px#3880ff;
-      color: #000;
-      -webkit-transform: scale(1.1,1.1);
-      -moz-transform: scale(1.1,1.1);
-      -o-transform: scale(1.1,1.1);
-      -ms-transform: scale(1.1,1.1);
-      transform: scale(1.1,1.1);
-    }
+.green:hover {
+  --background: #4e9258;
+  box-shadow: 0px 15px 20px#4E9258;
+  color: #000;
+  -webkit-transform: scale(1.1, 1.1);
+  -moz-transform: scale(1.1, 1.1);
+  -o-transform: scale(1.1, 1.1);
+  -ms-transform: scale(1.1, 1.1);
+  transform: scale(1.1, 1.1);
+}
 
+ion-button.blue {
+  --background: #3880ff;
+  border: none;
+  border-radius: 45px;
+  -webkit-box-shadow: -22px 35px 150px -30px rgba(14, 14, 15, 1);
+  -moz-box-shadow: -22px 35px 150px -30px rgba(14, 14, 15, 1);
+  box-shadow: -22px 35px 150px -30px rgba(14, 14, 15, 1);
+  -webkit-transition: all 250ms ease-in-out;
+  -moz-transition: all 250ms ease-in-out;
+  -ms-transition: all 250ms ease-in-out;
+  -o-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
+  cursor: pointer;
+  outline: none;
+}
+
+.blue:hover {
+  --background: #3880ff;
+  box-shadow: 0px 15px 20px#3880ff;
+  color: #000;
+  -webkit-transform: scale(1.1, 1.1);
+  -moz-transform: scale(1.1, 1.1);
+  -o-transform: scale(1.1, 1.1);
+  -ms-transform: scale(1.1, 1.1);
+  transform: scale(1.1, 1.1);
+}
 
 .searchbar-input.sc-ion-searchbar-md {
-    border-radius: 25px;
-    height: auto;
-    font-size: 1.5rem;
-    font-weight: 400;
-    color: #7f8490;
-    background-color: white;
-    -webkit-box-shadow: 0 8px 14px rgba(87, 84, 84, 0.4) !important;
-    box-shadow: 0 8px 14px rgba(87, 84, 84, 0.4) !important;
-  }
+  border-radius: 25px;
+  height: auto;
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #7f8490;
+  background-color: white;
+  -webkit-box-shadow: 0 8px 14px rgba(87, 84, 84, 0.4) !important;
+  box-shadow: 0 8px 14px rgba(87, 84, 84, 0.4) !important;
+}
 
-  ion-chip.md.ion-activatable.hydrated{
-    --background:rgba(var(--ion-text-color-rgb, 50,205,50), 1.0);
-   
-  }
+ion-chip.md.ion-activatable.hydrated {
+  --background: rgba(var(--ion-text-color-rgb, 50, 205, 50), 1);
+}
 
-  ion-icon.star{
-    color:rgb(38, 0, 255);
-    font-size: 40px;
-   
-  }
+ion-icon.star {
+  color: rgb(38, 0, 255);
+  font-size: 40px;
+}
 
-  ion-icon.news{
-    font-size: 40px;
-    color:rgb(38, 0, 255);
-  }
+ion-icon.news {
+  font-size: 40px;
+  color: rgb(38, 0, 255);
+}
 
-   ion-searchbar.icon{
-    --icon-color: #8b0000;
-    --cancel-button-color: #8b0000;
-  }
+ion-searchbar.icon {
+  --icon-color: #8b0000;
+  --cancel-button-color: #8b0000;
+}
 
-  ion-icon.menu{
+ion-icon.menu {
+  font-size: 24px;
+}
+
+.leaflet-popup-content-wrapper {
+  width: 360px !important;
+  height: 300px;
+}
+
+.alert-wrapper {
+  width: 50% !important;
+  max-width: 30% !important;
+}
+
+.leaflet-popup-content {
+  width: 350px !important;
+}
+
+.leaflet-tooltip {
+  color: black;
+    font-size:14px;
+    font-weight: 700;
+    background-color: none;
+    border-color: none;
+    background: none;
+    border: none;
+    box-shadow: none;
+    margin: 0px;
+    cursor: none;
+    direction: 'center';
     
-    font-size: 24px;
-  }
-
-  
-
-
-  .leaflet-popup-content-wrapper {
-    width:360px !important;
-    height: 300px;
-    }
-
-    .alert-wrapper {
-      width: 50% !important;
-      max-width: 30% !important;
-      }
-
-
-      .leaflet-popup-content{
-
-        width:350px !important;
-      }
-
-  
+}

@@ -7,7 +7,7 @@ import { ModalController } from '@ionic/angular';
 import { RecapPage } from 'src/app/insert/map/recap/recap.page';
 
 export class MapController {
-    
+
 
     private map: Map;
     private userPosition: Position;
@@ -76,13 +76,21 @@ export class MapController {
 
     }
 
-    public getPositions(university: string ) {
+    public getPositions(university: string) {
         this.httpClient.post(MapController.ENDPOINT + "/positions", { position: this.userPosition, university: university }).subscribe(
             res => {
                 /** server returns a list of places */
                 console.log("positions %o", res);
                 Array.isArray(res) && res.forEach(place => {
                     let posMarker = marker(place.position, { icon: place.status == 0 ? MapController.RED_MARKER : MapController.GREEN_MARKER })
+                        .bindTooltip(place.name,
+                            {
+                                permanent: true,
+                                direction: 'center',
+                                offset: [-5, -20],
+                                className: "leaflet-tooltip"  // you can found it at global.scss
+                            },
+                        )
                         .bindPopup(
                             this.createPlacePopup(place.id, place.name, place.type, university, place.status, place.street, place.position, place.people || null, place.time || null, place.news.length)
                             , { autoClose: true })
@@ -90,17 +98,17 @@ export class MapController {
                             let popup = this.createPlacePopup(place.id, place.name, place.type, university, place.status, place.street, null, place.people || null, place.time || null, place.news.length);
                             popup.isNear = this.isNear(place.position);
                             evt.target.bindPopup(popup, { autoClose: true });
-                            place.position.lat > this.userPosition.getLatitude() && this.map.setView([place.position.lat + 0.001, place.position.lon], this.defaultZoom, {animate: true});
+                            place.position.lat > this.userPosition.getLatitude() && this.map.setView([place.position.lat + 0.001, place.position.lon], this.defaultZoom, { animate: true });
                         })
-                        .on('popupclose', ()=> {
+                        .on('popupclose', () => {
                             console.log("popup closed.");
-                            place.position.lat > this.userPosition.getLatitude() && this.map.setView([this.userPosition.getLatitude(), this.userPosition.getLongitude()], this.defaultZoom, {animate: true});
+                            place.position.lat > this.userPosition.getLatitude() && this.map.setView([this.userPosition.getLatitude(), this.userPosition.getLongitude()], this.defaultZoom, { animate: true });
                         })
                         .addTo(this.map);
 
                     if (this.showPopup && this.showPopup == place.id) {
                         console.log("opening");
-                        place.position.lat > this.userPosition.getLatitude() && this.map.setView([place.position.lat + 0.005, place.position.lon], this.defaultZoom, {animate: true});
+                        place.position.lat > this.userPosition.getLatitude() && this.map.setView([place.position.lat + 0.005, place.position.lon], this.defaultZoom, { animate: true });
                         posMarker.openPopup();
                     }
                     this.places.push({ marker: posMarker, status: place.status });
@@ -134,7 +142,7 @@ export class MapController {
         return Math.abs(circleCenterPoint.distanceTo(point)) <= radius;
     }
 
-    createPlacePopup(id: number, name:string, type: string, university: string, status: number, street: string, pos: any, people: string, time: string, newsCount: number) {
+    createPlacePopup(id: number, name: string, type: string, university: string, status: number, street: string, pos: any, people: string, time: string, newsCount: number) {
         let popupEl: NgElement & WithProperties<ReportComponent> = document.createElement('popup-element') as any;
         popupEl.identifier = id;
         popupEl.name = name;
@@ -142,7 +150,7 @@ export class MapController {
         popupEl.status = status != 0;
         popupEl.university = university;
 
-        if(status == 1){
+        if (status == 1) {
             popupEl.persons = people;
             popupEl.time = time;
         }
@@ -177,17 +185,17 @@ export class MapController {
     }
 
     changeQueues(openQueues: boolean) {
-        if(openQueues){
+        if (openQueues) {
             this.places.forEach(place => {
-                let markerToHide : Marker = place.marker;
-                if(place.status == 0){
+                let markerToHide: Marker = place.marker;
+                if (place.status == 0) {
                     markerToHide.remove();
                     this.hiddenPlaces.push(markerToHide);
                 }
             })
         }
-        else{
-            this.hiddenPlaces.forEach((place : Marker) => {
+        else {
+            this.hiddenPlaces.forEach((place: Marker) => {
                 place.addTo(this.map);
             })
             this.hiddenPlaces = [];
