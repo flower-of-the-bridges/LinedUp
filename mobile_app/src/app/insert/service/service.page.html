@@ -9,12 +9,12 @@
     <ion-grid>
       <ion-row>
         <ion-col size="10">
-          <ion-title color="title" style="margin-top: 28px;">
+          <ion-title color="title" style="margin-top: 20px;">
             Report New Queue
           </ion-title>
         </ion-col>
         <ion-col>
-         <center> <img src="../../assets/icon/linedup.png" style="width:70px;"/></center>
+         <center> <img src="../../assets/icon/linedup.png" style="width:50px;"/></center>
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -24,7 +24,7 @@
 <ion-content style="text-align: center;">
   <div  *ngIf="serviceSection">
     <div class="home">
-    <h3>
+    <h3 style="font-size:medium">
       Insert some information about the service provided by the queue you would like to add.
     </h3>
   </div>
@@ -34,19 +34,19 @@
       <div class="form">
       <span class="line divider home one-line">Service Description</span>
       <ion-item lines="full">
-        <ion-label position="floating" class="sizelabel"><b>Name:*</b></ion-label>
+        <ion-label position="floating" class="sizelabel">Name:*</ion-label>
         <ion-input type="text" name="name" placeholder="Enter queue name..." style="font-style: oblique;" [(ngModel)]="request.name" required></ion-input>
       </ion-item>
 
       <ion-item lines="none">
-        <ion-label position="floating" class="sizelabel"><b>Description:*</b></ion-label>
+        <ion-label position="floating" class="sizelabel">Description:*</ion-label>
         <ion-textarea rows="6" cols="20" name="description"
           placeholder="Enter here a short description about the queue..." [(ngModel)]="request.description" style="font-style: oblique;"></ion-textarea>
       </ion-item>
 
       <span class="line divider home one-line">Type of Service</span>
       <ion-item>
-        <ion-label style="font-size:16px;font-style: oblique;"><b>Select type of service*:</b></ion-label>
+        <ion-label style="font-size:16px;font-style: oblique;">Select type of service*:</ion-label>
         <ion-select name="type" placeholder="Select queue's service" style="font-style: oblique;"  [(ngModel)]="request.service" required>
           <ion-select-option *ngFor="let service of services" value="{{service}}">{{service}}</ion-select-option>
         </ion-select>

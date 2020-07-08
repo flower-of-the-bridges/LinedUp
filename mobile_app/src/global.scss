@@ -82,7 +82,8 @@ ion-button.blue {
 .searchbar-input.sc-ion-searchbar-md {
   border-radius: 25px;
   height: auto;
-  font-size: 1.5rem;
+  font-size: 1.0rem;
+  font-style: oblique;
   font-weight: 400;
   color: #7f8490;
   background-color: white;
@@ -96,11 +97,11 @@ ion-chip.md.ion-activatable.hydrated {
 
 ion-icon.star {
   color: rgb(38, 0, 255);
-  font-size: 40px;
+  font-size: 32px;
 }
 
 ion-icon.news {
-  font-size: 40px;
+  font-size: 32px;
   color: rgb(38, 0, 255);
 }
 
@@ -114,8 +115,9 @@ ion-icon.menu {
 }
 
 .leaflet-popup-content-wrapper {
-  width: 360px !important;
-  height: 300px;
+  width: 350px !important;
+  height: 250px;
+ 
 }
 
 .alert-wrapper {
@@ -125,6 +127,9 @@ ion-icon.menu {
 
 .leaflet-popup-content {
   width: 350px !important;
+  margin: 0px;
+  margin-top: 5px;
+  font-style: oblique;
 }
 
 .leaflet-tooltip {

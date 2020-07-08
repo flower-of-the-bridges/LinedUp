@@ -24,9 +24,9 @@
   <ng-template #mainPageBlock>
     <div class="queue">
     
-    <ion-title><b>{{name}}</b></ion-title>
-    <h4>{{street}}</h4>
-    <h4><b>{{status ? "Opened" : "Closed"}}</b></h4>
+    <ion-title style="font-size: large;"><b>{{name}}</b></ion-title>
+    <h4 style="font-size: medium;">{{street}}</h4>
+    <h4 style="font-size: medium;"><b>{{status ? "Opened" : "Closed"}}</b></h4>
     <div *ngIf="!review">
       <div style="margin-top:30px">
       <span class="line divider one-line">Number of persons <ion-icon name="people-outline"></ion-icon></span>

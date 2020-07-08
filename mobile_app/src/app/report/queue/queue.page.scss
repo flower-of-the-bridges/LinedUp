@@ -21,7 +21,7 @@ ul.icons li {
     margin: 1em -1em;
     color: #595454;
     font-style: oblique;
-    font-size: medium;
+    font-size: small;
 
     &:before,
     &:after {
@@ -49,6 +49,8 @@ div.queue {
     width: 90%;
     position: relative;
     left: 3%;
+    font-size:small;
+    font-style: oblique;
 }
 
 div.message {

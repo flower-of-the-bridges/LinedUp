@@ -1,10 +1,11 @@
 <div style="text-align: center; ">
- <div style="font-size: 17px;">
+ <div style="font-size: 14px">
   <b>{{viewedType[type]}}: {{name}}</b><br/>
   {{street}}<br>
   <b>{{status ? "Opened" : "Closed"}}</b>
 </div>
 
+  
   <ion-row>
     <ion-col>
       <center>
@@ -19,7 +20,7 @@
   </ion-row>
   <ion-row>
     <ion-col>
-      <center> {{isFavourite ? 'Remove from Favourites' : 'Add to Favourites'}}</center>
+      <center> <b>{{isFavourite ? 'Remove from Favourites' : 'Add to Favourites'}}</b></center>
     </ion-col>
     <ion-col *ngIf="hasNews">
       <center> Latest News</center>

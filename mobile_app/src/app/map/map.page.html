@@ -10,12 +10,12 @@
         <ion-col size="10">
 
           <ion-searchbar [disabled]="filterSection && filter.type!=null && filter.status!=null"
-            (ionChange)="search($event.detail.value)" class="icon" placeholder="seach by service name (e.g De Lollis)">
+            (ionChange)="search($event.detail.value)" class="icon" placeholder="seach by service name (e.g De Lollis)" >
           </ion-searchbar>
 
         </ion-col>
         <ion-col>
-          <center> <img src="../../assets/icon/linedup.png" /></center>
+          <center> <img src="../../assets/icon/linedup.png" style="width: 50px;"/></center>
         </ion-col>
       </ion-row>
     </ion-grid>
