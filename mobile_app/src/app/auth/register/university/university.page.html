@@ -22,10 +22,12 @@
 <ion-content>
   <div class="ion-text-center reg">
     <ion-label *ngIf="isGoogleAuth==null">
-      <h1>Lined Up</h1> gives you the opportunity to view and report all the queues within the university.<br> We first need
+      <h1>Lined Up</h1> gives you the opportunity to view and report all the queues within the university.<br> We first
+      need
       some informations about your university life.
     </ion-label>
-    <ion-label *ngIf="isGoogleAuth!=null">Before you can start using <h1>LinedUp</h1>, we need to know who you are, to make
+    <ion-label *ngIf="isGoogleAuth!=null">Before you can start using <h1>LinedUp</h1>, we need to know who you are, to
+      make
       the access to the service
     </ion-label>
 
@@ -33,30 +35,35 @@
 
   <form #form="ngForm" (ngSubmit)="addUniversity(form)">
     <div class="form">
-
-      <div class="link" > <a [routerLink]="['/request']">{{university!=null ? 'Faculty' : 'University'}} not present? Send request to add</a></div>
       <span class="divider line one-line form">Select your University</span>
+      <div class="link"> <a [routerLink]="['/request']" (click)="selectUniversity(null)">Is your university not on the
+          list? Send a request to add it!</a></div>
       <ion-item class="sizelabel">
         <ion-label>University</ion-label>
-        <ion-select name="university" placeholder="University" #C (ionChange)="selectUniversity(C.value)" ngModel
-          required>
+        <ion-select name="university" placeholder="Select your University" #C (ionChange)="selectUniversity(C.value)"
+          [(ngModel)]="university" required>
           <ion-select-option *ngFor="let university of universities.sort()" value="{{university}}">{{university}}
           </ion-select-option>
         </ion-select>
       </ion-item>
-      
-      <span class="divider line one-line form" *ngIf="university!=null" style="margin-top:50px"> Select your
+      <br />
+
+      <span class="divider line one-line form" *ngIf="university!=null && faculties[university]!=null"> Select your
         Faculty</span>
-      <ion-item *ngIf="university!=null" class="sizelabel">
+      <div class="link" *ngIf="university!=null && faculties[university]!=null"> <a [routerLink]="['/request']">Is your
+          faculty not on the list? Send a request to add it!</a></div>
+
+      <ion-item *ngIf="university!=null && faculties[university]!=null" class="sizelabel">
         <ion-label class="sizelabel">Faculty</ion-label>
-        <ion-select name="faculty" placeholder="Faculty" ngModel required>
-          <ion-select-option *ngFor="let faculty of faculties[university].faculties.sort()" value="{{faculty}}">{{faculty}}
+        <ion-select name="faculty" placeholder="Select your Faculty" ngModel required>
+          <ion-select-option *ngFor="let faculty of faculties[university].faculties.sort()" value="{{faculty}}">
+            {{faculty}}
           </ion-select-option>
         </ion-select>
       </ion-item>
-      
-        
-     
+
+
+
     </div>
     <ion-row>
       <ion-col>
