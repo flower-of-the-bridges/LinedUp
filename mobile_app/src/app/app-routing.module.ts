@@ -54,6 +54,10 @@ const routes: Routes = [
   {
     path: 'request',
     loadChildren: () => import('./auth/register/request/request.module').then( m => m.RequestPageModule)
+  },
+  {
+    path: 'map',
+    loadChildren: () => import('./tutorials/map/map.module').then( m => m.MapPageModule)
   }
 ];
 

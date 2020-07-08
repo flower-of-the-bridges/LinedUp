@@ -2,11 +2,12 @@ import { Component, OnInit, ComponentFactoryResolver, Injector } from '@angular/
 import { GeoController } from '../../component/controller/GeoController';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { MapController } from '../../component/controller/MapController';
-import { MenuController, LoadingController } from '@ionic/angular';
+import { MenuController, LoadingController, ModalController } from '@ionic/angular';
 import { AuthService } from '../auth/auth.service';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Position } from 'src/component/entity/Position';
+import { MapTutorial } from '../tutorials/map/map.page';
 
 @Component({
   selector: 'app-map',
@@ -45,7 +46,7 @@ export class MapPage implements OnInit {
 
   private university: string = null;
 
-  constructor(public loadingController: LoadingController, private geolocation: Geolocation, private authService: AuthService, private httpClient: HttpClient, private router: Router) {
+  constructor(public loadingController: LoadingController, public modalController: ModalController, private geolocation: Geolocation, private authService: AuthService, private httpClient: HttpClient, private router: Router) {
 
     this.geoController = new GeoController(this.geolocation);
   }
@@ -83,8 +84,32 @@ export class MapPage implements OnInit {
     });
     await loading.present();
 
-    const { role, data } = await loading.onDidDismiss();
+    loading.onDidDismiss().then(() => {
+      this.authService.getTutorials().then(tutorials => {
+        if (tutorials) {
+          tutorials[0] && this.showTutorial(true);
+        }
+        else {
+          this.showTutorial(true);
+        }
+      })
+    });
     console.log('Loading dismissed!');
+  }
+
+  async showTutorial(isTutorial: boolean) {
+    console.log("showing tutorial");
+    const modal = await this.modalController.create({
+      component: MapTutorial,
+      componentProps: {
+        "isTutorial": isTutorial
+      }
+    });
+    modal.onDidDismiss().then(evt => {
+      let hideTutorial = evt.data['hideTutorial'];
+      hideTutorial && this.authService.hideTutorial(0);
+    })
+    return await modal.present();
   }
 
 

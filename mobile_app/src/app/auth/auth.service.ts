@@ -21,6 +21,8 @@ export class AuthService {
   googleSubject = new BehaviorSubject(null);
   universitySubject = new BehaviorSubject(null);
 
+  private tutorials = [true, true, true];
+
   /** google variables */
   private gapiSetup: boolean = false;
   private googleAuthInstance: any;
@@ -39,6 +41,7 @@ export class AuthService {
           await this.storage.set("ACCESS_TOKEN", res.user.access_token);
           await this.storage.set("EXPIRES_IN", res.user.expires_in);
           await this.storage.set("UNIVERSITY", user.university);
+          await this.storage.set("TUTORIALS", this.tutorials);
           //this.authSubject.next(true);
         }
       })
@@ -54,6 +57,7 @@ export class AuthService {
           await this.storage.set("ACCESS_TOKEN", res.user.access_token);
           await this.storage.set("EXPIRES_IN", res.user.expires_in);
           await this.storage.set("UNIVERSITY", res.user.university);
+          await this.storage.set("TUTORIALS", this.tutorials);
           //this.authSubject.next(true);
         }
       })
@@ -92,6 +96,19 @@ export class AuthService {
 
   async getUniversity(): Promise<any> {
     return this.storage.ready().then(storage => storage.getItem("UNIVERSITY"));
+  }
+
+  async getTutorials(): Promise<any> {
+    return this.storage.ready().then(storage => storage.getItem("TUTORIALS"));
+  }
+
+  hideTutorial(index: number) {
+    this.getTutorials().then(tutorial => {
+      if (Array.isArray(tutorial) && index < tutorial.length) {
+        tutorial[index] = false;
+        this.storage.set("TUTORIALS", tutorial);
+      }
+    })
   }
 
   hasUserLoggedIn() {
@@ -241,6 +258,7 @@ export class AuthService {
   checkGoogleAccount(userInfo: any, userToken: any) {
     this.storage.set("ACCESS_TOKEN", userToken.access_token);
     this.storage.set("EXPIRES_IN", userToken.expires_in);
+    this.storage.set("TUTORIALS", this.tutorials);
 
     return this.httpClient.post(`${this.AUTH_SERVER_ADDRESS}/googlecheck`, { mail: userInfo.Au, name: userInfo.zW, surname: userInfo.zU }).pipe(
       tap(async (res: any) => {

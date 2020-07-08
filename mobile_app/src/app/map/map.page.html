@@ -2,7 +2,6 @@
 
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-label><b>Menu</b></ion-label>
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-grid>
@@ -10,7 +9,7 @@
         <ion-col size="10">
 
           <ion-searchbar [disabled]="filterSection && filter.type!=null && filter.status!=null"
-            (ionChange)="search($event.detail.value)" class="icon" placeholder="seach by service name (e.g De Lollis)" >
+            (ionChange)="search($event.detail.value)" class="icon" placeholder="Search a service by its name...">
           </ion-searchbar>
 
         </ion-col>
@@ -112,6 +111,7 @@
    
   </div>
   <div id="map" style="position: relative; height: 100%;" *ngIf="queueSearch==null || viewResult"></div>
+  <ion-icon id="helpButton" name="help-circle" (click)="showTutorial(false)"></ion-icon>
   <ion-item id="refreshButton" *ngIf="queueSearch==null || viewResult">
     <ion-label>Open Queues Only</ion-label>
     <ion-toggle color="success" (ionChange)="changeMarkers()" [(ngModel)]="openQueues"></ion-toggle>
