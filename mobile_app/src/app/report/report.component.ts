@@ -99,7 +99,6 @@ export class ReportComponent implements OnInit {
 
     modal.onDidDismiss()
       .then((evt) => {
-        console.log(evt);
         let requestResult = evt.data['requestResult'];
         console.log("request result is %o", requestResult);
         if(requestResult!=null){

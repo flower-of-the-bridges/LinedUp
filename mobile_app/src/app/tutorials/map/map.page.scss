@@ -1,0 +1,72 @@
+ul.icons {
+    list-style: none;
+    text-align: center;
+}
+ul.icons li {
+    display: inline-block;
+}
+
+.divider {
+    display: flex;
+
+    &:before,
+    &:after {
+        content: "";
+        flex: 1;
+    }
+}
+
+.line {
+    align-items: center;
+    margin: 1em -1em;
+    color: #595454;
+    font-style: oblique;
+    font-size: medium;
+
+    &:before,
+    &:after {
+        height: 1px;
+        margin: 0 1em;
+    }
+}
+
+.one-line {
+    &:before,
+    &:after {
+        background: #cccccc;
+    }
+}
+ul {
+    overflow: hidden;
+    white-space: nowrap;
+}
+li {
+    display: inline;
+}
+
+div.queue {
+    margin-top: 30px;
+    width: 90%;
+    position: relative;
+    left: 3%;
+}
+
+div.message {
+    width: 80%;
+    height: 30%;
+    font-style: oblique;
+    font-size: larger;
+    padding-left: 3px;
+    padding-right: 3px;
+    padding-bottom: 5px;
+    padding-top: 40px;
+
+    position: relative;
+    left: 10%;
+    top: 20%;
+    margin-top: 4%;
+}
+
+.sizelabel1 {
+    font-size: 20px !important;
+}

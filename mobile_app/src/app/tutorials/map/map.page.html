@@ -1,0 +1,73 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Welcome to LinedUp Map!</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content style="text-align: center;">
+  <h4>Sapienza has provided some services of your faculty. You can find their position on the map and report their queue
+    to us. </h4>
+  <h4>In this way we will inform other users about current status of queues, to make Sapienza a better place to enjoy!
+  </h4>
+  <span class="line divider one-line">Check the markers...</span>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <img src="../../../assets/icon/green_marker.png" width="50" height="50" />
+      </ion-col>
+      <ion-col>
+        <p>represents place that are currently opened</p>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <img src="../../../assets/icon/red_marker.png" width="50" height="50" />
+      </ion-col>
+      <ion-col>
+        <p>represents place that are currently closed</p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <span class="line divider one-line">...or search services</span>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <center>
+          <p>You can also find a service by its name using the search toolbar.</p>
+        </center>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <img src="../../../assets/searchtutorial.png" />
+    </ion-row>
+  </ion-grid>
+  <span class="line divider one-line">You're almost ready</span>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <center>
+          <p>To report the status of a queue near by you, it must be within your range zone.</p>
+        </center>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <center><img src="../../../assets/searchtutorial1.PNG" width="200" height="200"/></center>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="isTutorial!=false">
+      <ion-col>
+        <center>
+          <ion-checkbox [(ngModel)]="hideTutorial"></ion-checkbox>
+          <ion-label>Don't show this again </ion-label>
+        </center>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
