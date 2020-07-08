@@ -13,7 +13,7 @@ export class UniversityPage implements OnInit {
   private university: string;
   private universities: Array<string> = [];
   private isGoogleAuth: string = null;
-  private faculties: any;
+  private faculties: any = null;
   
   constructor(private authService: AuthService, private router: Router) { }
 
@@ -25,9 +25,9 @@ export class UniversityPage implements OnInit {
 
       this.universities = Object.keys(res);
       this.faculties = res;
-      console.log("%o %o", this.universities, this.faculties);
     })
   }
+  
 
   addUniversity(form: any) {
     if (this.isGoogleAuth == null) {
@@ -41,7 +41,7 @@ export class UniversityPage implements OnInit {
     }
   }
 
-  selectUniversity(value: string) {
+  selectUniversity(value: any) {
     this.university = value;
     this.authService.setSelectedUniversity(this.university);
   }
