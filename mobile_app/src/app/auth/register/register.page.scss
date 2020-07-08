@@ -30,13 +30,12 @@
 
 
 div.reg{
-  margin-top:3vw;
-  margin-bottom:3vw;
+  margin-top:2vw;
+  margin-bottom:2vw;
  
   color: #000000;
   font-style: oblique;
-  font-size:medium;
- 
+  font-size:14px;
 }
 
 div.form{
@@ -46,7 +45,7 @@ div.form{
     width: 80%;
     height: 45%;
     padding:20px;
-    padding-top: 56px;
+    padding-top: 20px;
     border-radius:20px;
     position: relative;
     left:10%;
@@ -63,15 +62,15 @@ span.form{
   font-weight: bold;
   color: #595454;
   font-style: oblique;
-  font-size:medium;
+  font-size:small;
  
 }
 
-.sizelabel{ font-size: 15px !important; }
+
 
 .text{ text-align: center !important;}
 
 .info{
+  font-size: small !important; 
   font-style: oblique;
-  font-size:medium;
 }

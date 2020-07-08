@@ -15,12 +15,12 @@
   </div>
   <div class="login">
     <form #form="ngForm" (ngSubmit)="login(form)" >
-      <ion-item lines="full">
+      <ion-item lines="full" class="info">
         
         <ion-input type="email" name="email" pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}" placeholder="E-mail" style="font-style: oblique;" ngModel required></ion-input>
       </ion-item>
 
-      <ion-item lines="full">
+      <ion-item lines="full" class="info">
         <ion-input [type]="showPassword ? 'text' : 'password'" name="password" placeholder="Password" style="font-style: oblique;" ngModel required>
         </ion-input>
         <ion-icon slot="end" [name]="showPassword ? 'eye-off' : 'eye'" (click)="togglePassword()"></ion-icon>
@@ -31,13 +31,13 @@
           <center>
             <ion-button type="submit" color="signin" size="medium" style="margin-top: 10vh;margin-bottom:2vh;">Sign In
             </ion-button><br>
-            <a href="#" class="small-text">Forgot Password?</a>
+            <a href="#" style="font-size: small; font-weight: bold;">Forgot Password?</a>
           </center>
         </ion-col>
       </ion-row>
     </form>
   </div>
-  <div class="ion-text-center reg" style="  margin-top:3.5vh;">
+  <div class="ion-text-center reg" style=" font-weight: bold; margin-top:3.5vh;">
     if you are not registered yet, <a href="/register/university" class="small-text">sign up</a>
 
   </div>

@@ -7,11 +7,11 @@
       <ion-row>
         <ion-col size="10">
 
-          <ion-title color="title" style="margin-top: 28px;">Register</ion-title>
+          <ion-title color="title" style="margin-top: 20px;">Register</ion-title>
 
         </ion-col>
         <ion-col>
-          <center> <img src="../../assets/icon/linedup.png" style="width:70px;" /></center>
+          <center> <img src="../../assets/icon/linedup.png" style="width:50px;" /></center>
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -27,36 +27,36 @@
   <form #form="ngForm" (ngSubmit)="register(form)">
     <div class="form">
       <span class="divider line one-line form">Personal Information</span>
-      <ion-item lines="full">
-        <ion-label *ngIf="isBrowser">First Name:</ion-label>
-        <ion-input type="text" name="name" [placeholder]="isBrowser? 'Write here your First Name' : 'First Name'" ngModel required class="sizelabel"></ion-input>
+      <ion-item lines="full" class="info" *ngIf="isBrowser">
+        <ion-label  >First Name:</ion-label>
+        <ion-input type="text"  name="name" [placeholder]="isBrowser? 'Write here your First Name' : 'First Name'" ngModel required ></ion-input>
       </ion-item>
-      <ion-item lines="full">
+      <ion-item lines="full" class="info">
         <ion-label *ngIf="isBrowser">Last Name:</ion-label>
-        <ion-input type="text" name="surname" [placeholder]="isBrowser? 'Write here your Last Name' : 'Last Name'" ngModel required class="sizelabel"></ion-input>
+        <ion-input type="text" name="surname" [placeholder]="isBrowser? 'Write here your Last Name' : 'Last Name'" ngModel required ></ion-input>
       </ion-item>
-      <ion-item lines="full" lines="full" class="sizelabel" *ngIf="!isBrowser">
+      <ion-item lines="full" lines="full" class="info" *ngIf="!isBrowser">
         <ion-label position="stacked"></ion-label>
         <ion-datetime name="birthDate"  displayFormat="DD MM YYYY" placeholder="Birth Date" ngModel min="1985"
           max="2001" required class="sizelabeldate"></ion-datetime>
       </ion-item>
-      <ion-item lines="full" *ngIf="isBrowser">
+      <ion-item lines="full" *ngIf="isBrowser" class="info">
         <ion-label>Birth Date:</ion-label>
         <ion-input type="text" name="surname" placeholder="Write here your Birth Date (dd/mm/yyyy)" (ionChange)="setDate($event.detail.value, $event)" pattern="(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.]((198|199)\d|(2000|2001))" ngModel required class="sizelabel"></ion-input>
       </ion-item>
       <center><p class="info"><small>You must have 18 years to use LinedUp.</small></p></center>
       <span class="divider line one-line form" style="margin-top:50px">Access Information</span>
-      <ion-item lines="full" class="sizelabel">
+      <ion-item lines="full" class="info">
         <ion-input type="email" name="email" placeholder="Email" ngModel pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}" required>
         </ion-input>
       </ion-item>
-      <ion-item lines="full" class="sizelabel">
+      <ion-item lines="full" class="info">
         <ion-input [type]="showPassword ? 'text' : 'password'" name="password" placeholder="Password" ngModel required>
         </ion-input>
         <ion-icon slot="end" [name]="showPassword ? 'eye-off' : 'eye'" (click)="togglePassword()"></ion-icon>
       </ion-item>
 
-      <ion-item lines="full" class="sizelabel">
+      <ion-item lines="full"class="info">
         <ion-input [type]="showConfirmedPassword ? 'text' : 'password'" name="confirm" placeholder="Confirm Password"
           ngModel required></ion-input>
         <ion-icon slot="end" [name]="showConfirmedPassword ? 'eye-off' : 'eye'" (click)="toggleConfirmedPassword()">

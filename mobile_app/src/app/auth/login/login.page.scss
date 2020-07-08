@@ -24,12 +24,12 @@ img.login{
 }
 
 div.reg{
-    margin-top:5vw;
-    font-weight: bold;
+    margin-top:2vw;
+    margin-bottom:2vw;
+   
     color: #000000;
     font-style: oblique;
-    font-size:large;
-   
+    font-size:14px;
 }
 
 h4.reg{
@@ -41,3 +41,8 @@ h4.reg{
   font-size:medium;
    
 }
+
+.info{
+    font-size: small !important; 
+    font-style: oblique;
+  }
