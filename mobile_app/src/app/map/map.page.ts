@@ -2,12 +2,13 @@ import { Component, OnInit, ComponentFactoryResolver, Injector } from '@angular/
 import { GeoController } from '../../component/controller/GeoController';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { MapController } from '../../component/controller/MapController';
-import { MenuController, LoadingController, ModalController } from '@ionic/angular';
+import { LoadingController, ModalController } from '@ionic/angular';
 import { AuthService } from '../auth/auth.service';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Position } from 'src/component/entity/Position';
 import { MapTutorial } from '../tutorials/map/map.page';
+import { GeolocationPage } from '../error/geolocation/geolocation.page';
 
 @Component({
   selector: 'app-map',
@@ -112,6 +113,20 @@ export class MapPage implements OnInit {
     return await modal.present();
   }
 
+  async showHerror(errorCode: number) {
+    console.log("showing error");
+    const modal = await this.modalController.create({
+      component: GeolocationPage,
+      componentProps: {
+        "code": errorCode
+      }
+    });
+    modal.onDidDismiss().then(evt => {
+      this.router.navigateByUrl('/home-auth');
+    })
+    return await modal.present();
+  }
+
 
   ionViewWillLeave() {
     if (this.mapController) {
@@ -160,12 +175,15 @@ export class MapPage implements OnInit {
 
     this.geoController.getUserPosition().then(pos => {
       console.debug("my pos is : " + pos);
-      if (pos) {
+      if (Number.isInteger(pos)) {
+        this.showHerror(pos);
+      }
+      else {
         this.mapController = new MapController('map', pos, queuePosition || pos, this.httpClient, showPopup);
         marker = this.mapController.addUser();
         this.mapController.getPositions(this.university);
       }
-    });
+    })
   }
 
   selectType(type: string) {

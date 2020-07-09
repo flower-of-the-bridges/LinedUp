@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Ooops! Some error has occured.</ion-title>
+  </ion-toolbar>
+  <ion-buttons slot="end">
+    <ion-button (click)="dismiss()">
+      <ion-icon name="close-outline"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+</ion-header>
+
+<ion-content style="text-align: center;">
+  <h4 *ngIf="isUserError" style="font-size: medium;">You have denied permissions to use your current position. Please make sure that your device supports geolocalization and to turn it on, so that we can provide to you all the features of Lined Up.</h4>
+  <center>
+    <ion-button color="primary" (click)="dismiss()">
+      Go to Home
+    </ion-button>
+  </center>
+</ion-content>

@@ -18,19 +18,19 @@
 <ion-content>
 <div style="text-align: center;" class="home">
   
-  <h4>Your queue is located at:</h4>
+  <h4 class="home">Your queue is located at:</h4>
   <div *ngIf="place!=null; else streetBlock">
-    <h3 ><b>{{place.street}}</b></h3>
-    <h4><b>{{place.building}}</b> is associated to this street.</h4>
+    <h3 style="font-size:medium"><b>{{place.street}}</b></h3>
+    <h4 class="home"><b>{{place.building}}</b> is associated to this street.</h4>
   </div>
   <ng-template #streetBlock>
-    <h3><b>{{street}}</b></h3>
-    <h4>No building is associated to this street.</h4>
+    <h3 style="font-size:medium"><b>{{street}}</b></h3>
+    <h4  class="home">No building is associated to this street.</h4>
   </ng-template>
-  <ion-grid style="margin-top: 150px;">
+  <ion-grid style="margin-top: 180px;">
     <ion-row>
       <ion-col align-self-center>
-        <h4><b>Confirm?</b></h4>
+        <h4 class="home"><b>Confirm?</b></h4>
       </ion-col>
     </ion-row>
     <ion-row>

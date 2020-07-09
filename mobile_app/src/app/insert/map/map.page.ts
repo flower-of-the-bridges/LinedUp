@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { ModalController, ToastController, LoadingController } from '@ionic/angular';
+import { GeolocationPage } from 'src/app/error/geolocation/geolocation.page';
 
 @Component({
   selector: 'app-map',
@@ -32,7 +33,6 @@ export class MapPage implements OnInit {
     });
     await loading.present();
 
-    const { role, data } = await loading.onDidDismiss();
     console.log('Loading dismissed!');
   }
 
@@ -43,14 +43,32 @@ export class MapPage implements OnInit {
 
       this.geoController.getUserPosition().then(pos => {
         console.debug("my pos is : " + pos);
-        if (pos) {
+        if (Number.isInteger(pos)) {
+          this.showHerror(pos);
+        }
+        else {
           this.mapController = new MapController('map_queue', pos, pos, this.httpClient, null);
+          this.showHelp();
           marker = this.mapController.addUser();
           this.mapController.getBuildings(this.modalController, university);
         }
       });
 
     })
+  }
+
+  async showHerror(errorCode: number) {
+    console.log("showing error");
+    const modal = await this.modalController.create({
+      component: GeolocationPage,
+      componentProps: {
+        "code": errorCode
+      }
+    });
+    modal.onDidDismiss().then(evt => {
+      this.router.navigateByUrl('/home-auth');
+    })
+    return await modal.present();
   }
 
   async showHelp() {

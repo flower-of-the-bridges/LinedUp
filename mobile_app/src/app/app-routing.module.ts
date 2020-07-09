@@ -58,6 +58,10 @@ const routes: Routes = [
   {
     path: 'map',
     loadChildren: () => import('./tutorials/map/map.module').then( m => m.MapPageModule)
+  },
+  {
+    path: 'geolocation',
+    loadChildren: () => import('./error/geolocation/geolocation.module').then( m => m.GeolocationPageModule)
   }
 ];
 

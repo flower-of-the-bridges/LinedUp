@@ -24,7 +24,7 @@
     Before you can start using <b>Lined Up</b> we need to know who you are, <br> to make the access to the service.
 
   </div>
-  <form #form="ngForm" (ngSubmit)="register(form)">
+  <form #form="ngForm" (ngSubmit)="register(form, $event)">
     <div class="form">
       <span class="divider line one-line form">Personal Information</span>
       <ion-item lines="full" class="info" *ngIf="isBrowser">
@@ -42,26 +42,28 @@
       </ion-item>
       <ion-item lines="full" *ngIf="isBrowser" class="info">
         <ion-label>Birth Date:</ion-label>
-        <ion-input type="text" name="surname" placeholder="Write here your Birth Date (dd/mm/yyyy)" (ionChange)="setDate($event.detail.value, $event)" pattern="(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.]((198|199)\d|(2000|2001|2002))" ngModel required class="sizelabel"></ion-input>
+        <ion-input type="text" name="birthDate" placeholder="Write here your Birth Date (dd/mm/yyyy)" pattern="(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.]((198|199)\d|(2000|2001|2002))" ngModel required class="sizelabel"></ion-input>
       </ion-item>
       <center><p class="info"><small>You must have 18 years to use LinedUp.</small></p></center>
       <span class="divider line one-line form" style="margin-top:50px">Access Information</span>
       <ion-item lines="full" class="info">
-        <ion-input type="email" name="email" placeholder="Email" ngModel pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}" required>
+        <ion-input type="email" name="email" placeholder="Email" (ionChange)="checkMail($event.detail.value)" ngModel pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}" required>
         </ion-input>
       </ion-item>
+      <center><p class="error"><small id="mailerror"></small></p></center>
       <ion-item lines="full" class="info">
-        <ion-input [type]="showPassword ? 'text' : 'password'" name="password" placeholder="Password" ngModel required>
+        <ion-input [type]="showPassword ? 'text' : 'password'" name="password" placeholder="Password" [(ngModel)]="password" required>
         </ion-input>
         <ion-icon slot="end" [name]="showPassword ? 'eye-off' : 'eye'" (click)="togglePassword()"></ion-icon>
       </ion-item>
 
       <ion-item lines="full"class="info">
-        <ion-input [type]="showConfirmedPassword ? 'text' : 'password'" name="confirm" placeholder="Confirm Password"
+        <ion-input [type]="showConfirmedPassword ? 'text' : 'password'" (ionChange)="checkPassword($event.detail.value)" name="confirm" placeholder="Confirm Password"
           ngModel required></ion-input>
         <ion-icon slot="end" [name]="showConfirmedPassword ? 'eye-off' : 'eye'" (click)="toggleConfirmedPassword()">
         </ion-icon>
       </ion-item>
+      <center><p class="error"><small id="passerror"></small></p></center>
     </div>
     <ion-row>
 
