@@ -70,7 +70,7 @@ export class MapController {
                 color: '#000000',
                 fillColor: '#153E7E',
                 fillOpacity: 0.5,
-                weight: 2
+                weight: 0.5
             }).addTo(this.map);
         }
 

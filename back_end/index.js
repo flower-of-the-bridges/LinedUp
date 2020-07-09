@@ -75,7 +75,7 @@ const places = [
     },
     {
         id: 2,
-        name: "De Lollis",
+        name: "Canteen",
         status: 1,
         people: "< 10",
         time: "10 - 30",
