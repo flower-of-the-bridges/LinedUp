@@ -9,13 +9,13 @@ export class GeoController {
     constructor(private geolocation: Geolocation) {
     }
 
-    async getUserPosition(): Promise<Position> {
+    async getUserPosition(): Promise<any> {
         let pos = this.geolocation.getCurrentPosition().then((resp) => {
             console.debug("resp is ", resp);
             return this.populatePos(resp.coords.latitude, resp.coords.longitude, resp.coords.accuracy);
         }).catch((error) => {
             console.log('Error getting location', error);
-            return null;
+            return error.code;
         });
 
         return pos;

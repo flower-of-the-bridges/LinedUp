@@ -414,6 +414,17 @@ router.post('/request', (req, res) => {
     return res.status(200).send({msg: "ok"});
 })
 
+router.post('/mailcheck', (req, res) =>{
+    console.log("received req %o", req.body);
+    findUserByEmail(req.body.mail, (err, user) => {
+        if (err) return res.status(500).send('Server error!');
+        else{
+            let found = user != null;
+            return res.status(200).send({"found": found});
+        }
+    });
+})
+
 app.use(router);
 const port = process.env.PORT || 3000;
 const server = app.listen(port, () => {

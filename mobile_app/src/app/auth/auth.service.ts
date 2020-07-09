@@ -291,4 +291,12 @@ export class AuthService {
     return this.universitySubject.asObservable();
   }
 
+  checkMail(mail: string) {
+    return this.httpClient.post(`${this.AUTH_SERVER_ADDRESS}/mailcheck`, { mail: mail }).pipe(
+      tap(async (res: any) => {
+        console.log("res is %o", res);
+      })
+    );
+  }
+
 }
