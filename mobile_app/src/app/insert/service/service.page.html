@@ -33,20 +33,20 @@
     <form #form="ngForm" (ngSubmit)="review(form.value)">
       <div class="form">
       <span class="line divider home one-line">Service Description</span>
-      <ion-item lines="full">
-        <ion-label position="floating" class="sizelabel">Name:*</ion-label>
+      <ion-item lines="full" >
+        <ion-label position="floating" >Name:*</ion-label>
         <ion-input type="text" name="name" placeholder="Enter queue name..." style="font-style: oblique;" [(ngModel)]="request.name" required></ion-input>
       </ion-item>
 
-      <ion-item lines="none">
-        <ion-label position="floating" class="sizelabel">Description:*</ion-label>
+      <ion-item lines="none" class="sizelabel">
+        <ion-label position="floating" >Description:*</ion-label>
         <ion-textarea rows="6" cols="20" name="description"
           placeholder="Enter here a short description about the queue..." [(ngModel)]="request.description" style="font-style: oblique;"></ion-textarea>
       </ion-item>
 
       <span class="line divider home one-line">Type of Service</span>
-      <ion-item>
-        <ion-label style="font-size:16px;font-style: oblique;">Select type of service*:</ion-label>
+      <ion-item style="font-size:small;font-style: oblique;">
+        <ion-label >Select type of service*:</ion-label>
         <ion-select name="type" placeholder="Select queue's service" style="font-style: oblique;"  [(ngModel)]="request.service" required>
           <ion-select-option *ngFor="let service of services" value="{{service}}">{{service}}</ion-select-option>
         </ion-select>
@@ -68,7 +68,7 @@
       <h1 class="home" style="margin-bottom: 30px;">
        Recap Page
       </h1>
-     <h3>Check the information before send them</h3>
+     <h3 style="font-size:medium">Check the information before send them</h3>
     </div>
     <div class="form">
     <span class="line divider home one-line">Position </span>
@@ -110,7 +110,7 @@
     </ion-row>
     <ion-item lines="none" style="margin-top:30px">
       <ion-checkbox color="primary" ></ion-checkbox>
-      <ion-label style="font-style: oblique; font-weight: bold; font-size: 15px;">Notify me when the request has been processed</ion-label>
+      <ion-label style="font-style: oblique; font-weight: bold; font-size: 14px;">Notify me when the request has been processed</ion-label>
     </ion-item>
 
   </div>
