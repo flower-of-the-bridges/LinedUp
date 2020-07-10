@@ -213,4 +213,8 @@ export class MapPage implements OnInit {
     this.mapController.changeQueues(this.openQueues);
   }
 
+  resetView(){
+    this.mapController.resetView();
+  }
+
 }

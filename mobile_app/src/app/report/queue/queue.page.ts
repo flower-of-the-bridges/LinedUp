@@ -14,7 +14,6 @@ export class QueuePage implements OnInit {
   @Input() university: string;
   @Input() name: string;
   @Input() street: string;
-  @Input() status: boolean;
 
   private review: boolean = false;
   private reportSent: boolean = false;

@@ -2,7 +2,6 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
 import { ModalController } from '@ionic/angular';
-import { BuildingPage } from '../../building/building.page';
 
 @Component({
   selector: 'app-recap',
@@ -13,36 +12,35 @@ export class RecapPage implements OnInit {
 
   @Input() place: any;
   @Input() street: string;
+  @Input() position: any;
+
+  private building: string = null;
 
 
   constructor(private authService: AuthService, private router: Router, public modalController: ModalController) { }
 
   ngOnInit() {
-    console.log(this.place, this.street);
+    if(this.place){
+      this.street = this.place.street;
+      this.building = this.place.building;
+    }
+    console.log(this.place, this.building, this.street, this.position);
   }
 
-  selectPlace() {
+  selectPlace(form: any) {
 
-    this.place && this.authService.setBuilding({
+    this.authService.setBuilding({
       building: {
-        name: this.place.building,
-        street: this.place.street
+        name: this.building,
+        street: this.street,
+        position: this.position
       },
-      room: "",
-      number: ""
-    });
-    this.street && this.authService.setBuilding({
-      building:{
-        name:"",
-        street: this.street
-      },
-      room: "",
-      number: ""
+      room: form.room || "",
+      number: form.number || ""
     });
 
     this.dismiss();
     this.router.navigateByUrl("insert/service");
-
 
   }
 
@@ -52,6 +50,11 @@ export class RecapPage implements OnInit {
     this.modalController.dismiss({
       'dismissed': true
     });
+  }
+
+  
+  setBuilding(building: string){
+    this.building = building;
   }
 
 }

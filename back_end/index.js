@@ -222,7 +222,23 @@ router.post('/positions', (req, res) => {
 });
 
 router.post('/insert', (req, res) => {
-    console.log("/insert: received new queue %o", req.body);
+    let body = req.body;
+    
+    console.log("/insert: received new queue %o", body);
+    let university = universities[body.university];
+    if(university!=null){
+        let newPlace = {
+            id: university.places.length,
+            name: body.name,
+            status: body.status,
+            street: body.street,
+            building: body.building,
+            type: body.service,
+            description: body.description
+        };
+        console.log("inserting place %o", newPlace);
+        university.places.push(newPlace);
+    }
     res.status(200).send({ msg: "ok" });
 });
 

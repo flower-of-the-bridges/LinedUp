@@ -1,12 +1,12 @@
 <div style="text-align: center; ">
- <div style="font-size: 14px">
-  <b>{{viewedType[type]}}: {{name}}</b><br/>
-  {{street}}<br>
-  <b>{{status ? "Opened" : "Closed"}}</b>
-</div>
+  <div style="font-size: 14px">
+    <b>{{viewedType[type]}}: {{name}}</b><br />
+    {{building}} - {{street}}<br>
+    <b>{{status == 1 ? "Opened" : (status == 0 ? "Closed" : "To be Approved")}}</b>
+  </div>
 
-  
-  <ion-row>
+
+  <ion-row *ngIf="status!=2">
     <ion-col>
       <center>
         <ion-icon name="{{isFavourite ? 'star' : 'star-outline'}}" class="star" (click)="addToFavourites()"></ion-icon>
@@ -18,7 +18,7 @@
       </center>
     </ion-col>
   </ion-row>
-  <ion-row>
+  <ion-row *ngIf="status!=2">
     <ion-col>
       <center> <b>{{isFavourite ? 'Remove from Favourites' : 'Add to Favourites'}}</b></center>
     </ion-col>
@@ -41,16 +41,36 @@
       <b>Estimated Time:</b>
     </ion-col>
     <ion-col>
-      <ion-label >{{time}}</ion-label>
+      <ion-label>{{time}}</ion-label>
     </ion-col>
   </ion-row>
 </ion-grid>
 
-  <ion-row>
-    <ion-col *ngIf="isNear && status">
-      <center><ion-button type="submit" color="primary" (click)="queueModal()" size="small" style="font-size:x-small;">I'm in Queue</ion-button></center>
-    </ion-col>
-    <ion-col>
-      <center><ion-button type="submit" color="primary" (click)="problemModal()" size="small" style="font-size:x-small;">Report Problem</ion-button></center>
-    </ion-col>
-  </ion-row>
+<ion-row>
+  <ion-col *ngIf="isNear && status">
+    <center>
+      <ion-button type="submit" color="primary" (click)="queueModal()" size="small" style="font-size:x-small;">I'm in
+        Queue</ion-button>
+    </center>
+  </ion-col>
+  <ion-col *ngIf="status!=2">
+    <center>
+      <ion-button type="submit" color="primary" (click)="problemModal()" size="small" style="font-size:x-small;">Report
+        Problem</ion-button>
+    </center>
+  </ion-col>
+</ion-row>
+<ion-row *ngIf="status == 2">
+  <ion-col>
+    <center>
+      <h4><b>Description:</b></h4>
+    </center>
+  </ion-col>
+</ion-row>
+<ion-row *ngIf="status==2">
+  <ion-col>
+    <center>
+      <h4>{{description}}</h4>
+    </center>
+  </ion-col>
+</ion-row>

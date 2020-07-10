@@ -21,6 +21,11 @@ export class RegisterPage implements OnInit {
 
   private isBrowser: boolean = true;
 
+  private emailUsed: boolean = true;
+
+  private passwordMatch: boolean = false;
+  private isDateWrong: boolean = false;
+
   constructor(private authService: AuthService, private router: Router, private platform: Platform) { }
 
   togglePassword(): void {
@@ -50,10 +55,12 @@ export class RegisterPage implements OnInit {
       this.authService.checkMail(mail).subscribe(res => {
         let domElement: HTMLElement = document.getElementById("mailerror");
         if (res.found == true) {
+          this.emailUsed = true;
           console.log("found %s", res.found);
           domElement.innerHTML = "This email has already been used. Please enter a different one."
         }
         else {
+          this.emailUsed = false;
           if (domElement.innerHTML != "") {
             domElement.innerHTML = "";
           }
@@ -62,13 +69,45 @@ export class RegisterPage implements OnInit {
     }
   }
 
+  underAgeValidate(birthday: string) {
+    // it will accept yyyy/mm/dd
+    let oldBirthday = birthday.split("/");
+    //set date based on birthday 
+    let myBirthday = new Date(oldBirthday[1]+"/"+oldBirthday[0]+"/"+oldBirthday[2]);
+    // set current day 
+    let currentDate = new Date(new Date().toJSON().slice(0, 10) + ' 00:00:00');
+    // calculate age comparing current date and borthday
+    let myAge = ((currentDate.getTime() - myBirthday.getTime()) / 31557600000);
+    return myAge >= 18;
+  }
+
+  checkDate(date: string){
+    console.log("check date %s", date);
+    if(date.match("(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.]((198|199)\\d|(2000|2001|2002))")){
+      console.log("matches");
+      if(!this.underAgeValidate(date)){
+        document.getElementById("datecontent").innerHTML = "You must have 18 years old to use LinedUp"
+        this.isDateWrong = true;
+      }
+      else{
+        this.isDateWrong = false;
+        if(document.getElementById("datecontent").innerHTML!=""){
+          document.getElementById("datecontent").innerHTML = "";
+        }
+      }
+    }
+      
+  }
+
   checkPassword(confirmedPassword: string) {
     let domElement: HTMLElement = document.getElementById("passerror");
-    if(confirmedPassword!=this.password){
+    if (confirmedPassword != this.password) {
+      this.passwordMatch = false;
       domElement.innerHTML = "Password do not match.";
     }
-    else{
-      if(domElement.innerHTML!=""){
+    else {
+      this.passwordMatch = true;
+      if (domElement.innerHTML != "") {
         domElement.innerHTML = "";
       }
     }
@@ -88,7 +127,7 @@ export class RegisterPage implements OnInit {
         }
       });
     }
-    else{
+    else {
       event.preventDefault();
     }
   }

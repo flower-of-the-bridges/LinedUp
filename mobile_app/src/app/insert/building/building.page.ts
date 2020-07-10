@@ -18,7 +18,7 @@ export class BuildingPage implements OnInit {
     this.authService.getUniversity().then(university => {
       this.authService.getUniversities().subscribe(res => {
         res[university].places.forEach((place: any, index: number) => {
-          !place.building.includes("Room") && this.buildings.push({ id: place.id, name: place.building, street: place.street, index: index });
+          !place.building.includes("Room") && this.buildings.push({ id: place.id, name: place.building, street: place.street, position: place.position, index: index });
         });
         console.log(this.buildings);
       })

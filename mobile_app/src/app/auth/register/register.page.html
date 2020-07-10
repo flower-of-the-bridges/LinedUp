@@ -42,9 +42,9 @@
       </ion-item>
       <ion-item lines="full" *ngIf="isBrowser" class="info">
         <ion-label >Birth Date:*</ion-label>
-        <ion-input type="text" name="birthDate" placeholder="Write here your Birth Date (dd/mm/yyyy)" pattern="(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.]((198|199)\d|(2000|2001|2002))" ngModel required class="sizelabel"></ion-input>
+        <ion-input type="text" name="birthDate" placeholder="Write here your Birth Date (dd/mm/yyyy)" (ionChange)="checkDate($event.detail.value)" pattern="(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.]((198|199)\d|(2000|2001|2002))" ngModel required class="sizelabel"></ion-input>
       </ion-item>
-      <center><p class="info"><small>You must have 18 years to use LinedUp.</small></p></center>
+      <center><p class="error"><small id="datecontent"></small></p></center>
       <span class="divider line one-line form" style="margin-top:50px">Access Information</span>
       <ion-item lines="full" class="info">
         <ion-label *ngIf="isBrowser">Email:*</ion-label>
@@ -72,7 +72,7 @@
 
       <ion-col>
         <center>
-          <ion-button type="submit" color="signin" [disabled]="form.invalid" size="medium" style="margin-top:40px;">Sign
+          <ion-button type="submit" color="signin" [disabled]="form.invalid || emailUsed || !passwordMatch || isDateWrong" size="medium" style="margin-top:40px;">Sign
             Up</ion-button>
         </center>
       </ion-col>

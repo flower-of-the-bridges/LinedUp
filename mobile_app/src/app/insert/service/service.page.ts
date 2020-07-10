@@ -17,7 +17,8 @@ export class ServicePage implements OnInit {
     number: "",
     name: "",
     description: "",
-    service: ""
+    service: "",
+    position: null
   }
   private services: Array<string> = ["secretariat", "canteen", "office hours"];
 
@@ -31,6 +32,7 @@ export class ServicePage implements OnInit {
         this.request.street = res.building.street != "" ? res.building.street : "/";
         this.request.room = res.room != "" ? res.room : "/";
         this.request.number = res.number != "" ? res.number : "/";
+        this.request.position = res.building.position;
       }
     })
   }
@@ -53,10 +55,14 @@ export class ServicePage implements OnInit {
 
   insertQueue() {
     console.log("sending %o", this.request);
-    this.authService.insertQueue(this.request).subscribe(res => {
-      if (res && res.msg && res.msg == "ok") {
-        this.router.navigateByUrl("/insert");
-      }
+    this.authService.getUniversity().then(university => {
+      this.request["university"] = university;
+      this.request["status"] = 2;
+      this.authService.insertQueue(this.request).subscribe(res => {
+        if (res && res.msg && res.msg == "ok") {
+          this.router.navigateByUrl("/insert");
+        }
+      })
     });
   }
 }

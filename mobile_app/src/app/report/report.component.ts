@@ -17,12 +17,14 @@ export class ReportComponent implements OnInit {
   @Input() type: string = "";
   @Input() university: string = "";
   @Input() street: string = "";
-  @Input() status: boolean = false;
+  @Input() status: number = 0;
   @Input() isNear: boolean = false;
   @Input() isFavourite: boolean = false;
   @Input() hasNews: boolean = false;
   @Input() persons: string = null;
   @Input() time: string = null;
+  @Input() building: string = "";
+  @Input() description: string = "";
 
   private interval: any = null;
 
@@ -92,8 +94,7 @@ export class ReportComponent implements OnInit {
         "id": this.identifier,
         "university": this.university,
         "name": this.name,
-        "street": this.street,
-        "status": this.status
+        "street": this.street
       }
     });
 

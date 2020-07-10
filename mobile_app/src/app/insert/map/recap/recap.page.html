@@ -1,46 +1,66 @@
-
 <ion-header>
   <ion-toolbar>
-      
-      <ion-grid>
-        <ion-row>
-          <ion-col >
+
+    <ion-grid>
+      <ion-row>
+        <ion-col>
           <ion-title color="title">
             Position Recap
-            </ion-title>
-          </ion-col>
-          
-        </ion-row>
-      </ion-grid>
-  
-    </ion-toolbar>
-  </ion-header>
+          </ion-title>
+        </ion-col>
+
+      </ion-row>
+    </ion-grid>
+
+  </ion-toolbar>
+</ion-header>
 <ion-content>
-<div style="text-align: center;" class="home">
-  
-  <h4 class="home">Your queue is located at:</h4>
-  <div *ngIf="place!=null; else streetBlock">
-    <h3 style="font-size:medium"><b>{{place.street}}</b></h3>
-    <h4 class="home"><b>{{place.building}}</b> is associated to this street.</h4>
+  <div style="text-align: center;" class="home">
+
+    <h4 class="home">Your queue is located at:</h4>
+    <div *ngIf="place!=null; else streetBlock">
+      <h3 style="font-size:medium"><b>{{place.street}}</b></h3>
+      <h4 class="home"><b>{{place.building}}</b> is associated to this street.</h4>
+    </div>
+    <ng-template #streetBlock>
+      <h3 style="font-size:medium"><b>{{street}}</b></h3>
+
+      <div class="info">
+        <h4 class="home">No building is associated to this street.</h4>
+        <ion-item lines="full" class="sizelabel">
+          <ion-label position="floating"><b>Building's Name:*</b></ion-label>
+          <ion-input type="text" name="building" placeholder="Insert name" (ionChange)="setBuilding($event.detail.value)"></ion-input>
+        </ion-item>
+      </div>
+    </ng-template>
+    <form #form="ngForm" (ngSubmit)="selectPlace(form.value)">
+      <div class="info">
+        <h4 class="home">Insert Building information: <small>(optional)</small></h4>
+        <ion-item lines="full" class="sizelabel">
+          <ion-label position="floating"><b>Room's Name:</b></ion-label>
+          <ion-input type="text" name="room" placeholder="Insert name" ngModel required></ion-input>
+        </ion-item>
+
+        <ion-item lines="full" class="sizelabel">
+          <ion-label position="floating" class="sizelabel"><b>Room's Number:</b></ion-label>
+          <ion-input type="number" name="number" placeholder="select number room" ngModel required></ion-input>
+        </ion-item>
+      </div>
+      <div>
+        <ion-row>
+          <ion-col align-self-center>
+            <h4 class="home"><b>Confirm?</b></h4>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-button color="title" (click)="dismiss()" size="medium">No</ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button color="signin" type="submit" [disabled]="building==null" size="medium">Yes</ion-button>
+          </ion-col>
+        </ion-row>
+      </div>
+    </form>
   </div>
-  <ng-template #streetBlock>
-    <h3 style="font-size:medium"><b>{{street}}</b></h3>
-    <h4  class="home">No building is associated to this street.</h4>
-  </ng-template>
-  <ion-grid style="margin-top: 180px;">
-    <ion-row>
-      <ion-col align-self-center>
-        <h4 class="home"><b>Confirm?</b></h4>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col>
-        <ion-button color="title" (click)="dismiss()" size="medium">No</ion-button>
-      </ion-col>
-      <ion-col>
-        <ion-button color="signin" (click)="selectPlace()" size="medium">Yes</ion-button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-</div>
 </ion-content>

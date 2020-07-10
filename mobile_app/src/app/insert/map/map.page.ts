@@ -15,14 +15,19 @@ import { GeolocationPage } from 'src/app/error/geolocation/geolocation.page';
 })
 export class MapPage implements OnInit {
 
-  private geoController: GeoController
-  private mapController: MapController
+  private geoController: GeoController;
+  private mapController: MapController;
+  private toast: HTMLIonToastElement;
   constructor(public loadingController: LoadingController, private geolocation: Geolocation, private authService: AuthService, private httpClient: HttpClient, private router: Router, public modalController: ModalController, public toastController: ToastController) {
     this.geoController = new GeoController(this.geolocation);
   }
 
   ionViewWillEnter() {
     this.presentLoading();
+  }
+
+  ionViewWillLeave(){
+    this.toast.remove();
   }
 
   async presentLoading() {
@@ -72,7 +77,7 @@ export class MapPage implements OnInit {
   }
 
   async showHelp() {
-    const toast = await this.toastController.create({
+    this.toast = await this.toastController.create({
       header: 'Need some help?',
       message: 'Double tap where the queue is located',
       position: 'top',
@@ -87,7 +92,8 @@ export class MapPage implements OnInit {
         }
       ]
     });
-    toast.present();
+    this.toast.present();
   }
+
 
 }

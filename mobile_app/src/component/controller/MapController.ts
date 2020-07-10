@@ -8,7 +8,6 @@ import { RecapPage } from 'src/app/insert/map/recap/recap.page';
 
 export class MapController {
 
-
     private map: Map;
     private userPosition: Position;
     private viewPosition: Position;
@@ -38,6 +37,12 @@ export class MapController {
 
     private static RED_MARKER = icon({
         iconUrl: 'assets/icon/red_marker.png',
+        iconSize: [40, 40],
+        popupAnchor: [0, 0]
+    });
+
+    private static YELLOW_MARKER = icon({
+        iconUrl: 'assets/icon/yellow_marker.png',
         iconSize: [40, 40],
         popupAnchor: [0, 0]
     });
@@ -82,36 +87,42 @@ export class MapController {
                 /** server returns a list of places */
                 console.log("positions %o", res);
                 Array.isArray(res) && res.forEach(place => {
-                    let posMarker = marker(place.position, { icon: place.status == 0 ? MapController.RED_MARKER : MapController.GREEN_MARKER })
-                        .bindTooltip(place.name,
-                            {
-                                permanent: true,
-                                direction: 'center',
-                                offset: [-5, -20],
-                                className: "leaflet-tooltip"  // you can found it at global.scss
-                            },
-                        )
-                        .bindPopup(
-                            this.createPlacePopup(place.id, place.name, place.type, university, place.status, place.street, place.position, place.people || null, place.time || null, place.news.length)
-                            , { autoClose: true })
-                        .on('click', (evt) => {
-                            let popup = this.createPlacePopup(place.id, place.name, place.type, university, place.status, place.street, null, place.people || null, place.time || null, place.news.length);
-                            popup.isNear = this.isNear(place.position);
-                            evt.target.bindPopup(popup, { autoClose: true });
-                            place.position.lat > this.userPosition.getLatitude() && this.map.setView([place.position.lat + 0.001, place.position.lon], this.defaultZoom, { animate: true });
-                        })
-                        .on('popupclose', () => {
-                            console.log("popup closed.");
-                            place.position.lat > this.userPosition.getLatitude() && this.map.setView([this.userPosition.getLatitude(), this.userPosition.getLongitude()], this.defaultZoom, { animate: true });
-                        })
-                        .addTo(this.map);
+                    this.reverseGeocoding(place.position.lat, place.position.lon, null).subscribe((res:any) => {
+                        let street = "";
+                        if(res && res.address){
+                            street = this.getStreet(res.address);
+                        }
+                        let posMarker = marker(place.position, { icon: place.status == 0 ? MapController.RED_MARKER : (place.status == 1 ? MapController.GREEN_MARKER : MapController.YELLOW_MARKER) })
+                            .bindTooltip(place.name,
+                                {
+                                    permanent: true,
+                                    direction: 'center',
+                                    offset: [-5, -20],
+                                    className: "leaflet-tooltip"  // you can found it at global.scss
+                                },
+                            )
+                            .bindPopup(
+                                this.createPlacePopup(place.id, place.name, place.type, university, place.building, place.description || "", place.status, street, place.position, place.people || null, place.time || null, place.news ? place.news.length : 0)
+                                , { autoClose: true })
+                            .on('click', (evt) => {
+                                let popup = this.createPlacePopup(place.id, place.name, place.type, university, place.building, place.dezcription || "", place.status, street, null, place.people || null, place.time || null, place.news ? place.news.length : 0);
+                                popup.isNear = this.isNear(place.position);
+                                evt.target.bindPopup(popup, { autoClose: true });
+                                place.position.lat > this.userPosition.getLatitude() && this.map.setView([place.position.lat + 0.001, place.position.lon], this.defaultZoom, { animate: true });
+                            })
+                            .on('popupclose', () => {
+                                console.log("popup closed.");
+                                place.position.lat > this.userPosition.getLatitude() && this.map.setView([this.userPosition.getLatitude(), this.userPosition.getLongitude()], this.defaultZoom, { animate: true });
+                            })
+                            .addTo(this.map);
 
-                    if (this.showPopup && this.showPopup == place.id) {
-                        console.log("opening");
-                        place.position.lat > this.userPosition.getLatitude() && this.map.setView([place.position.lat + 0.005, place.position.lon], this.defaultZoom, { animate: true });
-                        posMarker.openPopup();
-                    }
-                    this.places.push({ marker: posMarker, status: place.status });
+                        if (this.showPopup && this.showPopup == place.id) {
+                            console.log("opening");
+                            place.position.lat > this.userPosition.getLatitude() && this.map.setView([place.position.lat + 0.005, place.position.lon], this.defaultZoom, { animate: true });
+                            posMarker.openPopup();
+                        }
+                        this.places.push({ marker: posMarker, status: place.status });
+                    })
                 })
             }
         )
@@ -123,9 +134,9 @@ export class MapController {
                 /** server returns a list of places */
                 console.log("positions %o", res);
                 Array.isArray(res) && res.forEach(place => {
-                    marker(place.position, { icon: place.status == 0 ? MapController.RED_MARKER : MapController.GREEN_MARKER })
+                    marker(place.position, { icon: place.status == 0 ? MapController.RED_MARKER : (place.status == 1 ? MapController.GREEN_MARKER : MapController.YELLOW_MARKER)})
                         .on('dblclick', (evt) => {
-                            this.presentModal(modalController, place, null);
+                            this.presentModal(modalController, place, place.position, null);
                         })
                         .addTo(this.map);
                 });
@@ -142,12 +153,14 @@ export class MapController {
         return Math.abs(circleCenterPoint.distanceTo(point)) <= radius;
     }
 
-    createPlacePopup(id: number, name: string, type: string, university: string, status: number, street: string, pos: any, people: string, time: string, newsCount: number) {
+    createPlacePopup(id: number, name: string, type: string, university: string, building: string, description: string, status: number, street: string, pos: any, people: string, time: string, newsCount: number) {
         let popupEl: NgElement & WithProperties<ReportComponent> = document.createElement('popup-element') as any;
         popupEl.identifier = id;
         popupEl.name = name;
         popupEl.type = type;
-        popupEl.status = status != 0;
+        popupEl.status = status;
+        popupEl.building = building;
+        popupEl.description = building;
         popupEl.university = university;
 
         if (status == 1) {
@@ -164,21 +177,30 @@ export class MapController {
 
     reverseGeocoding(lat: number, long: number, modalController: ModalController) {
         let url = MapController.GEOCODING.replace("{lat}", lat.toString()).replace("{lon}", long.toString());
-        this.httpClient.get(url).subscribe((res: any) => {
+        modalController && this.httpClient.get(url).subscribe((res: any) => {
             if (res && res.address) {
-                let street = res.address.road + " " + (res.address.house_number || "") + ", " + res.address.town + " (" + res.address.country_code.toUpperCase() + ")";
-                this.presentModal(modalController, null, street);
+                let street = this.getStreet(res.address);
+                modalController && this.presentModal(modalController, null, {lon: long, lat: lat}, street);
             }
         });
 
+        if (!modalController) {
+            return this.httpClient.get(url);
+        }
+
     }
 
-    async presentModal(modalController: ModalController, place: any, street: string) {
+    getStreet(address: any){
+        return address.road + " " + (address.house_number || "") + ", " + address.town + " (" + address.country_code.toUpperCase() + ")";
+    }
+
+    async presentModal(modalController: ModalController, place: any, position: any, street: string) {
         const modal = await modalController.create({
             component: RecapPage,
             componentProps: {
                 "place": place,
-                "street": street
+                "street": street,
+                "position": position
             }
         });
         return await modal.present();
@@ -188,7 +210,7 @@ export class MapController {
         if (openQueues) {
             this.places.forEach(place => {
                 let markerToHide: Marker = place.marker;
-                if (place.status == 0) {
+                if (place.status != 1) {
                     markerToHide.remove();
                     this.hiddenPlaces.push(markerToHide);
                 }
@@ -200,6 +222,10 @@ export class MapController {
             })
             this.hiddenPlaces = [];
         }
+    }
+
+    resetView() {
+        this.map.setView([this.userPosition.getLatitude(), this.userPosition.getLongitude()], this.defaultZoom, { animate: true });
     }
 
 

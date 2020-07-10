@@ -1,17 +1,36 @@
-div.home{
-    
+div.home {
     text-align: center;
     font-style: oblique;
-    
+
     margin-bottom: 20px;
-    margin-top: 80px;
+    margin-top: 20px;
 }
 
-
-h4.home{
-    
+h4.home {
     text-align: center;
     font-style: oblique;
     font-size: medium;
     margin-bottom: 10px;
+}
+
+div.info {
+    background: inherit;
+    width: 80%;
+    height: 45%;
+    padding: 20px;
+    padding-top: 20px;
+    border-radius: 20px;
+    position: relative;
+    left: 10%;
+    top: 1%;
+    margin-top: 1%;
+}
+
+.sizelabel {
+    font-size: medium !important;
+    font-style: oblique;
+}
+
+.text {
+    text-align: center !important;
 }

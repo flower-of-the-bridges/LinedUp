@@ -112,7 +112,7 @@
   </div>
   <div id="map" style="position: relative; height: 100%;" *ngIf="queueSearch==null || viewResult"></div>
   <ion-icon id="helpButton" name="help-circle" *ngIf="queueSearch==null || viewResult" (click)="showTutorial(false)"></ion-icon>
-
+  <ion-button id="locateButton" *ngIf="queueSearch==null || viewResult" color="light" expand="block" size="large" (click)="resetView()"><ion-icon name="locate-outline"></ion-icon></ion-button>
   <ion-item id="refreshButton" *ngIf="queueSearch==null || viewResult">
     <ion-label>Open Queues Only</ion-label>
     <ion-toggle color="success" (ionChange)="changeMarkers()" [(ngModel)]="openQueues"></ion-toggle>
