@@ -1,3 +1,3 @@
 # Insert Section
-![Insert Section](../../../../first_prototype/mockups/InsertQueueBuildingRecapPage.png) 
+![Insert Section](../../../../../first_prototype/mockups/InsertQueueBuildingRecapPage.png) 
 
