@@ -9,5 +9,7 @@ To make *LinedUp* work:
 
 * run *npm start* on *back_end*
 
+* run *npm install -g @ionic/cli* on *mobile_app*
+
 * run *ionic serve* on *mobile_app*
 
