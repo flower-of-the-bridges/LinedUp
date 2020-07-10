@@ -42,7 +42,7 @@ export class QueuePage implements OnInit {
   private queueSpeed: number = 1;
   private requestResult: any = null;
 
-  private experiment: boolean = false;
+  private experiment: boolean = true;//false;
   private timer: number;
 
   private request = {

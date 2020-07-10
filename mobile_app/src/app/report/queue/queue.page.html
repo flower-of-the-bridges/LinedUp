@@ -23,97 +23,100 @@
   </div>
   <ng-template #mainPageBlock>
     <div class="queue">
-    
-    <ion-title style="font-size: large;"><b>{{name}}</b></ion-title>
-    <h4 style="font-size: medium;">{{street}}</h4>
-    <h4 style="font-size: medium;"><b>{{status ? "Opened" : "Closed"}}</b></h4>
-    <div *ngIf="!review">
-      <div style="margin-top:30px">
-      <span class="line divider one-line">Number of persons <ion-icon name="people-outline"></ion-icon></span>
-      <!--
+      <ion-title style="font-size: large;"><b>{{name}}</b></ion-title>
+      <h4 style="font-size: medium;">{{street}}</h4>
+      <h4 style="font-size: medium;"><b>{{status ? "Opened" : "Closed"}}</b></h4>
+      <div *ngIf="!review">
+        <div style="margin-top:15px">
+          <span class="line divider one-line">Number of persons <ion-icon name="people-outline"></ion-icon></span>
+          <!--
     <ion-item>
       <ion-chip color="primary" outline #chip *ngFor="let tag of numberOfPersons" (click)="select(chip)">
         <ion-label>{{tag}}</ion-label>
       </ion-chip>
     </ion-item>
      -->
-      <ul *ngIf="!experiment">
-        <li *ngFor="let tag of numberOfPersonsKeys; let i=index">
-          <ion-chip id="person_{{i}}" [outline]="this.request.persons!=tag" #chip (click)="selectNumberOfPersons(chip)">
-            <ion-label>{{tag}}</ion-label>
-          </ion-chip>
-        </li>
-      </ul>
-      <ion-item lines="full" *ngIf="experiment">
-        <ion-input type="number" name="persons" placeholder="Enter number of persons" [(ngModel)]="numberOfPersonsSelected" required></ion-input>
-      </ion-item>
-      <span class="line divider one-line">Estimated Time <ion-icon name="time-outline"></ion-icon></span>
-      <!--
+          <ul *ngIf="!experiment">
+            <li *ngFor="let tag of numberOfPersonsKeys; let i=index">
+              <ion-chip id="person_{{i}}" [outline]="this.request.persons!=tag" #chip
+                (click)="selectNumberOfPersons(chip)">
+                <ion-label>{{tag}}</ion-label>
+              </ion-chip>
+            </li>
+          </ul>
+          <ion-item lines="full" *ngIf="experiment">
+            <ion-input type="number" name="persons" placeholder="Enter number of persons"
+              [(ngModel)]="numberOfPersonsSelected" required></ion-input>
+          </ion-item>
+          <span class="line divider one-line">Estimated Time <ion-icon name="time-outline"></ion-icon></span>
+          <!--
     <ion-item>
       <ion-chip outline #chip *ngFor="let tag of estimatedTime" (click)="select(chip)">
         <ion-label>{{tag}}</ion-label>
       </ion-chip>
     </ion-item>
     -->
-      <ul style="margin-left:-40px;" *ngIf="!experiment">
-        <li *ngFor="let tag of estimatedTimeKeys; let i=index">
-          
-          <ion-chip [outline]="this.request.time!=tag" id="time_{{i}}" #chip (click)="selectEstimatedTime(chip)">
-            <ion-label>{{tag}}</ion-label>
-          </ion-chip>
-          
-        </li>
-      </ul>
-      <ion-item lines="full" *ngIf="experiment">
-        <ion-input type="number" name="time" placeholder="Enter time needed (in minutes) to be served" [(ngModel)]="estimatedTimeSelected" required></ion-input>
-      </ion-item>
-      <span class="line divider one-line">Queue Speed</span>
-      <ion-range min="1" max="3" color="secondary" [(ngModel)]="queueSpeed" (ionChange)="setSpeed($event.detail.value)" snaps step="1">
-        <ion-label slot="start">Slow</ion-label>
-        <ion-label slot="end">Fast</ion-label>
-      </ion-range>
-    
-  </div>
-    <div style="margin-top:50px;">
-      <ion-row>
-        <ion-col>
-          <ion-button type="submit" color="title" (click)="dismiss()" size="medium">Cancel</ion-button>
-        </ion-col>
-        <ion-col>
-          <ion-button type="submit" color="primary" [disabled]="!numberOfPersonsSelected || !estimatedTimeSelected"
-            (click)="reviewSection()" size="medium">Review</ion-button>
-        </ion-col>
-      </ion-row>
+          <ul style="margin-left:-40px;" *ngIf="!experiment">
+            <li *ngFor="let tag of estimatedTimeKeys; let i=index">
+
+              <ion-chip [outline]="this.request.time!=tag" id="time_{{i}}" #chip (click)="selectEstimatedTime(chip)">
+                <ion-label>{{tag}}</ion-label>
+              </ion-chip>
+
+            </li>
+          </ul>
+          <ion-item lines="full" *ngIf="experiment">
+            <ion-input type="number" name="time" placeholder="Enter time needed (in minutes) to be served"
+              [(ngModel)]="estimatedTimeSelected" required></ion-input>
+          </ion-item>
+          <span class="line divider one-line">Queue Speed</span>
+          <ion-range min="1" max="3" color="secondary" [(ngModel)]="queueSpeed"
+            (ionChange)="setSpeed($event.detail.value)" snaps step="1">
+            <ion-label slot="start">Slow</ion-label>
+            <ion-label slot="end">Fast</ion-label>
+          </ion-range>
+
+        </div>
+        <div>
+          <ion-row>
+            <ion-col>
+              <ion-button type="submit" color="title" (click)="dismiss()" size="medium">Cancel</ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button type="submit" color="primary" [disabled]="!numberOfPersonsSelected || !estimatedTimeSelected"
+                (click)="reviewSection()" size="medium">Review</ion-button>
+            </ion-col>
+          </ion-row>
+        </div>
+      </div>
     </div>
-    </div>
-  </div>
     <div *ngIf="review">
       <div style="margin-top:30px" class="queue">
-      <span class="line divider one-line">Recap <ion-icon name="book-sharp"></ion-icon> </span>
-      <ion-row style="height:60px">
-        <ion-col ><b>Number of Persons:</b></ion-col>
-        <ion-col >{{numberOfPersonsSelected}}</ion-col>
-      </ion-row>
-      <ion-row style="height:60px">
-        <ion-col ><b>Estimated Time:</b></ion-col>
-        <ion-col >{{estimatedTimeSelected}} {{experiment ? 'minutes' : ''}}</ion-col>
-      </ion-row>
-      <ion-row style="height:60px"> 
-        <ion-col ><b>Queue Speed:</b></ion-col>
-        <ion-col >{{queueSpeed == 1 ? 'Slow' : (queueSpeed == 2 ? 'Medium' : 'Fast')}}</ion-col>
-      </ion-row>
+        <span class="line divider one-line">Recap <ion-icon name="book-sharp"></ion-icon> </span>
+        <ion-row style="height:60px">
+          <ion-col><b>Number of Persons:</b></ion-col>
+          <ion-col>{{numberOfPersonsSelected}}</ion-col>
+        </ion-row>
+        <ion-row style="height:60px">
+          <ion-col><b>Estimated Time:</b></ion-col>
+          <ion-col>{{estimatedTimeSelected}} {{experiment ? 'minutes' : ''}}</ion-col>
+        </ion-row>
+        <ion-row style="height:60px">
+          <ion-col><b>Queue Speed:</b></ion-col>
+          <ion-col>{{queueSpeed == 1 ? 'Slow' : (queueSpeed == 2 ? 'Medium' : 'Fast')}}</ion-col>
+        </ion-row>
       </div>
       <div style="margin-top:110px;">
-      <ion-row>
-        <ion-col>
-          <ion-button type="submit" color="title" (click)="dismiss()" size="medium">Cancel</ion-button>
-        </ion-col>
-        <ion-col>
-          <ion-button type="submit" color="signin" [disabled]="!numberOfPersonsSelected || !estimatedTimeSelected"
-            (click)="sendReview()" size="medium">Send</ion-button>
-        </ion-col>
-      </ion-row>
-    </div>
+        <ion-row>
+          <ion-col>
+            <ion-button type="submit" color="title" (click)="dismiss()" size="medium">Cancel</ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button type="submit" color="signin" [disabled]="!numberOfPersonsSelected || !estimatedTimeSelected"
+              (click)="sendReview()" size="medium">Send</ion-button>
+          </ion-col>
+        </ion-row>
+      </div>
     </div>
   </ng-template>
 </ion-content>
