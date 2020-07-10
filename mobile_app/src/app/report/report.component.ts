@@ -25,6 +25,9 @@ export class ReportComponent implements OnInit {
   @Input() time: string = null;
   @Input() building: string = "";
   @Input() description: string = "";
+  @Input() ts: number = null;
+
+  private lastUpdate: string = null;
 
   private interval: any = null;
 
@@ -73,6 +76,10 @@ export class ReportComponent implements OnInit {
     if(this.time){
       this.time = this.estimatedTime[this.time];
     }
+
+    if(this.ts){
+      this.lastUpdate = new Date(this.ts).toLocaleString();
+    }
   }
 
   async problemModal() {
@@ -105,6 +112,8 @@ export class ReportComponent implements OnInit {
         if(requestResult!=null){
           this.persons = this.numberOfPersons[requestResult.persons];
           this.time = this.estimatedTime[requestResult.time];
+          this.ts = requestResult.ts;
+          this.lastUpdate = new Date(requestResult.ts).toLocaleString();
         }
     });
     return await modal.present();

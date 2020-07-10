@@ -127,6 +127,7 @@ export class QueuePage implements OnInit {
     this.reportSent = true;
     this.review = false;
     this.request["university"] = this.university;
+    this.request["ts"] = Date.now();
     this.authService.sendReview({ id: this.id, request: this.request }).subscribe(res => {
       this.requestResult = res;
       this.timer = Date.now() - this.timer;

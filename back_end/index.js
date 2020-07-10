@@ -69,6 +69,7 @@ const places = [
         status: 1,
         people: "10 - 20",
         time: "30 - 60",
+        ts: Date.now()-1000*60*30,
         type: "office hours",
         news: [],
         hour: "16:00-18:00"
@@ -79,10 +80,16 @@ const places = [
         status: 1,
         people: "< 10",
         time: "10 - 30",
+        ts: Date.now()-1000*60*30,
         street: "Via Cesare De Lollis 24",
         building: "Ex-Poste",
         type: "canteen",
-        news: [],
+        news: [
+            {
+                description: "Dish of the Day: Carbonara",
+                ts: new Date().toTimeString().split(" ")[0].split(":")[0] + ":" + new Date().toTimeString().split(" ")[0].split(":")[1]
+            }
+        ],
         hour: "11:30-15:00"
     },
     {
@@ -361,18 +368,20 @@ router.post('/review', (req, res) => {
     console.log("[Review] received %o", body);
     let persons = body.request.persons;
     let time = body.request.time;
+    let ts = body.request.ts;
     let university = universities[body.university];
 
     university && university.places.forEach(place => {
         if (body.id == place.id) {
             place.people = persons;
             place.time = time;
+            place.ts = ts;
             universities[body.university] = place;
             result = true;
         }
     })
 
-    return res.status(200).send({msg: result, persons: persons, time: time});
+    return res.status(200).send({msg: result, persons: persons, time: time, ts: ts});
 })
 
 router.post('/googlecheck', (req, res) =>{

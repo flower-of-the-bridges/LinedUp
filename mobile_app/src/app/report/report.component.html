@@ -1,12 +1,12 @@
 <div style="text-align: center; ">
-  <div style="font-size: 14px">
+  <div [style]="status != 1 ? 'padding-top:20px; font-size: 14px' : 'padding-top:10px; font-size: 14px'">
     <b>{{viewedType[type]}}: {{name}}</b><br />
-    {{building}} - {{street}}<br>
+    {{building}} - {{street}}<br />
     <b>{{status == 1 ? "Opened" : (status == 0 ? "Closed" : "To be Approved")}}</b>
   </div>
 
 
-  <ion-row *ngIf="status!=2">
+  <ion-row *ngIf="status!=2" [style]="status != 1 ? 'padding-top:50px;' : ''">
     <ion-col>
       <center>
         <ion-icon name="{{isFavourite ? 'star' : 'star-outline'}}" class="star" (click)="addToFavourites()"></ion-icon>
@@ -44,10 +44,17 @@
       <ion-label>{{time}}</ion-label>
     </ion-col>
   </ion-row>
+  <ion-row>
+    <ion-col *ngIf="status==1">
+      <center>
+        <p><small><b>Last Update:</b> {{lastUpdate}}</small></p>
+      </center>
+    </ion-col>
+  </ion-row>
 </ion-grid>
 
-<ion-row>
-  <ion-col *ngIf="isNear && status">
+<ion-row [style]="status != 1 ? 'padding-top:50px;' : ''">
+  <ion-col *ngIf="isNear && status == 1">
     <center>
       <ion-button type="submit" color="primary" (click)="queueModal()" size="small" style="font-size:x-small;">I'm in
         Queue</ion-button>
@@ -60,6 +67,7 @@
     </center>
   </ion-col>
 </ion-row>
+
 <ion-row *ngIf="status == 2">
   <ion-col>
     <center>

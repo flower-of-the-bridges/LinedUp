@@ -102,10 +102,10 @@ export class MapController {
                                 },
                             )
                             .bindPopup(
-                                this.createPlacePopup(place.id, place.name, place.type, university, place.building, place.description || "", place.status, street, place.position, place.people || null, place.time || null, place.news ? place.news.length : 0)
+                                this.createPlacePopup(place.id, place.name, place.type, university, place.building, place.description || "", place.status, street, place.position, place.people || null, place.time || null, place.news ? place.news.length : 0, place.ts || null)
                                 , { autoClose: true })
                             .on('click', (evt) => {
-                                let popup = this.createPlacePopup(place.id, place.name, place.type, university, place.building, place.dezcription || "", place.status, street, null, place.people || null, place.time || null, place.news ? place.news.length : 0);
+                                let popup = this.createPlacePopup(place.id, place.name, place.type, university, place.building, place.dezcription || "", place.status, street, null, place.people || null, place.time || null, place.news ? place.news.length : 0, place.ts || null);
                                 popup.isNear = this.isNear(place.position);
                                 evt.target.bindPopup(popup, { autoClose: true });
                                 place.position.lat > this.userPosition.getLatitude() && this.map.setView([place.position.lat + 0.001, place.position.lon], this.defaultZoom, { animate: true });
@@ -153,7 +153,7 @@ export class MapController {
         return Math.abs(circleCenterPoint.distanceTo(point)) <= radius;
     }
 
-    createPlacePopup(id: number, name: string, type: string, university: string, building: string, description: string, status: number, street: string, pos: any, people: string, time: string, newsCount: number) {
+    createPlacePopup(id: number, name: string, type: string, university: string, building: string, description: string, status: number, street: string, pos: any, people: string, time: string, newsCount: number, ts: number) {
         let popupEl: NgElement & WithProperties<ReportComponent> = document.createElement('popup-element') as any;
         popupEl.identifier = id;
         popupEl.name = name;
@@ -166,6 +166,7 @@ export class MapController {
         if (status == 1) {
             popupEl.persons = people;
             popupEl.time = time;
+            popupEl.ts = ts;
         }
         popupEl.street = street;
         popupEl.hasNews = newsCount > 0;
