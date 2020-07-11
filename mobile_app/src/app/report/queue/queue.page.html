@@ -27,7 +27,7 @@
       <h4 style="font-size: medium;">{{street}}</h4>
       <h4 style="font-size: medium;"><b>{{status ? "Opened" : "Closed"}}</b></h4>
       <div *ngIf="!review">
-        <div style="margin-top:15px">
+        <div  class="request">
           <span class="line divider one-line">Number of persons <ion-icon name="people-outline"></ion-icon></span>
           <!--
     <ion-item>
@@ -36,6 +36,7 @@
       </ion-chip>
     </ion-item>
      -->
+     
           <ul *ngIf="!experiment">
             <li *ngFor="let tag of numberOfPersonsKeys; let i=index">
               <ion-chip id="person_{{i}}" [outline]="this.request.persons!=tag" #chip
@@ -44,7 +45,7 @@
               </ion-chip>
             </li>
           </ul>
-          <ion-item lines="full" *ngIf="experiment">
+          <ion-item lines="full" *ngIf="experiment" class="sizelabel">
             <ion-input type="number" name="persons" placeholder="Enter number of persons"
               [(ngModel)]="numberOfPersonsSelected" required></ion-input>
           </ion-item>
@@ -65,7 +66,7 @@
 
             </li>
           </ul>
-          <ion-item lines="full" *ngIf="experiment">
+          <ion-item lines="full" *ngIf="experiment" class="sizelabel">
             <ion-input type="number" name="time" placeholder="Enter time needed (in minutes) to be served"
               [(ngModel)]="estimatedTimeSelected" required></ion-input>
           </ion-item>
@@ -77,6 +78,7 @@
           </ion-range>
 
         </div>
+     
         <div>
           <ion-row>
             <ion-col>

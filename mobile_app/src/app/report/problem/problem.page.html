@@ -43,7 +43,7 @@
     </ng-template>
     <ng-template #genericProblemBlock>
       <div *ngIf="genericProblem; else hoursProblemBlock">
-        <ion-item style="margin-top:50px; width: 80%; border-radius: 20px; border:solid;position: relative;left:10%;border-color: #dcdcdc;">
+        <ion-item class="problem">
           <ion-textarea rows="6" cols="20" (ionChange)="setDescription($event.detail.value)" placeholder="Tell us which problem have you encountered" line="noline"></ion-textarea>
         </ion-item>
         <div style="position:relative; top:200px;">

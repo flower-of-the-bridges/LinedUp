@@ -14,7 +14,9 @@ h4.home {
 }
 
 div.info {
-    background: inherit;
+    border-style: solid;
+    border-color:#ffffffff;
+    background:inherit;
     width: 80%;
     height: 45%;
     padding: 20px;
@@ -23,7 +25,10 @@ div.info {
     position: relative;
     left: 10%;
     top: 1%;
-    margin-top: 1%;
+    margin-top: 2%;
+    -webkit-box-shadow: -1px 5px 28px 2px rgba(190,187,191,1);
+        -moz-box-shadow: -1px 5px 28px 2px rgba(190,187,191,1);
+        box-shadow: -1px 5px 28px 2px rgba(190,187,191,1);
 }
 
 .sizelabel {
@@ -33,4 +38,40 @@ div.info {
 
 .text {
     text-align: center !important;
+}
+
+.divider {
+    display: flex;
+
+    &:before,
+    &:after {
+        content: "";
+        flex: 1;
+    }
+}
+
+.line {
+    align-items: center;
+    margin: 1em -1em;
+    color: #595454;
+    font-style: oblique;
+    font-size: small;
+
+    &:before,
+    &:after {
+        height: 1px;
+        margin: 0 1em;
+    }
+}
+
+.one-line {
+    &:before,
+    &:after {
+        background: #cccccc;
+    }
+}
+
+.sizelabel {
+    font-size: medium !important;
+    font-style: oblique;
 }

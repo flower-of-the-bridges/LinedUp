@@ -69,6 +69,26 @@ div.message {
     margin-top: 4%;
 }
 
-.sizelabel1 {
-    font-size: 20px !important;
-}
+.sizelabel{ 
+
+    font-size: small !important; 
+    font-style: oblique;
+    
+    }
+
+    div.request {
+        border-style: solid;
+        border-color:#ffffffff;
+        background:inherit;
+       
+        padding:20px;
+        padding-top: 10px;
+        border-radius:20px;
+        position: relative;
+        left:1.5%;
+        top:1%;
+        margin-top: 20px;
+        -webkit-box-shadow: -1px 5px 28px 2px rgba(190,187,191,1);
+        -moz-box-shadow: -1px 5px 28px 2px rgba(190,187,191,1);
+        box-shadow: -1px 5px 28px 2px rgba(190,187,191,1);
+    }

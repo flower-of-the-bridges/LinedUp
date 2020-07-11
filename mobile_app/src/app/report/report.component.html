@@ -2,11 +2,13 @@
   <div [style]="status != 1 ? 'padding-top:20px; font-size: 14px' : 'padding-top:10px; font-size: 14px'">
     <b>{{viewedType[type]}}: {{name}}</b><br />
     {{building}} - {{street}}<br />
+    <div style="color:#8b0000; margin-top: 20px;">
     <b>{{status == 1 ? "Opened" : (status == 0 ? "Closed" : "To be Approved")}}</b>
+    </div>
   </div>
 
 
-  <ion-row *ngIf="status!=2" [style]="status != 1 ? 'padding-top:50px;' : ''">
+  <ion-row *ngIf="status!=2" [style]="status != 1 ? 'padding-top:0px;' : ''">
     <ion-col>
       <center>
         <ion-icon name="{{isFavourite ? 'star' : 'star-outline'}}" class="star" (click)="addToFavourites()"></ion-icon>
@@ -53,7 +55,7 @@
   </ion-row>
 </ion-grid>
 
-<ion-row [style]="status != 1 ? 'padding-top:50px;' : ''">
+<ion-row [style]="status != 1 ? 'padding-top:0px;' : ''">
   <ion-col *ngIf="isNear && status == 1">
     <center>
       <ion-button type="submit" color="primary" (click)="queueModal()" size="small" style="font-size:x-small;">I'm in
@@ -71,14 +73,14 @@
 <ion-row *ngIf="status == 2">
   <ion-col>
     <center>
-      <h4><b>Description:</b></h4>
+      <h4 class="home"><b>Description:</b></h4>
     </center>
   </ion-col>
 </ion-row>
 <ion-row *ngIf="status==2">
   <ion-col>
     <center>
-      <h4>{{description}}</h4>
+      <div style="padding-bottom: 20px;">{{description}}</div>
     </center>
   </ion-col>
 </ion-row>

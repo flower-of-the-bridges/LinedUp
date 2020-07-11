@@ -20,22 +20,23 @@
     <h4 class="home">Your queue is located at:</h4>
     <div *ngIf="place!=null; else streetBlock">
       <h3 style="font-size:medium"><b>{{place.street}}</b></h3>
-      <h4 class="home"><b>{{place.building}}</b> is associated to this street.</h4>
+      <div style="font-size: medium;"><b>{{place.building}}</b> is associated to this street.</div>
     </div>
     <ng-template #streetBlock>
       <h3 style="font-size:medium"><b>{{street}}</b></h3>
 
+      
+        <h4 class="home" style="font-size: small;">No building is associated to this street.</h4>
+        
+      
+    </ng-template>
+    <form #form="ngForm" (ngSubmit)="selectPlace(form.value)">
       <div class="info">
-        <h4 class="home">No building is associated to this street.</h4>
         <ion-item lines="full" class="sizelabel">
           <ion-label position="floating"><b>Building's Name:*</b></ion-label>
           <ion-input type="text" name="building" placeholder="Insert name" (ionChange)="setBuilding($event.detail.value)"></ion-input>
         </ion-item>
-      </div>
-    </ng-template>
-    <form #form="ngForm" (ngSubmit)="selectPlace(form.value)">
-      <div class="info">
-        <h4 class="home">Insert Building information: <small>(optional)</small></h4>
+        <span class="line divider one-line"> Building information: (Optional) </span>
         <ion-item lines="full" class="sizelabel">
           <ion-label position="floating"><b>Room's Name:</b></ion-label>
           <ion-input type="text" name="room" placeholder="Insert name" ngModel required></ion-input>

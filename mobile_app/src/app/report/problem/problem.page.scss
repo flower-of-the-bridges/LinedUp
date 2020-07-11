@@ -4,7 +4,7 @@ div.message{
   width: 80%;
   height: 30%;
   font-style: oblique;
-  font-size:larger;
+  font-size:medium;
   position: relative;
   left:10%;
   top:150px;
@@ -17,5 +17,20 @@ div.button{
     position:relative;
     top:290px;
 
+}
+
+ion-item.problem{
+  margin-top:50px;
+   width: 80%; 
+   border-radius: 20px; 
+   border:solid;
+   font-size:small;
+   font-style:oblique;
+   position: relative;
+   left:10%;
+   border-color: #dcdcdc;
+   -webkit-box-shadow: -1px 5px 28px 2px rgba(190,187,191,1);
+        -moz-box-shadow: -1px 5px 28px 2px rgba(190,187,191,1);
+        box-shadow: -1px 5px 28px 2px rgba(190,187,191,1);
 }
 
