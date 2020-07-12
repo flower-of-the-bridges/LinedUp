@@ -87,7 +87,7 @@ export class MapController {
                 /** server returns a list of places */
                 console.log("positions %o", res);
                 Array.isArray(res) && res.forEach(place => {
-                    this.reverseGeocoding(place.position.lat, place.position.lon, null).subscribe((res:any) => {
+                    this.reverseGeocoding(place.position.lat, place.position.lon, null, null).subscribe((res:any) => {
                         let street = "";
                         if(res && res.address){
                             street = this.getStreet(res.address);
@@ -136,12 +136,12 @@ export class MapController {
                 Array.isArray(res) && res.forEach(place => {
                     marker(place.position, { icon: place.status == 0 ? MapController.RED_MARKER : (place.status == 1 ? MapController.GREEN_MARKER : MapController.YELLOW_MARKER)})
                         .on('dblclick', (evt) => {
-                            this.presentModal(modalController, place, place.position, null);
+                            this.reverseGeocoding(place.position.lat, place.position.lon, modalController, place);
                         })
                         .addTo(this.map);
                 });
                 this.map.on('dblclick', (evt: any) => {
-                    this.reverseGeocoding(evt.latlng.lat, evt.latlng.lng, modalController);
+                    this.reverseGeocoding(evt.latlng.lat, evt.latlng.lng, modalController, null);
                 })
             }
         )
@@ -176,12 +176,12 @@ export class MapController {
         return popupEl;
     }
 
-    reverseGeocoding(lat: number, long: number, modalController: ModalController) {
+    reverseGeocoding(lat: number, long: number, modalController: ModalController, place: any) {
         let url = MapController.GEOCODING.replace("{lat}", lat.toString()).replace("{lon}", long.toString());
         modalController && this.httpClient.get(url).subscribe((res: any) => {
             if (res && res.address) {
                 let street = this.getStreet(res.address);
-                modalController && this.presentModal(modalController, null, {lon: long, lat: lat}, street);
+                modalController && this.presentModal(modalController, place, {lon: long, lat: lat}, street);
             }
         });
 

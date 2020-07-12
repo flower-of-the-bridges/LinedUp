@@ -21,7 +21,6 @@ export class RecapPage implements OnInit {
 
   ngOnInit() {
     if(this.place){
-      this.street = this.place.street;
       this.building = this.place.building;
     }
     console.log(this.place, this.building, this.street, this.position);
