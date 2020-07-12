@@ -160,7 +160,7 @@ export class MapController {
         popupEl.type = type;
         popupEl.status = status;
         popupEl.building = building;
-        popupEl.description = building;
+        popupEl.description = description;
         popupEl.university = university;
 
         if (status == 1) {

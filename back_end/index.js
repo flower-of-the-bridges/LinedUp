@@ -53,7 +53,7 @@ const places = [
                 description: "The slot scheduled for today has been delayed to tomorrow.",
                 ts: new Date().toTimeString().split(" ")[0].split(":")[0] + ":" + new Date().toTimeString().split(" ")[0].split(":")[1]
             },
-            
+
             {
                 description: "The slot scheduled for today has been delayed for one hour.",
                 ts: new Date(new Date().setHours(12)).toTimeString().split(" ")[0].split(":")[0] + ":" + new Date().toTimeString().split(" ")[0].split(":")[1]
@@ -69,7 +69,7 @@ const places = [
         status: 1,
         people: "10 - 20",
         time: "30 - 60",
-        ts: Date.now()-1000*60*30,
+        ts: Date.now() - 1000 * 60 * 30,
         type: "office hours",
         news: [],
         hour: "16:00-18:00"
@@ -80,7 +80,7 @@ const places = [
         status: 1,
         people: "< 10",
         time: "10 - 30",
-        ts: Date.now()-1000*60*30,
+        ts: Date.now() - 1000 * 60 * 30,
         street: "Via Cesare De Lollis 24",
         building: "Ex-Poste",
         type: "canteen",
@@ -216,9 +216,11 @@ router.post('/positions', (req, res) => {
         let userPosition = req.body.position;
         let places = universities[req.body.university].places;
         places.forEach((place, index) => {
-            let lon = userPosition.longitude + (0.0001 *(index % 2 == 0 ? -1 : 1)) + index * 0.0001 * (index % 2 == 0 ? -1 : 1);
-            let lat = userPosition.latitude + (0.0001 *(index % 2 == 0 ? -1 : 1)) + index * 0.0001 * (index % 2 == 0 ? -1 : 1);
-            place["position"] = { lon: lon, lat: lat };
+            if (place.status != 2) {
+                let lon = userPosition.longitude + (0.0001 * (index % 2 == 0 ? -1 : 1)) + index * 0.0001 * (index % 2 == 0 ? -1 : 1);
+                let lat = userPosition.latitude + (0.0001 * (index % 2 == 0 ? -1 : 1)) + index * 0.0001 * (index % 2 == 0 ? -1 : 1);
+                place["position"] = { lon: lon, lat: lat };
+            }
         });
 
         res.status(200).send(places);
@@ -230,10 +232,10 @@ router.post('/positions', (req, res) => {
 
 router.post('/insert', (req, res) => {
     let body = req.body;
-    
+
     console.log("/insert: received new queue %o", body);
     let university = universities[body.university];
-    if(university!=null){
+    if (university != null) {
         let newPlace = {
             id: university.places.length,
             name: body.name,
@@ -381,17 +383,17 @@ router.post('/review', (req, res) => {
         }
     })
 
-    return res.status(200).send({msg: result, persons: persons, time: time, ts: ts});
+    return res.status(200).send({ msg: result, persons: persons, time: time, ts: ts });
 })
 
-router.post('/googlecheck', (req, res) =>{
+router.post('/googlecheck', (req, res) => {
     console.log("received req %o", req.body);
     findUserByEmail(req.body.mail, (err, user) => {
         if (err) return res.status(500).send('Server error!');
-        else{
+        else {
             console.log(user);
-            let found = user != null && user.university!=null;
-            if(user==null){
+            let found = user != null && user.university != null;
+            if (user == null) {
                 createGoogleUser([req.body.name, req.body.surname, req.body.mail], (err) => {
                     if (err) {
                         console.error(err);
@@ -399,7 +401,7 @@ router.post('/googlecheck', (req, res) =>{
                     }
                 });
             }
-            return res.status(200).send({"user": user, "found": found});
+            return res.status(200).send({ "user": user, "found": found });
         }
     });
 })
@@ -411,10 +413,10 @@ router.post('/googleupdate', (req, res) => {
             console.error(err);
             return res.status(500).send("Server error!");
         }
-        else{
-            
+        else {
+
             console.log(`Row(s) updated: ${this.changes}`);
-            return res.status(200).send({msg: "ok"});
+            return res.status(200).send({ msg: "ok" });
         }
     });
 
@@ -424,28 +426,28 @@ router.post('/request', (req, res) => {
     let body = req.body;
 
     console.log("[request] received: %o", body);
-    if(body.isNewUniversity){
+    if (body.isNewUniversity) {
         console.log("adding university %s to universities", body.university);
         universities[body.university] = {
             places: places,
             faculties: faculties
         }
     }
-    if(body.isNewFaculty){
+    if (body.isNewFaculty) {
         console.log("adding faculty %s to %s", body.faculty, body.university);
         universities[body.university].faculties.push(body.faculty);
     }
 
-    return res.status(200).send({msg: "ok"});
+    return res.status(200).send({ msg: "ok" });
 })
 
-router.post('/mailcheck', (req, res) =>{
+router.post('/mailcheck', (req, res) => {
     console.log("received req %o", req.body);
     findUserByEmail(req.body.mail, (err, user) => {
         if (err) return res.status(500).send('Server error!');
-        else{
+        else {
             let found = user != null;
-            return res.status(200).send({"found": found});
+            return res.status(200).send({ "found": found });
         }
     });
 })
