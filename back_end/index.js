@@ -59,7 +59,8 @@ const places = [
                 ts: new Date(new Date().setHours(12)).toTimeString().split(" ")[0].split(":")[0] + ":" + new Date().toTimeString().split(" ")[0].split(":")[1]
             }
         ],
-        status: 0
+        status: 0,
+        hour: "08:00-10:00"
     },
     {
         id: 1,
@@ -72,7 +73,7 @@ const places = [
         ts: Date.now() - 1000 * 60 * 30,
         type: "office hours",
         news: [],
-        hour: "16:00-18:00"
+        hour: "11:00-19:00"
     },
     {
         id: 2,
@@ -90,7 +91,7 @@ const places = [
                 ts: new Date().toTimeString().split(" ")[0].split(":")[0] + ":" + new Date().toTimeString().split(" ")[0].split(":")[1]
             }
         ],
-        hour: "11:30-15:00"
+        hour: "11:00-19:00"
     },
     {
         id: 3,
@@ -104,7 +105,8 @@ const places = [
                 ts: new Date().toTimeString().split(" ")[0].split(":")[0] + ":" + new Date().toTimeString().split(" ")[0].split(":")[1]
             }
         ],
-        status: 0
+        status: 0,
+        hour: "08:00-10:00"
     },
 ];
 
@@ -450,6 +452,25 @@ router.post('/mailcheck', (req, res) => {
             return res.status(200).send({ "found": found });
         }
     });
+})
+
+router.post('/place', (req, res) => {
+    let body = req.body;
+    console.log("received req %o", body);
+
+    let university = universities[body.university];
+
+    let returnPlace = null;
+
+    if(university){
+        university.places.forEach(place => {
+            if(place.id == body.id){
+                returnPlace = place;
+            }
+        })
+    }
+
+    return res.status(200).send({"place": returnPlace});
 })
 
 app.use(router);

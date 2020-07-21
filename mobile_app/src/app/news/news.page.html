@@ -1,7 +1,6 @@
 <ion-header>
   <ion-toolbar>
       <ion-buttons slot="start">
-        <ion-label><b>Menu</b></ion-label>
         <ion-menu-button></ion-menu-button>
       </ion-buttons>
       <ion-grid>
@@ -39,7 +38,14 @@
                 <ion-row>
                   <ion-col size="8" >
                     <div  style="font-style: oblique; font-size:small; ">
-                      <b>{{news.content.ts}}</b>: {{news.content.description}}
+                      <b>{{news.content.ts}} : {{news.place.name}} </b>
+                    </div>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size="8" >
+                    <div  style="font-style: oblique; font-size:small; ">
+                      {{news.content.description}}
                     </div>
                   </ion-col>
                 </ion-row>

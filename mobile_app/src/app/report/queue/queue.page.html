@@ -25,9 +25,11 @@
     <div class="queue">
       <ion-title style="font-size: large;"><b>{{name}}</b></ion-title>
       <h4 style="font-size: medium;">{{street}}</h4>
-      <h4 style="font-size: medium;"><b>{{status ? "Opened" : "Closed"}}</b></h4>
+      <div style="color:#8b0000; margin-top: 20px;">
+        <b>Opened: </b>{{hours}}
+      </div>
       <div *ngIf="!review">
-        <div  class="request">
+        <div class="request">
           <span class="line divider one-line">Number of persons <ion-icon name="people-outline"></ion-icon></span>
           <!--
     <ion-item>
@@ -36,7 +38,7 @@
       </ion-chip>
     </ion-item>
      -->
-     
+
           <ul *ngIf="!experiment">
             <li *ngFor="let tag of numberOfPersonsKeys; let i=index">
               <ion-chip id="person_{{i}}" [outline]="this.request.persons!=tag" #chip
@@ -78,7 +80,7 @@
           </ion-range>
 
         </div>
-     
+
         <div>
           <ion-row>
             <ion-col>

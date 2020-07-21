@@ -1,0 +1,85 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="10">
+          <ion-title color="title" style="margin-top: 20px;">
+            Help
+          </ion-title>
+        </ion-col>
+        <ion-col>
+          <center> <img src="../../assets/icon/linedup.png" style="width: 50px;" /></center>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content style="text-align: center;">
+  <h4 style="font-size: medium;">{{university}} has provided some services of your faculty. You can find their position
+    on the map and report their queue
+    to us. </h4>
+  <h4 style="font-size: medium;">In this way we will inform other users about the current status of queues, to make
+    {{university}} a better place to enjoy!
+  </h4>
+  <span class="line divider one-line">Check the markers...</span>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <img src="../../../assets/icon/green_marker.png" width="50" height="50" />
+      </ion-col>
+      <ion-col>
+        <p style="font-size: medium;">represents places that are currently opened.</p>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <img src="../../../assets/icon/red_marker.png" width="50" height="50" />
+      </ion-col>
+      <ion-col>
+        <p style="font-size: medium;">represents places that are currently closed.</p>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <img src="../../../assets/icon/yellow_marker.png" width="42" height="42" />
+      </ion-col>
+      <ion-col>
+        <p style="font-size: medium;">represents places that need to approved by the system. </p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <span class="line divider one-line">...or search services</span>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <center>
+          <p style="font-size: medium;">You can also find a service by its name using the search toolbar.</p>
+        </center>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <img src="../../../assets/searchtutorial.png" />
+    </ion-row>
+  </ion-grid>
+  <span class="line divider one-line">You're almost ready</span>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <center>
+          <p style="font-size: medium;">To report the status of a queue near by you, it must be within your range zone.
+          </p>
+        </center>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <center><img src="../../../assets/searchtutorial1.PNG" width="200" height="200" /></center>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

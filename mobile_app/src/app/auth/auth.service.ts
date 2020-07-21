@@ -245,8 +245,8 @@ export class AuthService {
       await this.googleAuthInstance.signIn().then(
         (user: any) => {
           console.log(user);
-          this.checkGoogleAccount(user.Qt, user.wc).subscribe(res => {
-            this.googleSubject.next(user.Qt.Au);
+          this.checkGoogleAccount(user.Ot, user.wc).subscribe(res => {
+            this.googleSubject.next(user.Ot.yu);
             callback(res.found);
           });
         },
@@ -260,7 +260,7 @@ export class AuthService {
     this.storage.set("EXPIRES_IN", userToken.expires_in);
     this.storage.set("TUTORIALS", this.tutorials);
 
-    return this.httpClient.post(`${this.AUTH_SERVER_ADDRESS}/googlecheck`, { mail: userInfo.Au, name: userInfo.zW, surname: userInfo.zU }).pipe(
+    return this.httpClient.post(`${this.AUTH_SERVER_ADDRESS}/googlecheck`, { mail: userInfo.yu, name: userInfo.FW, surname: userInfo.EU }).pipe(
       tap(async (res: any) => {
         console.log("res is %o", res);
         if (res.found) {
@@ -293,6 +293,14 @@ export class AuthService {
 
   checkMail(mail: string) {
     return this.httpClient.post(`${this.AUTH_SERVER_ADDRESS}/mailcheck`, { mail: mail }).pipe(
+      tap(async (res: any) => {
+        console.log("res is %o", res);
+      })
+    );
+  }
+
+  getPlaceInformation(university: string, id: number) {
+    return this.httpClient.post(`${this.AUTH_SERVER_ADDRESS}/place`, { university: university, id: id }).pipe(
       tap(async (res: any) => {
         console.log("res is %o", res);
       })

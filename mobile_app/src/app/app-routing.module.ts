@@ -62,6 +62,10 @@ const routes: Routes = [
   {
     path: 'geolocation',
     loadChildren: () => import('./error/geolocation/geolocation.module').then( m => m.GeolocationPageModule)
+  },
+  {
+    path: 'help',
+    loadChildren: () => import('./help/help.module').then( m => m.HelpPageModule)
   }
 ];
 

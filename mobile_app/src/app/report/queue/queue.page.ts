@@ -14,6 +14,7 @@ export class QueuePage implements OnInit {
   @Input() university: string;
   @Input() name: string;
   @Input() street: string;
+  @Input() hours: string;
 
   private review: boolean = false;
   private reportSent: boolean = false;
@@ -42,7 +43,7 @@ export class QueuePage implements OnInit {
   private queueSpeed: number = 1;
   private requestResult: any = null;
 
-  private experiment: boolean = true;//false;
+  private experiment: boolean = false;//false;
   private timer: number;
 
   private request = {
