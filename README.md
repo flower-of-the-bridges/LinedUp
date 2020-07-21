@@ -1,15 +1,20 @@
 # LinedUp
 Project fort the Human Computer Interaction course
 
-## Installation
+## Instructions
 
+### Prerequisites
+* Node.js installed
+* Ionic Framework installed. To install Ionic, run the following command
+```
+npm install -g @ionic/cli
+```
+### Installation
 To make *LinedUp* work:
 
-* run *npm install* on both *back_end* and *mobile_app*
+* run `npm install` from both *back_end* and *mobile_app*
 
-* run *npm start* on *back_end*
+* run `npm start` on *back_end*
 
-* run *npm install -g @ionic/cli* on *mobile_app*
-
-* run *ionic serve* on *mobile_app*
+* run `ionic serve` on *mobile_app*
 
