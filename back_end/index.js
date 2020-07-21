@@ -245,7 +245,8 @@ router.post('/insert', (req, res) => {
             street: body.street,
             building: body.building,
             type: body.service,
-            description: body.description
+            description: body.description,
+            position: body.position
         };
         console.log("inserting place %o", newPlace);
         university.places.push(newPlace);

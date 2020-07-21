@@ -27,7 +27,7 @@
     </ng-template>
     <form #form="ngForm" (ngSubmit)="selectPlace(form.value)">
       <div class="info">
-        <ion-item lines="full" class="sizelabel" *ngIf="building==null">
+        <ion-item lines="full" class="sizelabel" *ngIf="place==null">
           <ion-label position="floating"><b>Building's Name:*</b></ion-label>
           <ion-input type="text" name="building" placeholder="Insert name" (ionChange)="setBuilding($event.detail.value)"></ion-input>
         </ion-item>
