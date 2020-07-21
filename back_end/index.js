@@ -343,7 +343,7 @@ router.post('/news', (req, res) => {
     let university = universities[body.university];
     let newsList = [];
     university && university.places.forEach(place => {
-        place.news.forEach(item => {
+        place.status!=2 && place.news.forEach(item => {
             newsList.push({ content: item, place: place });
         })
     })

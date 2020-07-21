@@ -133,9 +133,14 @@ export class MapPage implements OnInit {
       this.mapController.destroyMap();
       console.log("map destroyed");
     }
+    
+    this.openQueues = false;
   }
 
   search(queue: string) {
+    if(this.openQueues){
+      this.openQueues = false;
+    }
     if (queue != "") {
       if ((this.queueSearch == null || this.viewResult) && this.mapController) {
         // destroy map if it was defined
