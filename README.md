@@ -1,5 +1,6 @@
 # LinedUp
-Project fort the Human Computer Interaction course
+
+Project for the Human Computer Interaction Course, attended in the A.A. 2019/2020 at the Master Degree in Engineering in Computer Science at La Sapienza.
 
 ## Instructions
 
